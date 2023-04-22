@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from '../types/user';
 
 @Component({
   selector: 'app-login',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = '';
+  username: string = '';
   password: string = '';
 
   onSubmit() {
