@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../types/user';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
