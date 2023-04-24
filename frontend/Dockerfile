@@ -14,10 +14,10 @@ RUN npm install
 COPY . .
 
 # # Build the Angular app
-# RUN npm run build -- --prod
+# RUN npm run build
 
 # Expose port 3003 for the container
-EXPOSE 3001
+EXPOSE 4200
 
 # Start the app by running the Angular server
-CMD ["npm", "start"]
+CMD ["npm" , "start"]

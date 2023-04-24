@@ -18,13 +18,10 @@ services:
     build: ./backend
     restart: always
     environment:
-      MONGO_USERNAME: root
-      MONGO_PASSWORD: root
-      MONGO_HOST: mongo
-      MONGO_PORT: 27017
+      MONGO_URI: mongodb://root:root@mongo:27017
       NODE_ENV: production
     ports:
-      - '3051:3051'
+      - '3000:3000'
     depends_on:
       - mongo
     networks:
@@ -34,9 +31,9 @@ services:
     build: ./frontend
     restart: always
     environment:
-      API_URL: http://backend:3051
+      API_URL: http://backend:3000
     ports:
-      - '3001:3001'
+      - '4200:4200'
     networks:
       - app_network
 

@@ -1,11 +1,15 @@
 import express, { Request, Response } from "express";
 import User from "../models/user";
-import { hashPassword } from "../utils";
+import { hashPassword, validatePassword } from "../utils";
 
 const auth_router = express.Router();
 
 auth_router.post("/register", async (req: Request, res: Response) => {
 	const { username, password } = req.body;
+
+	if (!username || !password || validatePassword(password)) {
+		res.status(400).json({ error: "Invalid credentials" });
+	}
 
 	const passwordHash = await hashPassword(password);
 

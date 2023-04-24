@@ -14,10 +14,10 @@ RUN npm install
 COPY . .
 
 # Build the TypeScript app
-RUN npm run build
+# RUN npm run build
 
 # Expose port 3051 for the container
-EXPOSE 3051
+EXPOSE 3000
 
 # Start the app by running the built JavaScript files
 CMD ["npm", "start"]

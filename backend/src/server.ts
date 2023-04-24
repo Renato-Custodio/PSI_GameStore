@@ -27,6 +27,6 @@ app.use(cors());
 
 app.use("/auth", auth_router);
 
-app.listen(3051, () => {
-	console.log(`Server is running on port 3051`);
+app.listen(3000, () => {
+	console.log(`Server is running on port 3000`);
 });
