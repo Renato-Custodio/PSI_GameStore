@@ -1,0 +1,5 @@
+<form (ngSubmit)="onSubmit()">
+	<input type="text" name="query" [(ngModel)]="query" />
+	<button type="submit">Search</button>
+</form>
+<div *ngFor="let game of searchResults">{{game.title}} - {{game.year}}</div>

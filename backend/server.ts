@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { User } from "./models/User";
 import cookieSession from "cookie-session";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
 app.use(
   cookieSession({
     name: "session",
@@ -72,14 +74,29 @@ app.get("/api/login", async (req, res) => {
 });
 
 app.get("/api/testlogin", async (req, res) => {
-	// If the user is not authenticated, send an error
+  // If the user is not authenticated, send an error
   if (!req.session?.username) {
-    return res.send({error: "You are not logged in."});
+    return res.send({ error: "You are not logged in." });
   }
 
   // Otherwise, extract the username and do whatever with it
-  const { username } = req.session
+  const { username } = req.session;
 
   // Send response back
   return res.send(`${username} is logged in.`);
+});
+
+app.get("/api/search", (req, res) => {
+  const { query } = req.query;
+
+  if (!query) {
+    return res.send("You need a search query.");
+  }
+
+  return res.send([
+    { title: `Cyberpunk`, year: `2022` },
+    { title: `Mario Brothers`, year: `1990` },
+    { title: `Counter-Strike`, year: `2001` },
+    { title: `League of Legends`, year: `2003` },
+  ]);
 });
