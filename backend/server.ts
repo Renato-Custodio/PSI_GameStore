@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { User } from "./models/User";
+import { Game } from "./models/Game";
 import cookieSession from "cookie-session";
 import cors from "cors";
 
@@ -88,7 +89,7 @@ app.get("/api/testlogin", async (req, res) => {
 
 app.get("/api/search", (req, res) => {
   let partial = new RegExp(req.query.term, 'i');
-  User.find({username: partial}, function(err, found){
+  Game.find({title: partial}, function(err, found){
     if(found){
       res.send(found);
     }
