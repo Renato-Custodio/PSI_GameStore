@@ -50,7 +50,7 @@ app.post("/api/create-account", async (req, res) => {
   res.send(savedUser);
 });
 
-app.get("/api/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username }).lean();
   if (user == null)
