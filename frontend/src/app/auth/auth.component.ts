@@ -3,6 +3,8 @@ import { AuthService } from '../auth.service';
 const bcrypt = require('bcryptjs');
 import { Observable, fromEvent, timer } from 'rxjs';
 import { debounce, map } from 'rxjs/operators';
+import { User } from '../user';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-auth',
@@ -13,15 +15,17 @@ export class AuthComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService) {}
-
+  constructor(private authService: AuthService, private router : Router) {}
   
   isPasswordValid = false;
   passwordCriteria: string[] = [];
   criteria: Observable<string[]> = new Observable<string[]>();
+  user: User | null = null;
 
   onSubmit() {
-    // do something with the form data
+    if(this.user != null){
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   authenticate(username: string, password: string): void {
@@ -29,7 +33,7 @@ export class AuthComponent {
     if (!username){
       return;
     }
-    this.authService.authenticateUser(username, bcrypt.hash(password, 10));
+    this.authService.authenticateUser(username, bcrypt.hash(password, 10)).subscribe(u => {console.log(u); this.user = u});
   }
 
   
