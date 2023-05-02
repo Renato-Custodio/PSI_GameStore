@@ -1,9 +1,41 @@
-<div class="dashboard">
-  <h1>Dashboard</h1>
-  <div class="dashboard-menu">
-    <a routerLink="/listas"> listas </a>
-    <a routerLink="/items"> biblioteca de items </a>
-    <a routerLink="/seguir"> A seguir </a>
-    <a routerLink="/seguidores"> Seguidores </a>
+<body>
+  <div id="container">
+    <!-- create body container -->
+    <div class="container">
+      <script src="main.js"></script>
+      <div class="current-page" id="top">
+        <a>Dashboard</a>
+      </div>
+      <!-- list of blocks -->
+      <div class="blocks-div">
+        <div class="card" id="listas">
+          <div style="margin: 0">
+            <div class="card-ident">
+              <h3 class="card-title">Listas</h3>
+            </div>
+          </div>
+          <div id="Listas">
+            <p id="current_temp" style="font-size: 30px">
+              <span id="temp_cozinha" style="text-align: center">--ºC</span>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-ident">
+            <h3 class="card-title">Biblioteca de itens</h3>
+          </div>
+        </div>
+        <div class="card" id="security-alert">
+          <div class="card-ident">
+            <h3 class="card-title">A Seguir</h3>
+          </div>
+        </div>
+        <div class="card" id="security-alert">
+          <div class="card-ident">
+            <h3 class="card-title">Seguidores</h3>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</body>
