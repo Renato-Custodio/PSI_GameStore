@@ -1,0 +1,10 @@
+<div>
+	<h2>Pesquisa</h2>
+	<p>Pesquise por jogos</p>
+	<form (ngSubmit)="onSubmit()">
+		<input placeholder="Nome do jogo..." type="text" name="query" [(ngModel)]="query" />
+		<button type="submit">Search</button>
+	</form>
+	<div *ngFor="let game of searchResults">{{game.title}} - {{game.year}}</div>
+</div>
+
