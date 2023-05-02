@@ -8,11 +8,11 @@ import { Observable, of } from 'rxjs';
 export class SearchService {
   constructor(private http: HttpClient) {}
 
-  searchGames(term: string): Observable<[]> {
-    if (!term.trim()) {
+  searchGames(title: string): Observable<[]> {
+    if (!title.trim()) {
       // if not search term, return empty array.
       return of([]);
     }
-    return this.http.get<[]>(`http://localhost:3001/api/search?query=${term}`);
+    return this.http.get<[]>(`http://localhost:3001/api/search?query=${title}`);
   }
 }

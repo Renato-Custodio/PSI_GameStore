@@ -87,19 +87,35 @@ app.get("/api/testlogin", async (req, res) => {
   return res.send(`${username} is logged in.`);
 });
 
-app.get("/api/search", (req, res) => {
-  let title = req.query.term;
-  if (typeof title !== 'string'){
-    res.status(404).json({ error: 'Formato de titulo errado' });
-    return;
-  }
-  let partial = new RegExp(title, "i");
-  Game.find({title: partial}, function(err : Error, found : []){
-    if(found){
-      res.send(found);
-    }
-    else{
-      res.send("Nenhum jogo encontrado.");
-    }
-  });
-});
+app.get("/api/search", async (req, res) => {
+	let title = req.query.title;
+	if (typeof title !== 'string'){
+	  res.status(404).json({ error: 'Formato de titulo errado' });
+	  return;
+	}
+	let partial = new RegExp(title, "i");
+
+	let found = await getGames(partial);
+	//let found = await getAllGames();
+
+
+	 // .then(function{
+   // Game.find({title: partial}, function(err : Error, found : []){
+	  if(found){
+		return res.send(found);
+	  }
+	  else{
+		return res.send("Nenhum jogo encontrado.");
+	  }
+	});
+
+	async function getGames(partial : RegExp){
+	  let found = Game.find({title: partial});
+	  return found;
+	}
+
+	async function getAllGames(){
+	  let found = await Game.find();
+	  return found;
+	}
+  //});
