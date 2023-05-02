@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-//import { bcrypt } from 'bcryptjs';
-//const bcrypt = require('bcryptjs');
 import { Observable, fromEvent, timer } from 'rxjs';
 import { debounce, map } from 'rxjs/operators';
 import { User } from '../user';
@@ -23,7 +21,7 @@ export class AuthComponent {
   criteria: Observable<string[]> = new Observable<string[]>();
   user: User | null = null;
 
-authenticate(username: string, password: string): void {
+  authenticate(username: string, password: string): void {
     username = username.trim();
     if (!username){
       return;
@@ -32,7 +30,7 @@ authenticate(username: string, password: string): void {
       {console.log(u);
         this.user = u;
         if(this.user !== null){
-          this.router.navigate(['/login']);
+          this.router.navigate(['/dashboard']);
         }});
   }
 
