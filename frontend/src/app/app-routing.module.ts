@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 import { SearchComponent } from './search/search.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { SigninComponent } from './signin/signin.component';
-import { DashboardComponent } from './dashboard/dashboard.component'; //TODO
+//import { DashboardComponent } from './dashboard/dashboard.component'; //TODO
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'signin', component: SigninComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'search', component: SearchComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'perfil', component: PerfilComponent },
+  //{ path: 'dashboard', component: DashboardComponent },
 ];
 
 @NgModule({
