@@ -14,9 +14,9 @@
               <h3 class="card-title">Listas</h3>
               <div>
                 <ul>
-                  <li *ngFor="getListas()">
+                  <li *ngFor="let list of getLists()">
                     <a>
-                      list
+                      {{ list }}
                     </a>
                   </li>
                 </ul>
@@ -27,16 +27,37 @@
         <div class="card">
           <div class="card-ident">
             <h3 class="card-title">Biblioteca de itens</h3>
+            <ul>
+              <li *ngFor="let item of getItems()">
+                <a>
+                  {{ item }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="card">
           <div class="card-ident">
             <h3 class="card-title">A Seguir</h3>
+            <ul>
+              <li *ngFor="let fol of getFollowing()">
+                <a>
+                  {{ fol }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="card">
           <div class="card-ident">
             <h3 class="card-title">Seguidores</h3>
+            <ul>
+              <li *ngFor="let fol of getFollowers()">
+                <a>
+                  {{ fol }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

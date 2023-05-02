@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +9,12 @@ import { switchMap } from 'rxjs';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  
-  constructor() {}
+  currentUser : any;
+  constructor(private authService: AuthService) {
+    this.currentUser = this.authService.user;
+  }
 
   getListas() {
-    return 
+    
   }
 }
