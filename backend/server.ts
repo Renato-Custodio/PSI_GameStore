@@ -24,7 +24,7 @@ app.use(
 // Connect to MongoDB
 const connectDB = async () => {
   const result = await mongoose.connect(
-    "mongodb://psi001:psi001@localhost:27017/psi001?retryWrites=true&authSource=psi001"
+    "mongodb://127.0.0.1/projeto"
   );
   if (!result) {
     console.log("Failed to connect to MongoDB");
@@ -94,7 +94,7 @@ app.get("/api/search", (req, res) => {
     return;
   }
   let partial = new RegExp(title, "i");
-  Game.find({title: partial}, function(err, found){
+  Game.find({title: partial}, function(err:Error, found:[]){
     if(found){
       res.send(found);
     }
