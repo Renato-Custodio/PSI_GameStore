@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 import { auth_router } from "./routes/auth";
+import { item_router } from "./routes/item";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/auth", auth_router);
+app.use("/item", item_router);
 
 app.listen(3000, () => {
 	console.log(`Server is running on port 3000`);

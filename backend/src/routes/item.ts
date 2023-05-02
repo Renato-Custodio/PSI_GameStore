@@ -17,7 +17,7 @@ item_router.get("/details/:id", async (req: Request, res: Response) => {
 });
 
 
-item_router.post("/create", async (req: Request, res: Response) => {
+item_router.post("/", async (req: Request, res: Response) => {
   try {
     const {
       _id,
