@@ -10,10 +10,11 @@ import { SigninComponent } from './signin/signin.component';
 //import { DashboardComponent } from './dashboard/dashboard.component'; //TODO
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'signin', component: SigninComponent },
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'perfil', component: PerfilComponent}
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'perfil', component: PerfilComponent },
   //{ path: 'dashboard', component: DashboardComponent },
 ];
 

@@ -11,25 +11,18 @@ import { BodyComponent } from './body/body.component';
 import { SearchComponent } from './search/search.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
-import { Routes } from '@angular/router';
 import { SigninComponent } from './signin/signin.component';
-
-const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'perfil', component: PerfilComponent },
-];
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    LoginComponent,
     PerfilComponent,
     SidebarComponent,
     BodyComponent,
     SigninComponent,
     DashboardComponent,
+    LoginComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
