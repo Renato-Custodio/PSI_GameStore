@@ -1,1 +1,14 @@
+header{
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+}
 
+a{
+	padding: 15px;
+}
+
+a:first-child{
+	margin-right: auto;
+
+}

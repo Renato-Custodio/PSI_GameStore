@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RouterModule, Routes } from '@angular/router';
+
 import { PerfilComponent } from './perfil/perfil.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BodyComponent } from './body/body.component';
@@ -22,13 +22,18 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+
     AppComponent,
+
+    SearchComponent,
     LoginComponent,
     PerfilComponent,
     SidebarComponent,
     BodyComponent,
-    SearchComponent,
+
+    SigninComponent,
     DashboardComponent
+  ,
   ],
   imports: [
     BrowserModule,

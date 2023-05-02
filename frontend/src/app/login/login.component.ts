@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { User } from '../types/user';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
 import { Observable, fromEvent, timer } from 'rxjs';
 import { debounce, map } from 'rxjs/operators';
-
+import { User } from '../user';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -15,13 +15,26 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
+  constructor(private authService: AuthService, private router : Router) {}
+
   isPasswordValid = false;
   passwordCriteria: string[] = [];
   criteria: Observable<string[]> = new Observable<string[]>();
+  user: User | null = null;
 
-  onSubmit() {
-    // do something with the form data
+  authenticate(username: string, password: string): void {
+    username = username.trim();
+    if (!username){
+      return;
+    }
+    this.authService.authenticateUser(username, password).subscribe(u =>
+      {console.log(u);
+        this.user = u;
+        if(this.user !== null){
+          this.router.navigate(['/dashboard']);
+        }});
   }
+
 
   verifyPassword(password: string) {
     const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
@@ -54,3 +67,5 @@ export class LoginComponent {
     }
   }
 }
+
+
