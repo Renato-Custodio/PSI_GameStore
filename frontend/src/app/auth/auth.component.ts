@@ -17,27 +17,26 @@ export class AuthComponent {
   password: string = '';
 
   constructor(private authService: AuthService, private router : Router) {}
-  
+
   isPasswordValid = false;
   passwordCriteria: string[] = [];
   criteria: Observable<string[]> = new Observable<string[]>();
   user: User | null = null;
 
-  onSubmit() {
-    if(this.user != null){
-      this.router.navigate(['/dashboard']);
-    }
-  }
-
-  authenticate(username: string, password: string): void {
+authenticate(username: string, password: string): void {
     username = username.trim();
     if (!username){
       return;
     }
-    this.authService.authenticateUser(username, password).subscribe(u => {console.log(u); this.user = u});
+    this.authService.authenticateUser(username, password).subscribe(u =>
+      {console.log(u);
+        this.user = u;
+        if(this.user !== null){
+          this.router.navigate(['/login']);
+        }});
   }
 
-  
+
   verifyPassword(password: string) {
     const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
     const isPasswordValid = regex.test(password);
