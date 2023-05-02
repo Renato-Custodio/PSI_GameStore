@@ -1,0 +1,3 @@
+app-sidebar:not(.has-sidebar) {
+  display: none;
+}
