@@ -94,7 +94,7 @@ app.get("/api/search", (req, res) => {
     return;
   }
   let partial = new RegExp(title, "i");
-  Game.find({title: partial}, function(err:Error, found:[]){
+  Game.find({title: partial}, function(err : Error, found : []){
     if(found){
       res.send(found);
     }
