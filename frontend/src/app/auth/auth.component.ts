@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-const bcrypt = require('bcryptjs');
+//import { bcrypt } from 'bcryptjs';
+//const bcrypt = require('bcryptjs');
 import { Observable, fromEvent, timer } from 'rxjs';
 import { debounce, map } from 'rxjs/operators';
 import { User } from '../user';
@@ -33,7 +34,7 @@ export class AuthComponent {
     if (!username){
       return;
     }
-    this.authService.authenticateUser(username, bcrypt.hash(password, 10)).subscribe(u => {console.log(u); this.user = u});
+    this.authService.authenticateUser(username, password).subscribe(u => {console.log(u); this.user = u});
   }
 
   
