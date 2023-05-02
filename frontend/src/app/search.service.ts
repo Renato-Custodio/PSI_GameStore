@@ -13,6 +13,6 @@ export class SearchService {
       // if not search term, return empty array.
       return of([]);
     }
-    return this.http.get<[]>(`http://localhost:3000/api/search?query=${term}`);
+    return this.http.get<[]>(`http://localhost:3001/api/search?query=${term}`);
   }
 }

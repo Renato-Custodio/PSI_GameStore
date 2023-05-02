@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { User } from "./models/User";
+import { Game } from "./models/Game";
 import cookieSession from "cookie-session";
 import cors from "cors";
 
@@ -23,7 +24,7 @@ app.use(
 // Connect to MongoDB
 const connectDB = async () => {
   const result = await mongoose.connect(
-    "mongodb://127.0.0.1:27017/projeto?retryWrites=true&w=majority"
+    "mongodb://psi001:psi001@localhost:27017/psi001?retryWrites=true&authSource=psi001"
   );
   if (!result) {
     console.log("Failed to connect to MongoDB");
@@ -87,16 +88,18 @@ app.get("/api/testlogin", async (req, res) => {
 });
 
 app.get("/api/search", (req, res) => {
-  const { query } = req.query;
-
-  if (!query) {
-    return res.send("You need a search query.");
+  let title = req.query.term;
+  if (typeof title !== 'string'){
+    res.status(404).json({ error: 'Formato de titulo errado' });
+    return;
   }
-
-  return res.send([
-    { title: `Cyberpunk`, year: `2022` },
-    { title: `Mario Brothers`, year: `1990` },
-    { title: `Counter-Strike`, year: `2001` },
-    { title: `League of Legends`, year: `2003` },
-  ]);
+  let partial = new RegExp(title, "i");
+  Game.find({title: partial}, function(err, found){
+    if(found){
+      res.send(found);
+    }
+    else{
+      res.send("Nenhum jogo encontrado.");
+    }
+  });
 });
