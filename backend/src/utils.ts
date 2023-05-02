@@ -21,4 +21,10 @@ function validatePassword(password: string): boolean {
 	return regex.test(password);
 }
 
-export { hashPassword, checkPassword, validatePassword };
+function validateUsername(username: string): boolean {
+	// should be used in the register route to check if the username is valid
+	const regex = /^[a-zA-Z0-9]{3,20}$/;
+	return regex.test(username);
+}
+
+export { hashPassword, checkPassword, validatePassword, validateUsername };

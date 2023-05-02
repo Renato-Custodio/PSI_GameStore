@@ -1,14 +1,21 @@
 import express, { Request, Response } from "express";
 import User from "../models/user";
-import { hashPassword, validatePassword } from "../utils";
+import { hashPassword, validatePassword, validateUsername } from "../utils";
 
 const auth_router = express.Router();
 
 auth_router.post("/register", async (req: Request, res: Response) => {
 	const { username, password } = req.body;
 
-	if (!username || !password || validatePassword(password)) {
-		res.status(400).json({ error: "Invalid credentials" });
+	if (
+		!username ||
+		!password ||
+		!validatePassword(password) ||
+		!validateUsername(username)
+	) {
+		return res.status(200).json({
+			error: "Invalid username or password",
+		});
 	}
 
 	const passwordHash = await hashPassword(password);
@@ -20,13 +27,19 @@ auth_router.post("/register", async (req: Request, res: Response) => {
 
 	user.save()
 		.then((user) => {
-			res.status(200).json(user);
+			console.log(user);
+			return res.status(200).json(user);
 		})
 		.catch((err) => {
 			if (err.code === 11000) {
-				res.status(400).json({ error: "Username already taken" });
+				// duplicate key error
+				return res.status(200).json({
+					error: "Username already exists",
+				});
 			} else {
-				res.status(500).json({ error: "Something went wrong" });
+				return res.status(500).json({
+					error: "Internal server error",
+				});
 			}
 		});
 });
