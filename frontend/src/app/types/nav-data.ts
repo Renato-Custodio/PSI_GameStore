@@ -9,4 +9,9 @@ export const navbarData = [
       icon: 'fa fa-user',
       label: 'Perfil'
     },
+    {
+      routeLink: 'search',
+      icon: 'fa fa-search',
+      label: 'Search'
+    },
   ];

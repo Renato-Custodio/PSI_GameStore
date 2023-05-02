@@ -18,12 +18,12 @@ export class SidebarComponent {
   navData = navbarData;
 
   closeSidenav(): void {
-    this.collapsed = !this.collapsed;
+    this.collapsed = false;
     this.onToggleSideNav.emit({ screenWidth: this.screenWidth, collapsed: this.collapsed });
   }
 
   toggleCollapse(): void {
-    this.collapsed = false;
+    this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({screenWidth: this.screenWidth, collapsed: this.collapsed});
   }
 }

@@ -11,6 +11,7 @@ import { debounce, map } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  isLoggedIn = false;
   username: string = '';
   password: string = '';
 

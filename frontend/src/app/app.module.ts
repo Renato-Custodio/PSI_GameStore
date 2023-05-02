@@ -15,16 +15,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/perfil', pathMatch: 'full' },
-  { path: 'perfil', component: PerfilComponent}
+  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'perfil', component: PerfilComponent},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    PerfilComponent,
+    SidebarComponent,
+    BodyComponent,
+    SearchComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
