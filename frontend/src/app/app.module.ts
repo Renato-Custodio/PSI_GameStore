@@ -9,10 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ListasComponent } from './listas/listas.component';
-import { LibItemsComponent } from './lib-items/lib-items.component';
-import { FollowersComponent } from './followers/followers.component';
-import { FollowingComponent } from './following/following.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SearchComponent, DashboardComponent, ListasComponent, LibItemsComponent, FollowersComponent, FollowingComponent],
+  declarations: [AppComponent, LoginComponent, SearchComponent, DashboardComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
