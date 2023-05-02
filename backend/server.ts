@@ -88,7 +88,12 @@ app.get("/api/testlogin", async (req, res) => {
 });
 
 app.get("/api/search", (req, res) => {
-  let partial = new RegExp(req.query.term, 'i');
+  let title = req.query.term;
+  if (typeof title !== 'string'){
+    res.status(404).json({ error: 'Formato de titulo errado' });
+    return;
+  }
+  let partial = new RegExp(title, "i");
   Game.find({title: partial}, function(err, found){
     if(found){
       res.send(found);
