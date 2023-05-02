@@ -52,7 +52,7 @@
 }
 
 .sidenav-collapsed{
-  width: 19rem;
+  width: 20rem;
 }
 
 .sidebar-nav{
@@ -92,7 +92,19 @@
   margin-left:1.5rem;
 }
 
-.sidenav-nav-item:hover{
+.sidenav-nav-link:hover{
   background-color: #fff;
+  color: #000;
+}
+
+.sidenav-link-text {
+  margin-left: 1.5rem;
+}
+
+.active {
+  background-color: #fff;
+}
+
+.active .sidenav-link-icon, .active .sidenav-link-text{
   color: #000;
 }
