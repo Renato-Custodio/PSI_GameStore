@@ -96,26 +96,16 @@ app.get("/api/search", async (req, res) => {
 	let partial = new RegExp(title, "i");
 
 	let found = await getGames(partial);
-	//let found = await getAllGames();
 
-
-	 // .then(function{
-   // Game.find({title: partial}, function(err : Error, found : []){
-	  if(found){
+	if(found){
 		return res.send(found);
-	  }
-	  else{
+	}
+	else{
 		return res.send("Nenhum jogo encontrado.");
-	  }
-	});
+	}
+});
 
 	async function getGames(partial : RegExp){
 	  let found = Game.find({title: partial});
 	  return found;
 	}
-
-	async function getAllGames(){
-	  let found = await Game.find();
-	  return found;
-	}
-  //});
