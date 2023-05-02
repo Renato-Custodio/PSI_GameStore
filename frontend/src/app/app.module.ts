@@ -12,8 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'search', component: SearchComponent },
-  // { path: 'login', component: AuthComponent }, //necessario diferenciar entre login e sign up
 ];
 
 @NgModule({
