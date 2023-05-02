@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { User } from '../types/user';
 import { HttpClient } from '@angular/common/http';
-import { AppComponent } from '../app.component';
-import { catchError, tap, throwError } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css'],
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.css'],
 })
-export class CreateComponent {
+export class SigninComponent {
   username: string = '';
   password: string = '';
 
@@ -19,15 +18,10 @@ export class CreateComponent {
   isPasswordValid: boolean = false;
   isUsernameValid: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private authService: AuthService, private http: HttpClient) {}
 
   createUser() {
-    const user: User = {
-      username: this.username,
-      password: this.password,
-    };
-
-    this.http.post('api/auth/register', user).subscribe((response: any) => {
+    this.authService.registerUser(this.username, this.password).subscribe((response: any) => {
       if (response.error) {
         alert(response.error);
       } else {

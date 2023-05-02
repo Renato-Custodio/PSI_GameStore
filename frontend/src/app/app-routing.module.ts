@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateComponent } from './create/create.component';
+import { LoginComponent } from './login/login.component';
+import { SearchComponent } from './search/search.component';
+import { SigninComponent } from './signin/signin.component';
+//import { DashboardComponent } from './dashboard/dashboard.component'; //TODO
 
 const routes: Routes = [
-  { path: '', redirectTo: '/create', pathMatch: 'full' },  // prob going to be remoevd
-  { path: 'create', component: CreateComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'signin', component: SigninComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'search', component: SearchComponent },
+  //{ path: 'dashboard', component: DashboardComponent },
 ];
 
 @NgModule({

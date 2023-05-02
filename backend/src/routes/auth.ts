@@ -1,11 +1,18 @@
 import express, { Request, Response } from "express";
 import User from "../models/user";
-import { hashPassword, validatePassword, validateUsername } from "../utils";
+import {
+	checkPassword,
+	hashPassword,
+	validatePassword,
+	validateUsername,
+} from "../utils";
 
 const auth_router = express.Router();
 
 auth_router.post("/register", async (req: Request, res: Response) => {
 	const { username, password } = req.body;
+
+	console.log(req.body);
 
 	if (
 		!username ||
@@ -42,6 +49,48 @@ auth_router.post("/register", async (req: Request, res: Response) => {
 				});
 			}
 		});
+});
+
+auth_router.post("/login", async (req, res) => {
+	const { username, password } = req.body;
+
+	console.log(req.body);
+
+	const user = await User.findOne({ _id: username }).exec();
+
+	console.log(user);
+
+	if (user == null)
+		return res.send({
+			error: `A combinação username/password está incorreta!`,
+		});
+
+	const isCorrectPassword = checkPassword(password, user.passwordHash);
+	if (!isCorrectPassword) {
+		return res.send({
+			error: `A combinação username/password está incorreta!`,
+		});
+	}
+
+	const { passwordHash, ...userWithoutPassword } = user;
+
+	// Create a session for this user
+	req.session = { ...req.session, username };
+
+	return res.send(userWithoutPassword);
+});
+
+auth_router.get("/testlogin", async (req, res) => {
+	// If the user is not authenticated, send an error
+	if (!req.session?.username) {
+		return res.send({ error: "You are not logged in." });
+	}
+
+	// Otherwise, extract the username and do whatever with it
+	const { username } = req.session;
+
+	// Send response back
+	return res.send(`${username} is logged in.`);
 });
 
 export { auth_router };
