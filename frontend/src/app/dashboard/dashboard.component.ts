@@ -9,11 +9,9 @@ import { switchMap } from 'rxjs';
 })
 export class DashboardComponent {
   
-  constructor(
-    private route: ActivatedRoute,
-  ) {}
+  constructor() {}
 
-  getListas(){
-    
+  getListas() {
+    return 
   }
 }
