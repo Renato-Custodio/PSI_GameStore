@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:5.0.5
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app_network
+
+  backend:
+    build: ./backend
+    restart: always
+    environment:
+      MONGO_URI: mongodb://root:root@mongo:27017
+      NODE_ENV: production
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongo
+    networks:
+      - app_network
+
+  frontend:
+    build: ./frontend
+    restart: always
+    environment:
+      API_URL: http://backend:3000
+    ports:
+      - '4200:4200'
+    networks:
+      - app_network
+
+networks:
+  app_network:
+
+volumes:
+  mongo_data:
