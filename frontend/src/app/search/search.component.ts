@@ -8,13 +8,30 @@ import { SearchService } from '../services/search.service';
 })
 export class SearchComponent {
   query: string = '';
-  searchResults: { title: string; year: string }[] = [];
+  searchResults:  Game[] = [];
+  errorMessage: string = '';
 
   constructor(private searchService: SearchService) {}
 
-  onSubmit() {
+  searchGame(title:string) : void {
+	title = title.trim();
+	if(title.length < 3){
+		return;
+	}
     this.searchService
-      .searchGames(this.query)
-      .subscribe((searchResults) => (this.searchResults = searchResults));
-  }
+      .searchGames(title)
+      .subscribe((searchResults) => {
+		console.log(searchResults);
+		if(typeof(searchResults) === 'string'){
+			this.errorMessage = searchResults;
+		} else{
+			this.searchResults = searchResults;
+		}
+		});
+
+  	}
+
+
 }
+
+
