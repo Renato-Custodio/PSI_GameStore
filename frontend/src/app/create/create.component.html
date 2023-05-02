@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <div class="container main">
+    <div class="row">
+      <div class="col-md-6 side-image">
+        <!-------Image-------->
+        <img alt="" />
+      </div>
+      <div class="col-md-6 right">
+        <div class="input-box">
+          <div class="company-name">PSI GameStore</div>
+          <header>Create account</header>
+          <div class="input-field">
+            <input
+              #usernameField
+              (input)="verifyUsername(usernameField.value)"
+              type="text"
+              class="input"
+              id="username"
+              required
+              autocomplete="off"
+              [(ngModel)]="username"
+            />
+            <label for="username">Username</label>
+            <span class="error" *ngIf="usernameFeedback">{{
+              usernameFeedback
+            }}</span>
+          </div>
+          <div class="input-field">
+            <input
+              #passwordField
+              (input)="verifyPassword(passwordField.value)"
+              type="password"
+              class="input"
+              id="password"
+              required
+              autocomplete="off"
+              [(ngModel)]="password"
+            />
+            <label for="password">Password</label
+            ><span class="error" *ngIf="passwordFeedback">{{
+              passwordFeedback
+            }}</span>
+          </div>
+
+          <div class="input-field">
+            <input
+              type="submit"
+              class="submit"
+              value="Sign Up"
+              (click)="createUser()"
+              [disabled]="!isPasswordValid || !isUsernameValid"
+            />
+          </div>
+          <div class="signin">
+            <span>Already have an account? <a href="#">Log in here</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

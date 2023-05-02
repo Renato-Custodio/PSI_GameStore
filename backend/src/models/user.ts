@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
 
 interface IUser extends mongoose.Document {
-	username: string;
+	_id: string;
 	passwordHash: string;
 }
 
