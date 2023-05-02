@@ -9,6 +9,10 @@ interface IItem extends mongoose.Document {
     price: string;
     general_Classification: string;
     avaluations: string;
+	imagem_Principal: Buffer;
+	imagem1: Buffer;
+	imagem2: Buffer;
+	link: string;
 }
 
 const itemSchema = new mongoose.Schema({
@@ -48,6 +52,22 @@ const itemSchema = new mongoose.Schema({
     avaluations: {
 		type: String,
 		required: true,
+	},
+	imagem_Principal: {
+		image: Buffer,
+		required: true,
+	},
+	imagem1: {
+		image: Buffer,
+		required: false,
+	},
+	imagem2: {
+		image: Buffer,
+		required: false,
+	},
+	link: {
+		type: String,
+		required: false,
 	},
 });
 
