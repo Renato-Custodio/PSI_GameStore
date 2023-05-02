@@ -13,6 +13,6 @@ export class SearchService {
       // if not search term, return empty array.
       return of([]);
     }
-    return this.http.get<[]>(`/api/items/search?title=${title}`);
+    return this.http.get<[]>(`/api/item/search?title=${title}`);
   }
 }
