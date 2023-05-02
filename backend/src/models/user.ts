@@ -15,7 +15,6 @@ export interface IUserData {
 
 interface IUser extends mongoose.Document {
 	_id: string;
-	_id: string;
 	passwordHash: string;
 	userData: IUserData;
 }
