@@ -9,6 +9,7 @@ import cors from "cors";
 import cookieSession from "cookie-session";
 
 import { auth_router } from "./routes/auth";
+import { items_router } from "./routes/items";
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(
 );
 
 app.use("/auth", auth_router);
+app.use("/items", items_router);
 
 app.use("/", (req, res) => {
 	res.send("Hello World!");
