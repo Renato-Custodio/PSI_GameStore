@@ -12,6 +12,15 @@
           <div style="margin: 0">
             <div class="card-ident">
               <h3 class="card-title">Listas</h3>
+              <div>
+                <ul>
+                  <li *ngFor="getListas()">
+                    <a>
+                      {{ list }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
