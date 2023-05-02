@@ -1,6 +1,7 @@
 /* display: inline-block; */
-html{
-	height: 100%;
+html {
+  height: 100vh;
+  width: 100%;
 }
 body {
   background-color: #171717;
@@ -9,20 +10,8 @@ body {
   font-size: 16px;
   margin: 0;
   height: 100%;
-}
-
-#container {
   width: 100%;
-  margin: 0 auto;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 250px auto;
-  grid-template-rows: auto;
-  grid-template-areas: "nav main";
-}
-
-.container {
-  grid-area: main;
+  margin-bottom: 10px;
 }
 
 .title {
@@ -31,6 +20,7 @@ body {
   padding: 10px;
   /* set only bottom outline */
   border-bottom: 1px solid #171717;
+  font-size: larger;
 }
 
 .active {
@@ -39,7 +29,7 @@ body {
 
 .current-page {
   /* vertical size to 50px */
-  height: 50px;
+  height: 100%;
   /* certer text on vertical axies */
   display: flex;
   align-items: center;
@@ -51,6 +41,7 @@ body {
   /* ajust blocks if dont fit on screen */
   display: flex;
   flex-wrap: wrap;
+  height: 100%;
 }
 
 .card {
@@ -68,21 +59,6 @@ body {
   /* align items horizontally */
   display: flex;
   flex-direction: row;
-}
-
-#cozinha {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-/*security*/
-
-.segura {
-  float: right;
-  height: 15px;
-  padding-top: 0px;
-  text-align: center;
 }
 
 /* width */
@@ -105,10 +81,6 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: grey;
-}
-
-#firstContainer {
-  height: 180px;
 }
 
 .switch {
@@ -304,34 +276,6 @@ body {
   display: none;
 }
 
-.btn {
-  /* round left corners */
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  background-color: rgb(58, 58, 58);
-  /* round right corners */
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  background-color: rgb(58, 58, 58);
-  /* color: white; */
-  margin: 10px 0px 0px 0px;
-  color: white;
-  width: 40px;
-  height: 30px;
-  text-align: center;
-}
-
-.segura {
-  border-radius: 20px;
-  background-color: rgb(58, 58, 58);
-  color: white;
-  text-align: center;
-}
-
 .material-icons {
   padding-right: 5px;
-}
-
-#listaDeRegas {
-  list-style: none;
 }
