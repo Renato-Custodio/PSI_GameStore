@@ -8,7 +8,7 @@ import { SearchService } from '../services/search.service';
 })
 export class SearchComponent {
   query: string = '';
-  searchResults:  Game[] = [];
+  // searchResults:  Game[] = [];
   errorMessage: string = '';
 
   constructor(private searchService: SearchService) {}
@@ -25,7 +25,7 @@ export class SearchComponent {
 		if(typeof(searchResults) === 'string'){
 			this.errorMessage = searchResults;
 		} else{
-			this.searchResults = searchResults;
+			// this.searchResults = searchResults;
 		}
 		});
 

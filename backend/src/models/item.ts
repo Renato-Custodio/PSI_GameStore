@@ -2,17 +2,17 @@ import * as mongoose from "mongoose";
 
 interface IItem extends mongoose.Document {
 	name: string;
-    type: string;
-    description: string;
-    platform: string;
-    language: string;
-    price: string;
-    general_Classification: string;
-    avaluations: string;
-	imagem_Principal: Buffer;
-	imagem1: Buffer;
-	imagem2: Buffer;
-	link: string;
+	type: string;
+	description: string;
+	platform: string;
+	language: string;
+	price: string;
+	general_classification: string;
+	avaluations: string;
+	main_image: Buffer;
+	image1: Buffer;
+	image2: Buffer;
+	video_link: string;
 }
 
 const itemSchema = new mongoose.Schema({
@@ -20,7 +20,7 @@ const itemSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-    name: {
+	name: {
 		type: String,
 		required: true,
 	},
@@ -28,44 +28,44 @@ const itemSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-    description: {
+	description: {
 		type: String,
-        maxlength: 1000,
+		maxlength: 1000,
 		required: true,
 	},
-    platform: {
-		type: String,
-		required: true,
-	},
-    language: {
+	platform: {
 		type: String,
 		required: true,
 	},
-    price: {
+	language: {
 		type: String,
 		required: true,
 	},
-    general_Classification: {
+	price: {
 		type: String,
 		required: true,
 	},
-    avaluations: {
+	general_Classification: {
 		type: String,
 		required: true,
 	},
-	imagem_Principal: {
-		image: Buffer,
+	avaluations: {
+		type: String,
 		required: true,
 	},
-	imagem1: {
-		image: Buffer,
+	main_image: {
+		type: Buffer,
+		required: true,
+	},
+	image1: {
+		type: Buffer,
 		required: false,
 	},
-	imagem2: {
-		image: Buffer,
+	image2: {
+		type: Buffer,
 		required: false,
 	},
-	link: {
+	video_link: {
 		type: String,
 		required: false,
 	},
