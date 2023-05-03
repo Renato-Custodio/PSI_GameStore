@@ -6,7 +6,7 @@ export interface IList extends mongoose.Document {
 }
 
 export interface IUserData extends mongoose.Document {
-	avatar: Buffer;
+	// avatar: Buffer;
 	games: number[];
 	lists: IList[];
 	following: string[];
@@ -33,23 +33,23 @@ const listSchema = new mongoose.Schema({
 const userDataSchema = new mongoose.Schema({
 	avatar: {
 		type: Buffer,
-		required: true,
+		required: false,
 	},
 	games: {
 		type: [Number],
-		required: true,
+		required: false,
 	},
 	lists: {
 		type: [listSchema],
-		required: true,
+		required: false,
 	},
 	following: {
 		type: [String],
-		required: true,
+		required: false,
 	},
 	followers: {
 		type: [String],
-		required: true,
+		required: false,
 	},
 });
 

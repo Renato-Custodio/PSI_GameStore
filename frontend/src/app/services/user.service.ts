@@ -26,10 +26,10 @@ export class UserService {
   }
 
   getUserData(username: string): Observable<UserData> {
-    return this.http.get<UserData>(`/api/user/` + username);
+    return this.http.get<UserData>(`/api/user/` + username + '/data');
   }
 
-  getUserAvatar(username: string): Observable<string> {
-    return this.http.get<string>(`/api/user/` + username + '/avatar');
-  }
+  // getUserAvatar(username: string): Observable<string> {
+  //   return this.http.get<string>(`/api/user/` + username + '/avatar');
+  // }
 }

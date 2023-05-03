@@ -29,7 +29,7 @@ export class PerfilComponent {
   contents = [
     { text: 'Content for Link 1' },
     { text: 'Content for Link 2' },
-    { text: 'Content for Link 3' },
+    { text: `Followers: test  Following: test2` },
   ];
   activeLinkIndex = 0;
 
