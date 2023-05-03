@@ -13,12 +13,12 @@ export class SidebarComponent {
       link: '/dashboard',
     },
     {
-      label: 'Perfil',
+      label: 'Profile',
       icon: 'fas fa-user',
       link: '/perfil',
     },
     {
-      label: 'Pesquisar',
+      label: 'Search',
       icon: 'fas fa-search',
       link: '/search',
     },

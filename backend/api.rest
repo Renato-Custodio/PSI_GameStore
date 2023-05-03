@@ -7,3 +7,18 @@ Content-Type: application/json
 }
 
 ###
+
+POST http://localhost:3000/item/
+Content-Type: application/json
+
+{
+  "_id" : "2",
+  "name" : "star wars",
+  "type" : "jogo",
+  "description" : "um bom jogo",
+  "platform": "steam",
+  "language":"portugues",
+  "price":"100",
+  "general_classification":"5",
+  "evaluations":"very good"
+}

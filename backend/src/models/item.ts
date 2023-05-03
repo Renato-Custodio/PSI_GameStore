@@ -18,57 +18,54 @@ interface IItem extends mongoose.Document {
 const itemSchema = new mongoose.Schema({
 	_id: {
 		type: String,
-		required: true,
+		required: true
 	},
 	name: {
 		type: String,
-		required: true,
+		required: true
 	},
 	type: {
 		type: String,
-		required: true,
+		required: true
 	},
 	description: {
 		type: String,
-		maxlength: 1000,
-		required: true,
+        maxlength: 1000,
+		required: true
 	},
 	platform: {
 		type: String,
-		required: true,
+		required: true
 	},
 	language: {
 		type: String,
-		required: true,
+		required: true
 	},
 	price: {
 		type: String,
-		required: true,
+		required: true
 	},
 	general_classification: {
 		type: String,
-		required: true,
+		required: true
 	},
 	evaluations: {
 		type: String,
-		required: true,
+		required: true
 	},
-	main_image: {
-		type: Buffer,
-		required: true,
+	imagem_Principal: {
+		image: Buffer
+		/* required: true */
 	},
-	image1: {
-		type: Buffer,
-		required: false,
+	imagem1: {
+		image: Buffer
 	},
-	image2: {
-		type: Buffer,
-		required: false,
+	imagem2: {
+		image: Buffer
 	},
-	video_link: {
-		type: String,
-		required: false,
-	},
+	link: {
+		type: String
+	}
 });
 
 const Item = mongoose.model<IItem>("Item", itemSchema);
