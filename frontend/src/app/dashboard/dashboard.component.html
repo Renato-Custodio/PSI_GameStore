@@ -40,7 +40,7 @@
           <div class="card-ident">
             <h3 class="card-title">A Seguir</h3>
             <ul>
-              <li *ngFor="let fol of getFollowing()">
+              <li *ngFor="let fol of getFollowing() | async">
                 <a>
                   {{ fol }}
                 </a>
@@ -62,4 +62,5 @@
         </div>
       </div>
     </div>
-</div>
+  </body>
+</html>

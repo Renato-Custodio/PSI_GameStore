@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs';
+import { UserData } from '../types/userData';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,11 +11,24 @@ import { AuthService } from '../services/auth.service';
 })
 export class DashboardComponent {
   currentUser : any;
-  constructor(private authService: AuthService) {
+  data : UserData | undefined
+  constructor(private authService: AuthService,private userService: UserService) {
     this.currentUser = this.authService.user;
   }
 
-  getListas() {
-    
+  getLists(){
+    return this.userService.getLists(this.currentUser).subscribe();
+  }
+
+  getItems(){
+    return this.userService.getGames(this.currentUser);
+  }
+
+  getFollowers(){
+    return this.userService.getFollowers(this.currentUser);
+  }
+
+  getFollowing(){
+    return this.userService.getFollowing(this.currentUser);
   }
 }
