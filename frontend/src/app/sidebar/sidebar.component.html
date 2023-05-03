@@ -1,0 +1,14 @@
+<div class="sidenav">
+  <div class="logo-container">
+    <button class="logo">PSI</button>
+    <div class="logo-text">PSI GameStore</div>
+  </div>
+  <ul class="sidebar-nav">
+    <li class="sidenav-nav-item" *ngFor="let item of menuItems">
+      <a class="sidenav-nav-link" [routerLink]="item.link">
+        <i class="sidenav-link-icon" [class]="item.icon"></i>
+        <span class="sidenav-link-text">{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+</div>
