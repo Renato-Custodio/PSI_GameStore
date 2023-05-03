@@ -31,7 +31,10 @@ export class LoginComponent {
         this.user = u;
         if(this.user !== null){
           this.router.navigate(['/dashboard']);
-        }});
+        }
+      else{
+        alert(`A combinação username/password está incorreta!`);
+      }});
   }
 
 
