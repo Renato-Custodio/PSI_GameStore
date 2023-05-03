@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Observable, fromEvent, timer } from 'rxjs';
 import { debounce, map } from 'rxjs/operators';
-import { User } from '../user';
+import { User } from '../types/user';
 import { Router } from "@angular/router";
 
 @Component({
