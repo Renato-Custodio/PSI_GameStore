@@ -24,6 +24,10 @@ p {
   font-size: 20px;
 }
 
+.message {
+  margin-top:1rem;
+}
+
 input {
   border-radius: 12px;
   padding: 6px;
