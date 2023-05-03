@@ -1,18 +1,21 @@
-<div class="sidenav" [ngClass] = "collapsed ? 'sidenav-collapsed': ''">
+<div class="sidenav">
   <div class="logo-container">
-    <button class="logo" (click)="toggleCollapse()">PSI</button>
-    <div class="logo-text" *ngIf="collapsed">PSI GameStore</div>
-    <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
-      <i class="fa fa-times close-icon"></i>
-    </button>
+    <button class="logo">PSI</button>
+    <div class="logo-text">PSI GameStore</div>
   </div>
   <ul class="sidebar-nav">
-    <li class="sidenav-nav-item" *ngFor="let data of navData">
-      <a class="sidenav-nav-link" [routerLink]="[data.routeLink]"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="sidenav-link-icon" [class]="data.icon"></i>
-        <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" Link="/dashboard"
+        routerLinkActive="active">
+        <i class="sidenav-link-icon"></i>
+        <span class="sidenav-link-text">Dashboard</span>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" Link="/perfil"
+        routerLinkActive="active">
+        <i class="sidenav-link-icon"></i>
+        <span class="sidenav-link-text">Perfil</span>
       </a>
     </li>
   </ul>
