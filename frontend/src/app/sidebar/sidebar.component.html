@@ -4,18 +4,10 @@
     <div class="logo-text">PSI GameStore</div>
   </div>
   <ul class="sidebar-nav">
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" Link="/dashboard"
-        routerLinkActive="active">
-        <i class="sidenav-link-icon"></i>
-        <span class="sidenav-link-text">Dashboard</span>
-      </a>
-    </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" Link="/perfil"
-        routerLinkActive="active">
-        <i class="sidenav-link-icon"></i>
-        <span class="sidenav-link-text">Perfil</span>
+    <li class="sidenav-nav-item" *ngFor="let item of menuItems">
+      <a class="sidenav-nav-link" [routerLink]="item.link">
+        <i class="sidenav-link-icon" [class]="item.icon"></i>
+        <span class="sidenav-link-text">{{ item.label }}</span>
       </a>
     </li>
   </ul>
