@@ -58,4 +58,26 @@ item_router.post("/", async (req: Request, res: Response) => {
   }
 });
 
+item_router.get("/search", async (req, res) => {
+	let title = req.query.title;
+	if (typeof title !== "string") {
+		res.status(404).json({ error: "Formato de titulo errado" });
+		return;
+	}
+	let partial = new RegExp(title, "i");
+
+	let found = await getGames(partial);
+
+	if (found) {
+		return res.send(found);
+	} else {
+		return res.send("Nenhum jogo encontrado.");
+	}
+});
+
+async function getGames(partial: RegExp) {
+	let found = Item.find({ name: partial });
+	return found;
+}
+
 export { item_router };

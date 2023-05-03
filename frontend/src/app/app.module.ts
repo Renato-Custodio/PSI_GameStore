@@ -4,25 +4,28 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-];
+import { PerfilComponent } from './perfil/perfil.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { BodyComponent } from './body/body.component';
+import { SearchComponent } from './search/search.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    SearchComponent,
+    PerfilComponent,
+    SidebarComponent,
+    BodyComponent,
+    SigninComponent,
+    DashboardComponent,
+    LoginComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
