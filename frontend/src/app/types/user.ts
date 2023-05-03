@@ -4,7 +4,7 @@ export interface List {
 }
 
 export interface UserData {
-  avatar: string;
+  // avatar: string;
   games: number[];
   lists: List[];
   following: string[];
