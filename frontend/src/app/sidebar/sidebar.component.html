@@ -8,6 +8,7 @@
       <a class="sidenav-nav-link" [routerLink]="item.link">
         <i class="sidenav-link-icon" [class]="item.icon"></i>
         <span class="sidenav-link-text">{{ item.label }}</span>
+        <span class="cart-counter">{{item.count}}</span>
       </a>
     </li>
   </ul>

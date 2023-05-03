@@ -23,6 +23,12 @@ export class SidebarComponent {
       link: '/search',
     },
     {
+      label: 'Cart',
+      icon: 'fas fa-shopping-cart',
+      link: '/cart',
+      count: 0,
+    },
+    {
       label: 'Logout',
       icon: 'fas fa-sign-out-alt',
       link: '/login',
@@ -36,4 +42,5 @@ interface IMenuItem {
   label: string;
   icon: string;
   link: string;
+  count?: number;
 }
