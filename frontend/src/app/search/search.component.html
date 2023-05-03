@@ -18,7 +18,7 @@
     <app-game-card *ngFor="let game of searchResults" [game]="game"></app-game-card>
   </ng-template>
   <div *ngIf="searchResults.length === 0">
-    <div *ngIf="title.value.length > 2;else elseMessage">
+    <div class="message" *ngIf="title.value.length > 2;else elseMessage">
       {{ errorMessage }}
     </div>
     <ng-template #elseMessage></ng-template>

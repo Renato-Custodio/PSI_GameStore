@@ -1,6 +1,6 @@
-<div class="game-card">
+<a [routerLink]="['/game', game.name]" class="game-card">
   <img [src]="game.main_image" alt="Game image" />
   <h3>{{ game.name }}</h3>
-  <p>{{ game.description }}</p>
+  <p>{{ game.type }}</p>
   <button>Add to cart</button>
-</div>
+</a>
