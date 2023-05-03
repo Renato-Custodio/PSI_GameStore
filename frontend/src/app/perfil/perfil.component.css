@@ -4,12 +4,33 @@
 }
 
 .card-header{
-  background-color: #fff;
-  border-bottom: 1px solid #e1e5eb;
+  background-color: #263238;
+  border-bottom: 1px solid;
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.card-header a{
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 2rem;
+}
+
+.card-header a:hover{
+  color: rgba(37, 95, 156,0.9);
+  cursor: pointer;
+}
+
+.card-body{
+  margin-top: 2rem;
+  margin-left: 2rem;
+  font-size: 20px;
 }
 
 .profile {
@@ -18,7 +39,7 @@
   color: #fff;
   padding: 2rem;
   box-sizing: border-box;
-  border-radius: 0.313rem;
+  border-radius: 1rem;
   box-shadow: 1rem 0.061rem 1rem 0.065rem #e1e5eb;
   margin-bottom: 2rem;
   background-image: url("../../assets/fixe.jpg");
@@ -34,10 +55,12 @@
 
 #left {
   width: 100%;
-  background-color: grey;
+  background-color: #fff;
   padding: 20px;
   margin: 0px;
   position: relative;
+  border-radius: 1rem;
+  box-shadow: 0px 1rem 1.5rem rgba(0,0,0,0.5);
 }
 
 #right {
@@ -53,7 +76,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 2rem;
+  border-radius: 1rem;
   box-shadow: 0px 1rem 1.5rem rgba(0,0,0,0.5);
 }
 .card .banner {
