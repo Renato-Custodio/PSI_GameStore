@@ -4,14 +4,17 @@
   <div id="sides">
     <div class="side" id="left">
       <div class="card-header">
-        <a *ngFor="let link of links; let i = index"
-           [ngClass]="{'active': i === activeLinkIndex}"
-           (click)="setActiveLinkIndex(i)">{{link.text}}</a>
+        <a
+          *ngFor="let link of links; let i = index"
+          [ngClass]="{ active: i === activeLinkIndex }"
+          (click)="setActiveLinkIndex(i)"
+          >{{ link.text }}</a
+        >
       </div>
       <div class="card-body">
         <ng-container *ngFor="let content of contents; let i = index">
           <div *ngIf="i === activeLinkIndex" class="card-content">
-            {{content.text}}
+            {{ content.text }}
           </div>
         </ng-container>
       </div>
@@ -20,18 +23,22 @@
       <div class="card">
         <div class="banner"><img class="profile-pic"></div>
         <div class="menu">
-            <div class="opener"><span></span><span></span><span></span></div>
+          <div class="opener"><span></span><span></span><span></span></div>
         </div>
-        <h2 class="name">Morgan Sweeney</h2>
+        <h2 class="name">{{ username }}</h2>
         <div class="actions">
-            <div class="follow-info">
-                <h2><a href="#"><span>12</span><small>Followers</small></a></h2>
-                <h2><a href="#"><span>1000</span><small>Following</small></a></h2>
-            </div>
-            <div class="follow-btn"><button>Edit Profile</button></div>
+          <div class="follow-info">
+            <h2>
+              <a href="#"><span>12</span><small>Followers</small></a>
+            </h2>
+            <h2>
+              <a href="#"><span>1000</span><small>Following</small></a>
+            </h2>
+          </div>
+          <div class="follow-btn"><button>Edit Profile</button></div>
         </div>
         <div class="desc">Bio</div>
-    </div>
+      </div>
     </div>
   </div>
 </div>

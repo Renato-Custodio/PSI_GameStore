@@ -12,8 +12,6 @@ const auth_router = express.Router();
 auth_router.post("/register", async (req: Request, res: Response) => {
 	const { username, password } = req.body;
 
-	console.log(req.body);
-
 	if (
 		!username ||
 		!password ||
@@ -34,7 +32,6 @@ auth_router.post("/register", async (req: Request, res: Response) => {
 
 	user.save()
 		.then((user) => {
-			console.log(user);
 			return res.status(200).json(user);
 		})
 		.catch((err) => {
@@ -76,7 +73,7 @@ auth_router.post("/login", async (req, res) => {
 	return res.send(userWithoutPassword);
 });
 
-auth_router.get("/testlogin", async (req, res) => {
+auth_router.get("/loggeduser", async (req, res) => {
 	// If the user is not authenticated, send an error
 	if (!req.session?.username) {
 		return res.send({ error: "You are not logged in." });
@@ -86,7 +83,7 @@ auth_router.get("/testlogin", async (req, res) => {
 	const { username } = req.session;
 
 	// Send response back
-	return res.send(`${username} is logged in.`);
+	return res.send({ username });
 });
 
 export { auth_router };

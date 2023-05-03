@@ -11,13 +11,20 @@
     autocomplete="off"
     (input)="searchGame(title.value)"
   />
-  <div *ngIf="title.value.length >= 2; else elseBlock">
+  <div *ngIf="title.value.length <= 2; else elseBlock">
+    {{ clearSearchResults() }}
+  </div>
+  <ng-template #elseBlock>
     <ul *ngFor="let game of searchResults">
       {{
         game.name
       }}
     </ul>
+  </ng-template>
+  <div *ngIf="searchResults.length === 0">
+    <div *ngIf="title.value.length > 2;else elseMessage">
+      {{ errorMessage }}
+    </div>
+    <ng-template #elseMessage></ng-template>
   </div>
-  <ng-template #elseBlock></ng-template>
-  <div *ngIf="searchResults.length === 0">{{ errorMessage }}</div>
 </div>

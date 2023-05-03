@@ -71,7 +71,7 @@ user_router.get("/:username/following", async (req, res) => {
 		});
 });
 
-user_router.get("/:username", async (req, res) => {
+user_router.get("/:username/data", async (req, res) => {
 	if (!req.session?.username) {
 		return res.status(401).json({ message: "Unauthorized" });
 	}
