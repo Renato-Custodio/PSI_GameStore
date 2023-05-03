@@ -1,0 +1,62 @@
+.wrapper {
+  margin-left: 22rem;
+  margin-top: 5rem;
+  margin-right: 2rem;
+}
+
+.dashboard{
+  display: flex;
+  flex-direction: row;
+}
+
+.profile {
+  width: 100%;
+  font-size: 45px;
+  color: #fff;
+  padding: 2rem;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  box-shadow: 1rem 0.061rem 1rem 0.065rem #e1e5eb;
+  margin-bottom: 2rem;
+  background-image: url("../../assets/fixe.jpg");
+  background-position: center;
+  background-size: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  margin-right: 3rem;
+  box-shadow: 0 0.25rem 0.5rem #e6edef;
+}
+
+#listas{
+  width: 50%
+}
+
+#followers{
+  width: 20%
+}
+
+#following{
+  width: 20%
+}
+
+.card-head {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #263238;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #263238;
+}
+
+.card-body {
+  padding: 1rem 1.5rem;
+}
+
+.item-library {
+  margin-top: 25rem;
+}
