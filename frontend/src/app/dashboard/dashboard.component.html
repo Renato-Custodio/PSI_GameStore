@@ -1,66 +1,64 @@
-<html>
-  <body>
-    <!-- create body container -->
-    <div id="container">
-      <script src="main.js"></script>
-      <div class="current-page" class="title" id="top">
-        <a>Dashboard</a>
-      </div>
-      <!-- list of blocks -->
-      <div class="blocks-div">
-        <div class="card" id="listas">
-          <div style="margin: 0">
-            <div class="card-ident">
-              <h3 class="card-title">Listas</h3>
-              <div>
-                <ul>
-                  <li *ngFor="let list of getLists()">
-                    <a>
-                      {{ list }}
-                    </a>
-                  </li>
-                </ul>
-              </div>
+<body>
+  <!-- create body container -->
+  <div id="container">
+    <script src="main.js"></script>
+    <div class="current-page" class="title" id="top">
+      <a>Dashboard</a>
+    </div>
+    <!-- list of blocks -->
+    <div class="blocks-div">
+      <div class="card" id="listas">
+        <div style="margin: 0">
+          <div class="card-ident">
+            <h3 class="card-title">Listas</h3>
+            <div>
+              <ul>
+                <li *ngFor="let list of lists">
+                  <a>
+                    {{ list }}
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-ident">
-            <h3 class="card-title">Biblioteca de itens</h3>
-            <ul>
-              <li *ngFor="let item of getItems()">
-                <a>
-                  {{ item }}
-                </a>
-              </li>
-            </ul>
-          </div>
+      </div>
+      <div class="card">
+        <div class="card-ident">
+          <h3 class="card-title">Biblioteca de itens</h3>
+          <ul>
+            <li *ngFor="let item of items">
+              <a>
+                {{ item }}
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="card">
-          <div class="card-ident">
-            <h3 class="card-title">A Seguir</h3>
-            <ul>
-              <li *ngFor="let fol of getFollowing() | async">
-                <a>
-                  {{ fol }}
-                </a>
-              </li>
-            </ul>
-          </div>
+      </div>
+      <div class="card">
+        <div class="card-ident">
+          <h3 class="card-title">A Seguir</h3>
+          <ul>
+            <li *ngFor="let fol of following">
+              <a>
+                {{ fol }}
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="card">
-          <div class="card-ident">
-            <h3 class="card-title">Seguidores</h3>
-            <ul>
-              <li *ngFor="let fol of getFollowers()">
-                <a>
-                  {{ fol }}
-                </a>
-              </li>
-            </ul>
-          </div>
+      </div>
+      <div class="card">
+        <div class="card-ident">
+          <h3 class="card-title">Seguidores</h3>
+          <ul>
+            <li *ngFor="let fol of followers">
+              <a>
+                {{ fol }}
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</body>
