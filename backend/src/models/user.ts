@@ -1,11 +1,11 @@
 import * as mongoose from "mongoose";
 
-export interface IList {
+export interface IList extends mongoose.Document {
 	name: string;
 	items: number[];
 }
 
-export interface IUserData {
+export interface IUserData extends mongoose.Document {
 	avatar: Buffer;
 	games: number[];
 	lists: IList[];

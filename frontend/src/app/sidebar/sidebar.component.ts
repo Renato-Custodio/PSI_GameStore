@@ -1,29 +1,39 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { navbarData } from '../types/nav-data';
-
-interface SideNavToggle {
-  screenWidth: number;
-  collapsed: boolean;
-}
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
-  @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
-  collapsed = true;
-  screenWidth = 0;
-  navData = navbarData;
+  menuItems: IMenuItem[] = [
+    {
+      label: 'Dashboard',
+      icon: 'fas fa-tachometer-alt',
+      link: '/dashboard',
+    },
+    {
+      label: 'Perfil',
+      icon: 'fas fa-user',
+      link: '/perfil',
+    },
+    {
+      label: 'Pesquisar',
+      icon: 'fas fa-search',
+      link: '/search',
+    },
+    {
+      label: 'Logout',
+      icon: 'fas fa-sign-out-alt',
+      link: '/login',
+    },
+  ];
 
-  closeSidenav(): void {
-    this.collapsed = false;
-    this.onToggleSideNav.emit({ screenWidth: this.screenWidth, collapsed: this.collapsed });
-  }
+  constructor() {}
+}
 
-  toggleCollapse(): void {
-    this.collapsed = !this.collapsed;
-    this.onToggleSideNav.emit({screenWidth: this.screenWidth, collapsed: this.collapsed});
-  }
+interface IMenuItem {
+  label: string;
+  icon: string;
+  link: string;
 }
