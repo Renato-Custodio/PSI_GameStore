@@ -54,11 +54,7 @@ auth_router.post("/register", async (req: Request, res: Response) => {
 auth_router.post("/login", async (req, res) => {
 	const { username, password } = req.body;
 
-	console.log(req.body);
-
 	const user = await User.findOne({ _id: username }).exec();
-
-	console.log(user);
 
 	if (user == null)
 		return res.send({
