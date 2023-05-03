@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { SearchComponent } from './search/search.component';
 import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SigninComponent } from './signin/signin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'perfil', component: PerfilComponent },
-  //{ path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'search', component: SearchComponent },
 ];
 
 @NgModule({
