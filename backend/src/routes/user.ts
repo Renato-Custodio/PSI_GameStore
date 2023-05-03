@@ -71,4 +71,21 @@ user_router.get("/:username/following", async (req, res) => {
 		});
 });
 
+user_router.get("/:username", async (req, res) => {
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+			res.json(user.userData);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
+});
+
 export { user_router };
