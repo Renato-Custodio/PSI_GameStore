@@ -24,7 +24,7 @@ export class SearchComponent {
       .subscribe((searchResults) => {
 		console.log(searchResults);
 		if(searchResults.length === 0){
-			this.errorMessage = "nao foi encontrado nenhum jogo";
+			this.errorMessage = "Nao foi encontrado nenhum jogo";
 		} else{
 			this.searchResults = searchResults;
 		}
