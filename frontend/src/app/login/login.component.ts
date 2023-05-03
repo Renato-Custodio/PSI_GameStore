@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Observable, fromEvent, timer } from 'rxjs';
-import { debounce, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { User } from '../types/user';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService, private router : Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   isPasswordValid = false;
   passwordCriteria: string[] = [];
@@ -23,20 +23,18 @@ export class LoginComponent {
 
   authenticate(username: string, password: string): void {
     username = username.trim();
-    if (!username){
+    if (!username) {
       return;
     }
-    this.authService.authenticateUser(username, password).subscribe(u =>
-      {console.log(u);
-        this.user = u;
-        if(this.user !== null){
-          this.router.navigate(['/dashboard']);
-        }
-      else{
+    this.authService.authenticateUser(username, password).subscribe((u) => {
+      this.user = u;
+      if (this.user !== null) {
+        this.router.navigate(['/dashboard']);
+      } else {
         alert(`A combinação username/password está incorreta!`);
-      }});
+      }
+    });
   }
-
 
   verifyPassword(password: string) {
     const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
@@ -48,26 +46,26 @@ export class LoginComponent {
         passwordCriteria.push('Password must be at least 8 characters long.');
       }
       if (!password.match(/[A-Z]/)) {
-        passwordCriteria.push('Password must contain at least one capital letter.');
+        passwordCriteria.push(
+          'Password must contain at least one capital letter.'
+        );
       }
       if (!password.match(/[a-z]/)) {
-        passwordCriteria.push('Password must contain at least one small letter.');
+        passwordCriteria.push(
+          'Password must contain at least one small letter.'
+        );
       }
       if (!password.match(/[0-9]/)) {
         passwordCriteria.push('Password must contain at least one number.');
       }
 
-      this.criteria = new Observable<number>(observer => {
+      this.criteria = new Observable<number>((observer) => {
         observer.next(0);
-      }).pipe(
-        map(() => passwordCriteria)
-      );
+      }).pipe(map(() => passwordCriteria));
     } else {
-      this.criteria = new Observable<string[]>(observer => {
+      this.criteria = new Observable<string[]>((observer) => {
         observer.next([]);
       });
     }
   }
 }
-
-

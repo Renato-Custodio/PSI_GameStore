@@ -64,7 +64,7 @@ const userSchema = new mongoose.Schema({
 	},
 	userData: {
 		type: userDataSchema,
-		required: true,
+		required: false,
 	},
 });
 
