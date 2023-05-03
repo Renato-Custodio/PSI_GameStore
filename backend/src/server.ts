@@ -38,6 +38,7 @@ app.use(
 
 app.use("/auth", auth_router);
 app.use("/item", item_router);
+app.use("/cart", item_router);
 
 app.use("/", (req, res) => {
 	res.send("Hello World!");
