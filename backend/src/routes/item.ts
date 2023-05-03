@@ -4,6 +4,7 @@ import Item from "../models/item";
 const item_router = express.Router();
 
 item_router.get("/details/:id", async (req: Request, res: Response) => {
+
     Item.findById(req.params.id)
     .then((item) => {
       if (item == null) {
