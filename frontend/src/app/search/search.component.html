@@ -1,7 +1,6 @@
 <app-sidebar></app-sidebar>
-<div>
-	<h2>Pesquisa</h2>
-	<p>Pesquise por jogos</p>
+<div class="wrapper">
+	<div class="profile">Search</div>
 	<input #title placeholder="Nome do jogo..." type="text" name="query" [(ngModel)]="query" autocomplete="off" (input) = searchGame(title.value)/>
 	<!-- <div *ngFor="let game of searchResults">{{game.title}}</div>
 	<div *ngIf="searchResults"></div> -->

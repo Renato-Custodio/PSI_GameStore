@@ -1,6 +1,23 @@
-div{
-	margin: 0 auto;
-	text-align: center;
+.wrapper {
+  margin-left: 22rem;
+  margin-top: 5rem;
+  margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile {
+  width: 100%;
+  font-size: 45px;
+  color: #fff;
+  padding: 2rem;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  box-shadow: 1rem 0.061rem 1rem 0.065rem #e1e5eb;
+  margin-bottom: 2rem;
+  background-image: url("../../assets/fixe.jpg");
+  background-position: center;
+  background-size: auto;
 }
 
 input{
