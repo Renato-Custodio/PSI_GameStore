@@ -15,11 +15,7 @@
     {{ clearSearchResults() }}
   </div>
   <ng-template #elseBlock>
-    <ul *ngFor="let game of searchResults">
-      {{
-        game.name
-      }}
-    </ul>
+    <app-game-card *ngFor="let game of searchResults" [game]="game"></app-game-card>
   </ng-template>
   <div *ngIf="searchResults.length === 0">
     <div *ngIf="title.value.length > 2;else elseMessage">
