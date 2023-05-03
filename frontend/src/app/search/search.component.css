@@ -20,23 +20,28 @@
   background-size: auto;
 }
 
-input{
-	border-radius: 12px;
-	padding: 6px;
-	border: 1px solid #333;
+p {
+  font-size: 20px;
 }
 
-form{
-	display: flex;
-	gap: 20px;
-	justify-content: center;
+input {
+  border-radius: 12px;
+  padding: 6px;
+  border: 1px solid #333;
 }
 
-button{
-	border-radius: 12px;
-	padding: 6px 12px;
-	border: none;
-	background-color: #059669;
-	color: white;
-	box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+form {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+button {
+  border-radius: 12px;
+  padding: 6px 12px;
+  border: none;
+  background-color: #059669;
+  color: white;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
 }

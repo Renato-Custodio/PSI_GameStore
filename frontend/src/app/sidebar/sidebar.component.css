@@ -88,3 +88,16 @@
 .active .sidenav-link-icon, .active .sidenav-link-text{
   color: #000;
 }
+
+.cart-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 50%;
+}
+
