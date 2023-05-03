@@ -1,67 +1,56 @@
 <app-sidebar></app-sidebar>
 <div class="wrapper">
-  <h1>Dashboard</h1>
-  <div class="card">
-    <div class="card-head">Lorem ipsum - dashboard</div>
-    <div class="card-body">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas ducimus
-      soluta, quasi aut ipsa non, ullam enim rem repudiandae, vitae provident
-      animi. Inventore rerum, voluptas optio dignissimos blanditiis modi illo!
-    </div>
-    <!-- list of blocks -->
-    <div class="blocks-div">
-      <div class="card" id="listas">
-        <div style="margin: 0">
-          <div class="card-ident">
-            <h3 class="card-title">Listas</h3>
-            <div>
-              <ul>
-                <li *ngFor="let list of lists">
-                  <a>
-                    {{ list }}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-ident">
-          <h3 class="card-title">Biblioteca de itens</h3>
-          <ul>
-            <li *ngFor="let item of items">
-              <a>
-                {{ item }}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-ident">
-          <h3 class="card-title">A Seguir</h3>
-          <ul>
-            <li *ngFor="let fol of following">
-              <a>
-                {{ fol }}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-ident">
-          <h3 class="card-title">Seguidores</h3>
-          <ul>
-            <li *ngFor="let fol of followers">
-              <a>
-                {{ fol }}
-              </a>
-            </li>
-          </ul>
-        </div>
+  <div class="profile">Dashboard</div>
+  <div class="dashboard">
+    <div class="card" id="listas">
+      <div class="card-head">Listas</div>
+      <div class="card-body">
+        <ul>
+          <li *ngFor="let list of lists">
+            <a>
+              {{ list }}
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
+    <div class="card" id="followers">
+      <div class="card-head">Followers</div>
+      <div class="card-body">
+        <ul>
+          <li *ngFor="let fol of followers">
+            <a>
+              {{ fol }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" id="following">
+      <div class="card-head">Following</div>
+      <div class="card-body">
+        <ul>
+          <li *ngFor="let fol of following">
+            <a>
+              {{ fol }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="separtor"></div>
+  <div class="item-library">
+    <div class="card">
+      <div class="card-head">Library</div>
+      <div class="card-body">
+        <ul>
+          <li *ngFor="let item of items">
+            <a>
+              {{ item }}
+            </a>
+          </li>
+        </ul>
+      </div>
   </div>
 </div>
