@@ -8,7 +8,7 @@ interface IItem extends mongoose.Document {
 	language: string;
 	price: string;
 	general_classification: string;
-	avaluations: string;
+	evaluations: string;
 	main_image: Buffer;
 	image1: Buffer;
 	image2: Buffer;
@@ -45,11 +45,11 @@ const itemSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	general_Classification: {
+	general_classification: {
 		type: String,
 		required: true
 	},
-	avaluations: {
+	evaluations: {
 		type: String,
 		required: true
 	},

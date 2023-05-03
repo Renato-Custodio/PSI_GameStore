@@ -7,24 +7,24 @@ import { AppComponent } from './app.component';
 
 import { PerfilComponent } from './perfil/perfil.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { BodyComponent } from './body/body.component';
 import { SearchComponent } from './search/search.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SigninComponent,
+    LoginComponent,
     SearchComponent,
     PerfilComponent,
     SidebarComponent,
-    BodyComponent,
     SigninComponent,
     DashboardComponent,
-    LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

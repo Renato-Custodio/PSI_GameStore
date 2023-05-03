@@ -1,33 +1,53 @@
 <div class="wrapper">
   <div class="container main">
-      <div class="row">
-          <div class="col-md-6 side-image">
-              <!-------Image-------->
-              <img alt="">
-              <div class="text">
-                  <p>The Future of Gaming</p>
-              </div>
-          </div>
-          <div class="col-md-6 right">
-               <div class="input-box">
-                  <header>Login</header>
-                  <div class="input-field">
-                      <input #username type="text" class="input" id="username" required autocomplete="off">
-                      <label for="username">Username</label>
-                  </div>
-                  <div class="input-field">
-                      <input #password type="password" class="input" (input)="verifyPassword(password.value)" id="password" required>
-                      <label for="password">Password</label>
-                  </div>
-                  <div class="input-field">
-                      <input type="submit" class="submit" value="Log in" (click)="authenticate(username.value, password.value)">
-
-                  </div>
-                  <div class="signin">
-                      <span>Don't have an account? <a href="/signin">Sign up here</a></span>
-                  </div>
-               </div>
-          </div>
+    <div class="row">
+      <div class="col-md-6 side-image">
+        <!-------Image-------->
+        <img alt="" />
+        <div class="text">
+          <p>The Future of Gaming</p>
+        </div>
       </div>
+      <div class="col-md-6 right">
+        <div class="input-box">
+          <header>Login</header>
+          <div class="input-field">
+            <input
+              #username
+              type="text"
+              class="input"
+              id="username"
+              required
+              autocomplete="off"
+            />
+            <label for="username">Username</label>
+          </div>
+          <div class="input-field">
+            <input
+              #password
+              type="password"
+              class="input"
+              (input)="verifyPassword(password.value)"
+              id="password"
+              required
+            />
+            <label for="password">Password</label>
+          </div>
+          <div class="input-field">
+            <input
+              type="submit"
+              class="submit"
+              value="Log in"
+              (click)="authenticate(username.value, password.value)"
+            />
+          </div>
+          <div class="signin">
+            <span
+              >Don't have an account? <a href="/signin">Sign up here</a></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

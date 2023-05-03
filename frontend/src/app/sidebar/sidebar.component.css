@@ -4,7 +4,7 @@
   position: fixed;
   z-index: 1;
   top: 0;
-  width: 6rem;
+  width: 20rem;
   height: 100vh;
   box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
 }
@@ -33,26 +33,6 @@
   font-size: 24px;
   font-weight:700;
   color: #fff;
-}
-
-.btn-close{
-  margin-left:auto;
-  padding-right: 45px;
-  cursor: pointer;
-  width:2rem;
-  height:2rem;
-  border-radius: 50%;
-  background-color: transparent;
-  border:none;
-}
-
-.fa-times{
-  color: #fff;
-  font-size: 24px;
-}
-
-.sidenav-collapsed{
-  width: 20rem;
 }
 
 .sidebar-nav{
