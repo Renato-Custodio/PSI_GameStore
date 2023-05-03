@@ -31,6 +31,9 @@ export class SearchComponent {
 		});
 
   	}
+  clearSearchResults() : void{
+    this.searchResults = [];
+  }
 
 
 }
