@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchService } from '../services/search.service';
+import { Item } from '../types/item';
 
 @Component({
   selector: 'app-search',
@@ -8,7 +9,7 @@ import { SearchService } from '../services/search.service';
 })
 export class SearchComponent {
   query: string = '';
-  // searchResults:  Game[] = [];
+  searchResults:  Item[] = [];
   errorMessage: string = '';
 
   constructor(private searchService: SearchService) {}
@@ -22,10 +23,10 @@ export class SearchComponent {
       .searchGames(title)
       .subscribe((searchResults) => {
 		console.log(searchResults);
-		if(typeof(searchResults) === 'string'){
-			this.errorMessage = searchResults;
+		if(searchResults.length === 0){
+			this.errorMessage = "nao foi encontrado nenhum jogo";
 		} else{
-			// this.searchResults = searchResults;
+			this.searchResults = searchResults;
 		}
 		});
 
