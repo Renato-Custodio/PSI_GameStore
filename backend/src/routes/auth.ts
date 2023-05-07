@@ -28,6 +28,10 @@ auth_router.post("/register", async (req: Request, res: Response) => {
 	const user = new User({
 		_id: username,
 		passwordHash: passwordHash,
+		userData: {
+			followers: [],
+			following: [],
+		},
 	});
 
 	user.save()

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { User } from '../types/user';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-signin',
@@ -18,7 +20,8 @@ export class SigninComponent {
   isPasswordValid: boolean = false;
   isUsernameValid: boolean = false;
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
+
 
   createUser() {
     this.authService.registerUser(this.username, this.password).subscribe((response: any) => {
@@ -26,6 +29,7 @@ export class SigninComponent {
         alert(response.error);
       } else {
         alert('User created successfully!');
+        this.router.navigate(['/login']); // Navigate to the login component
       }
     });
   }
