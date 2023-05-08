@@ -2,25 +2,28 @@
 <div class="wrapper">
   <div class="profile">Search</div>
   <p>Pesquise por jogos</p>
-  <input
-    #title
-    placeholder="Nome do jogo..."
-    type="text"
-    name="query"
-    [(ngModel)]="query"
-    autocomplete="off"
-    (input)="searchGame(title.value)"
-  />
-  <div *ngIf="title.value.length <= 2; else elseBlock">
-    {{ clearSearchResults() }}
-  </div>
-  <ng-template #elseBlock>
-    <app-game-card *ngFor="let game of searchResults" [game]="game"></app-game-card>
-  </ng-template>
-  <div *ngIf="searchResults.length === 0">
-    <div class="message" *ngIf="title.value.length > 2;else elseMessage">
-      {{ errorMessage }}
+  <form>
+    <input
+      #title
+      placeholder="Nome do jogo..."
+      type="text"
+      name="query"
+      [(ngModel)]="query"
+      autocomplete="off"
+      (input)="searchGame(title.value)"
+    />
+  </form>
+  <ng-container *ngIf="searchResults.length > 0; else noResultsBlock">
+    <div class="card-container" style="flex-direction: row;">
+      <app-game-card *ngFor="let game of searchResults" [game]="game"></app-game-card>
     </div>
-    <ng-template #elseMessage></ng-template>
-  </div>
+  </ng-container>
+  <ng-template #noResultsBlock>
+    <ng-container *ngIf="allGames.length > 0">
+      <div class="card-container" style="flex-direction: row;">
+        <app-game-card *ngFor="let game of allGames" [game]="game"></app-game-card>
+      </div>
+    </ng-container>
+    <div class="message" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </ng-template>
 </div>

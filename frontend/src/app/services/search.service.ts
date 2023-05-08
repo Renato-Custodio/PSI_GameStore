@@ -15,4 +15,8 @@ export class SearchService {
     }
     return this.http.get<[]>(`/api/item/search?title=${title}`);
   }
+
+  getAllGames(): Observable<[]> {
+    return this.http.get<[]>('/api/item/list');
+  }
 }

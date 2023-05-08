@@ -59,6 +59,16 @@ item_router.post("/", async (req: Request, res: Response) => {
   }
 });
 
+// Get all items
+item_router.get("/list", async (req: Request, res: Response) => {
+  try {
+    const items = await Item.find();
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get items" });
+  }
+});
+
 item_router.get("/search", async (req, res) => {
 	let title = req.query.title;
 	if (typeof title !== "string") {

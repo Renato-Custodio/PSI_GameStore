@@ -3,6 +3,7 @@
   margin-top: 5rem;
   margin-right: 2rem;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
 }
 
@@ -29,15 +30,10 @@ p {
 }
 
 input {
+  width: 1035px;
   border-radius: 12px;
   padding: 6px;
   border: 1px solid #333;
-}
-
-form {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
 }
 
 button {
@@ -49,3 +45,11 @@ button {
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
     0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+
