@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../types/item';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-game-card',
@@ -7,6 +9,9 @@ import { Item } from '../types/item';
   styleUrls: ['./game-card.component.css']
 })
 export class GameCardComponent {
+  constructor(private router: Router) {}
+
+
   @Input() game: Item = {
     name: '',
     type: '',
@@ -21,4 +26,8 @@ export class GameCardComponent {
     image2: '',
     video_link: '',
   };
+
+  goToGamePage() {
+    this.router.navigate(['/game', this.game.name]);
+  }
 }

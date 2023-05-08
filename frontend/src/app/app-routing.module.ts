@@ -5,6 +5,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { SearchComponent } from './search/search.component';
 import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GamePageComponent } from './game-page/game-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'perfil', component: PerfilComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'search', component: SearchComponent },
+  { path: 'game/:name', component: GamePageComponent },
 ];
 
 @NgModule({

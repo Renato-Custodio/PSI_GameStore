@@ -1,6 +1,7 @@
-<div class="game-card">
+<div class="game-card" (click)="goToGamePage()">
   <img [src]="game.main_image" alt="Game image" />
   <h3>{{ game.name }}</h3>
   <p>{{ game.type }}</p>
+  <p>{{ game.price }}</p>
   <button>Add to cart</button>
 </div>

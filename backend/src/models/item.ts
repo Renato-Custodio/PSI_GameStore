@@ -9,7 +9,7 @@ interface IItem extends mongoose.Document {
 	price: string;
 	general_classification: string;
 	evaluations: string;
-	main_image: Buffer;
+	main_image: String;
 	image1: Buffer;
 	image2: Buffer;
 	video_link: string;
@@ -53,14 +53,14 @@ const itemSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	imagem_Principal: {
-		image: Buffer
+	main_image: {
+		image: String
 		/* required: true */
 	},
-	imagem1: {
+	image1: {
 		image: Buffer
 	},
-	imagem2: {
+	image2: {
 		image: Buffer
 	},
 	link: {

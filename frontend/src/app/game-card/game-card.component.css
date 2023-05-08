@@ -28,12 +28,12 @@
 .game-card h3 {
   font-size: 1.2rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.40rem;
 }
 
 .game-card p {
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .game-card button {
@@ -52,4 +52,5 @@
 .game-card button:hover {
   background-color: #3e8e41;
 }
+
 
