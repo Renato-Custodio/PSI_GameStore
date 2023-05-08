@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class GameCardComponent {
   constructor(private router: Router) {}
 
-
   @Input() game: Item = {
+    _id: '',
     name: '',
     type: '',
     description: '',
@@ -24,10 +24,11 @@ export class GameCardComponent {
     main_image: '',
     image1: '',
     image2: '',
+    background_image: '',
     video_link: '',
   };
 
   goToGamePage() {
-    this.router.navigate(['/game', this.game.name]);
+    this.router.navigate(['/game', this.game._id]);
   }
 }

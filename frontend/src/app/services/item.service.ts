@@ -16,4 +16,5 @@ export class ItemService {
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`/api/item/list`);
   }
+
 }

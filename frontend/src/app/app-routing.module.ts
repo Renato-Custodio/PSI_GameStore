@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'perfil', component: PerfilComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'search', component: SearchComponent },
-  { path: 'game/:name', component: GamePageComponent },
+  { path: 'game/:id', component: GamePageComponent },
 ];
 
 @NgModule({

@@ -1,32 +1,33 @@
 <app-sidebar></app-sidebar>
-<div class="wrapper">
-  <div class="wrapper">
-    <div class="item-details">
-      <div class="item-header">
-        <img src="placeholder-image-url" alt="Item image">
-        <div class="item-info">
-          <h1>Item Name</h1>
-          <p>Item Type</p>
-          <p>Item Platform</p>
-          <p>Item Language</p>
-          <p>Item Price</p>
-          <p>Item General Classification</p>
-          <p>Item Evaluations</p>
+
+<div class="wrapper" style="--bg-image: url('{{ game.background_image }}')">
+  <div class="main-container">
+    <div class="center">
+      <div class="game-name">
+        <h1>{{ game.name }}</h1>
+      </div>
+      <div class="content">
+        <div class="left">
+          <div class="big-screen">
+            <div class="content-container">
+              <img src="game-trailer.jpg" alt="Game Trailer">
+              <video src="gameplay.mp4" autoplay loop muted></video>
+              <img src="screenshot1.jpg" alt="Game Screenshot">
+              <img src="screenshot2.jpg" alt="Game Screenshot">
+              <img src="screenshot3.jpg" alt="Game Screenshot">
+            </div>
+            <button class="arrow-button next"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="thumbnail-container">
+            <img [src]="game.main_image" alt="Game Trailer" class="active">
+            <img [src]="game.background_image" alt="Game Screenshot">
+            <img [src]="game.image1" alt="Game Screenshot">
+            <img [src]="game.image2" alt="Game Screenshot">
+          </div>
+        </div>
+        <div class="right">
         </div>
       </div>
-      <div class="item-description">
-        <h2>Description</h2>
-        <p>Item Description</p>
-      </div>
-      <div class="item-images">
-        <img src="placeholder-image-url" alt="Item image">
-        <img src="placeholder-image-url" alt="Item image">
-      </div>
-      <div class="item-video">
-        <h2>Trailer</h2>
-        <iframe src="placeholder-video-url"></iframe>
-      </div>
     </div>
-  </div>  
+  </div>
 </div>
-

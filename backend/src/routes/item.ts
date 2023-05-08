@@ -17,6 +17,21 @@ item_router.get("/details/:id", async (req: Request, res: Response) => {
     });
 });
 
+// get item details by name
+item_router.get("/details/:name", async (req: Request, res: Response) => {
+  Item.findOne({ name: req.params.name })
+    .then((item) => {
+      if (item == null) {
+        return res.status(404).json({ message: "Cannot find item" });
+      }
+      console.log(item);
+      res.json(item);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
 
 item_router.post("/", async (req: Request, res: Response) => {
   try {
