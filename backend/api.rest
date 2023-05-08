@@ -22,3 +22,13 @@ Content-Type: application/json
   "general_classification":"5",
   "evaluations":"very good"
 }
+
+### login
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "correia",
+  "password": "testtest"
+}

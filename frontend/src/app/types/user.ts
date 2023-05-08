@@ -12,6 +12,7 @@ export interface UserData {
 }
 
 export interface User{
+  error: any;
   _id: string;
   passwordHash: string;
   userData: UserData;
