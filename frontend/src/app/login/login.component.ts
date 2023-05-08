@@ -26,46 +26,13 @@ export class LoginComponent {
     if (!username) {
       return;
     }
-    this.authService.authenticateUser(username, password).subscribe((u) => {
-      this.user = u;
-      if (this.user !== null) {
-        this.router.navigate(['/dashboard']);
-      } else {
+    this.authService.authenticateUser(username, password).subscribe((ret) => {
+      if (ret.error) {
         alert(`A combinação username/password está incorreta!`);
+      } else {
+        this.user = ret;
+        this.router.navigate(['/dashboard']);
       }
     });
-  }
-
-  verifyPassword(password: string) {
-    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
-    const isPasswordValid = regex.test(password);
-
-    if (!isPasswordValid) {
-      const passwordCriteria: string[] = [];
-      if (password.length < 8) {
-        passwordCriteria.push('Password must be at least 8 characters long.');
-      }
-      if (!password.match(/[A-Z]/)) {
-        passwordCriteria.push(
-          'Password must contain at least one capital letter.'
-        );
-      }
-      if (!password.match(/[a-z]/)) {
-        passwordCriteria.push(
-          'Password must contain at least one small letter.'
-        );
-      }
-      if (!password.match(/[0-9]/)) {
-        passwordCriteria.push('Password must contain at least one number.');
-      }
-
-      this.criteria = new Observable<number>((observer) => {
-        observer.next(0);
-      }).pipe(map(() => passwordCriteria));
-    } else {
-      this.criteria = new Observable<string[]>((observer) => {
-        observer.next([]);
-      });
-    }
   }
 }
