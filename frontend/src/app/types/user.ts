@@ -6,6 +6,7 @@ export interface List {
 export interface UserData {
   // avatar: string;
   games: number[];
+  wishList: number[];
   lists: List[];
   following: string[];
   followers: string[];

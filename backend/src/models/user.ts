@@ -8,6 +8,7 @@ export interface IList extends mongoose.Document {
 export interface IUserData extends mongoose.Document {
 	// avatar: Buffer;
 	games: number[];
+	wishlist: number[];
 	lists: IList[];
 	following: string[];
 	followers: string[];
@@ -36,6 +37,10 @@ const userDataSchema = new mongoose.Schema({
 		required: false,
 	},
 	games: {
+		type: [Number],
+		required: false,
+	},
+	wishlist: {
 		type: [Number],
 		required: false,
 	},

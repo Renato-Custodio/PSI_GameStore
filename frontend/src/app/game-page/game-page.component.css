@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: rgba(38, 50, 56, 0.7);
+  background-color: rgba(38, 50, 56, 0.8);
   position: relative;
 }
 
@@ -35,73 +35,17 @@
   transform: translate(-50%, -50%);
 }
 
-.game-name{
-  color: #fff;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-top: 5rem;
-}
-
-.big-screen {
-  position: relative;
-  width: 550px;
-  height: 350px;
-  margin-bottom: 1rem;
-  background-color:black;
-}
-
-.content-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.content {
   display: flex;
-  flex-direction: row;
+  background-color: rgba(38, 50, 56, 0.4);
 }
 
-img, video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: none;
-}
-.wrapper {
-  position: relative;
-  height: 100%;
-  margin-left: 20rem;
+.left {
+  flex: 1; /* this will make .left occupy 1/2 of the available space */
 }
 
-.wrapper::before {
-  content: "";
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: -1;
-}
-
-.main-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: rgba(38, 50, 56, 0.7);
-  position: relative;
-}
-
-.center {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.right {
+  flex: 1; /* this will make .right occupy 1/2 of the available space */
 }
 
 .game-name{
@@ -113,9 +57,9 @@ img, video {
 
 .big-screen {
   position: relative;
-  width: 550px;
-  height: 350px;
-  margin-bottom: 1rem;
+  width: 650px;
+  height: 400px;
+  margin-bottom: 0.25rem;
   background-color:black;
 }
 
@@ -165,19 +109,130 @@ img, video {
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 0.4rem;
 }
 
 .thumbnail-container img {
-  max-width: 6rem;
-  max-height: 6rem;
-  margin-right: 1rem;
+  width: 9rem;
+  height: 6rem;
+  margin-right: 0.25rem;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 2px solid white;
   display: block;
 }
 
 .thumbnail-container img.active {
-  border-color: #fff;
+  border: 6px solid white;
+}
+
+.image {
+  margin-left: 1rem;
+  margin-right: 0;
+  width: 96%;
+  height: 40%;
+}
+
+.video-container {
+  position: relative;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.play-button i {
+  font-size: 1.5rem;
+}
+
+.description {
+  width: 100%;
+  color: #fff;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+  margin-top: 0.25rem;
+  margin-left: 1rem;
+}
+
+.info-container {
+  margin-left: 1rem;
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.info {
+  margin-left: 0.5rem;
+  color: #8EBBD1;
+}
+
+.header {
+  color: silver;
+}
+
+.lists{
+  width: 100%;
+  height: 110px;
+  background-color: rgba(38, 50, 56, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.wishlist {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.wishlist button{
+  height: 50px;
+  width: 140px;
+  background-color: rgb(50, 105, 133, 0.7);
+  border: none;
+  border-radius: 5px;
+}
+
+.wishlist span{
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-lists{
+  margin-top: 10px;
+  margin-left: 10px;
+  color: silver;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.wishlist button:hover{
+  background-color: #66c0f4;
+}
+
+.space{
+  height:40px;
+}
+
+.buy-card{
+  background-color: #5A7685;
+  width: 70%;
+  height: 80px;
 }
 

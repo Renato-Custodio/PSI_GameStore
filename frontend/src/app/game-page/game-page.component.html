@@ -10,22 +10,65 @@
         <div class="left">
           <div class="big-screen">
             <div class="content-container">
-              <img src="game-trailer.jpg" alt="Game Trailer">
+              <img src="game-trailer.jpg" alt="Game Trailer" />
               <video src="gameplay.mp4" autoplay loop muted></video>
-              <img src="screenshot1.jpg" alt="Game Screenshot">
-              <img src="screenshot2.jpg" alt="Game Screenshot">
-              <img src="screenshot3.jpg" alt="Game Screenshot">
+              <img src="screenshot1.jpg" alt="Game Screenshot" />
+              <img src="screenshot2.jpg" alt="Game Screenshot" />
+              <img src="screenshot3.jpg" alt="Game Screenshot" />
             </div>
-            <button class="arrow-button next"><i class="fas fa-chevron-right"></i></button>
+            <button class="arrow-button next">
+              <i class="fas fa-chevron-right"></i>
+            </button>
           </div>
           <div class="thumbnail-container">
-            <img [src]="game.main_image" alt="Game Trailer" class="active">
-            <img [src]="game.background_image" alt="Game Screenshot">
-            <img [src]="game.image1" alt="Game Screenshot">
-            <img [src]="game.image2" alt="Game Screenshot">
+            <div class="video-container">
+              <img
+                class="video"
+                [src]="game.main_image"
+                alt="Game Trailer"
+                class="active"
+              />
+              <button class="play-button"><i class="fas fa-play"></i></button>
+            </div>
+            <img [src]="game.background_image" alt="Game Screenshot" />
+            <img [src]="game.image1" alt="Game Screenshot" />
+            <img [src]="game.image2" alt="Game Screenshot" />
           </div>
         </div>
         <div class="right">
+          <div class="image">
+            <img [src]="game.main_image" alt="Game Image" />
+          </div>
+          <div class="description">
+            <p>{{ game.description }}</p>
+          </div>
+          <div class="info-container">
+            <div class="header">Classification:</div>
+            <div class="info">{{ game.general_classification }}</div>
+          </div>
+          <div class="info-container">
+            <div class="header">Platform:</div>
+            <div class="info">{{ game.platform }}</div>
+          </div>
+          <div class="info-container">
+            <div class="header">Language(s):</div>
+            <div class="info">{{ game.language }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="lists">
+        <div class="text-lists">Poderá adiconar este item a uma lista</div>
+        <div class="wishlist">
+          <button class="wishlist-button">
+            <span>+ Wishlist</span>
+          </button>
+        </div>
+      </div>
+      <div class="space"></div>
+      <div class="buy-section">
+        <div class="buy-card">
+          <span>Comprar</span>
+          <i>{{game.name}}</i>
         </div>
       </div>
     </div>
