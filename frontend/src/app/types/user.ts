@@ -10,6 +10,7 @@ export interface UserData {
   lists: List[];
   following: string[];
   followers: string[];
+  cart: number[];
 }
 
 export interface User{

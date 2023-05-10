@@ -12,6 +12,7 @@ export interface IUserData extends mongoose.Document {
 	lists: IList[];
 	following: string[];
 	followers: string[];
+	cart: number[];
 }
 
 interface IUser extends mongoose.Document {
@@ -54,6 +55,10 @@ const userDataSchema = new mongoose.Schema({
 	},
 	followers: {
 		type: [String],
+		required: false,
+	},
+	cart: {
+		type: [Number],
 		required: false,
 	},
 });

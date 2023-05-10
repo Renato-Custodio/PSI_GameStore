@@ -4,88 +4,124 @@ import User from "../models/user";
 const user_router = express.Router();
 
 user_router.get("/:username/lists", async (req, res) => {
-	if (!req.session?.username) {
-		return res.status(401).json({ message: "Unauthorized" });
-	}
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-	User.findById(req.params.username)
-		.then((user) => {
-			if (user == null) {
-				return res.status(404).json({ message: "Cannot find user" });
-			}
-			res.json(user.userData.lists);
-		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
-		});
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      res.json(user.userData.lists);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
 });
 
 user_router.get("/:username/games", async (req, res) => {
-	if (!req.session?.username) {
-		return res.status(401).json({ message: "Unauthorized" });
-	}
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-	User.findById(req.params.username)
-		.then((user) => {
-			if (user == null) {
-				return res.status(404).json({ message: "Cannot find user" });
-			}
-			res.json(user.userData.games);
-		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
-		});
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      res.json(user.userData.games);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
 });
 
 user_router.get("/:username/followers", async (req, res) => {
-	if (!req.session?.username) {
-		return res.status(401).json({ message: "Unauthorized" });
-	}
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-	User.findById(req.params.username)
-		.then((user) => {
-			if (user == null) {
-				return res.status(404).json({ message: "Cannot find user" });
-			}
-			res.json(user.userData.followers);
-		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
-		});
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      res.json(user.userData.followers);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
 });
 
 user_router.get("/:username/following", async (req, res) => {
-	if (!req.session?.username) {
-		return res.status(401).json({ message: "Unauthorized" });
-	}
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-	User.findById(req.params.username)
-		.then((user) => {
-			if (user == null) {
-				return res.status(404).json({ message: "Cannot find user" });
-			}
-			res.json(user.userData.following);
-		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
-		});
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      res.json(user.userData.following);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
 });
 
 user_router.get("/:username/data", async (req, res) => {
-	if (!req.session?.username) {
-		return res.status(401).json({ message: "Unauthorized" });
-	}
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-	User.findById(req.params.username)
-		.then((user) => {
-			if (user == null) {
-				return res.status(404).json({ message: "Cannot find user" });
-			}
-			res.json(user.userData);
-		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
-		});
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      res.json(user.userData);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
+user_router.put("/:username/cart", async (req, res) => {
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      user.userData.cart.push(req.body.game);
+      user.save();
+      res.json(user.userData.cart);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
+user_router.get("/:username/cart/length", async (req, res) => {
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      res.json(user.userData.cart.length);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
 });
 
 // user_router.get("/:username/avatar", async (req, res) => {

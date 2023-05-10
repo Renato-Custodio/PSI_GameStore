@@ -48,17 +48,17 @@
   flex: 1; /* this will make .right occupy 1/2 of the available space */
 }
 
-.game-name{
+.game-name h1{
   color: #fff;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-top: 5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 3rem;
 }
 
 .big-screen {
   position: relative;
-  width: 650px;
-  height: 400px;
+  width: 500px;
+  height: 250px;
   margin-bottom: 0.25rem;
   background-color:black;
 }
@@ -85,8 +85,8 @@ img, video {
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   background-color: rgba(255, 255, 255, 0.5);
   border: none;
   outline: none;
@@ -100,7 +100,7 @@ img, video {
 
 .fa-chevron-right {
   color: black;
-  font-size: 24px;
+  font-size: 18px;
   transform: translateX(2px);
 }
 
@@ -113,8 +113,8 @@ img, video {
 }
 
 .thumbnail-container img {
-  width: 9rem;
-  height: 6rem;
+  width: 7rem;
+  height: 4.5rem;
   margin-right: 0.25rem;
   cursor: pointer;
   border: 2px solid white;
@@ -128,8 +128,8 @@ img, video {
 .image {
   margin-left: 1rem;
   margin-right: 0;
-  width: 96%;
-  height: 40%;
+  width: 94%;
+  height: 38%;
 }
 
 .video-container {
@@ -163,7 +163,7 @@ img, video {
   align-items: center;
   display: flex;
   flex-direction: column;
-  font-size: 1.1rem;
+  font-size: 0.90rem;
   margin-top: 0.25rem;
   margin-left: 1rem;
 }
@@ -177,29 +177,31 @@ img, video {
 .info {
   margin-left: 0.5rem;
   color: #8EBBD1;
+  font-size: 0.90rem;
 }
 
 .header {
   color: silver;
+  font-size: 0.90rem;
 }
 
 .lists{
   width: 100%;
-  height: 110px;
+  height: 90px;
   background-color: rgba(38, 50, 56, 0.2);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   overflow-x: auto;
 }
 
 .wishlist {
-  margin-top: 10px;
   margin-left: 10px;
 }
 
 .wishlist button{
-  height: 50px;
-  width: 140px;
+  height: 40px;
+  width: 120px;
   background-color: rgb(50, 105, 133, 0.7);
   border: none;
   border-radius: 5px;
@@ -207,7 +209,7 @@ img, video {
 
 .wishlist span{
   color: white;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -215,10 +217,10 @@ img, video {
 }
 
 .text-lists{
-  margin-top: 10px;
+  margin-bottom: 10px;
   margin-left: 10px;
   color: silver;
-  font-size: 1rem;
+  font-size: 0.90rem;
   font-weight: 700;
 }
 
@@ -227,12 +229,84 @@ img, video {
 }
 
 .space{
-  height:40px;
+  height:30px;
 }
 
 .buy-card{
   background-color: #5A7685;
   width: 70%;
-  height: 80px;
+  height: 60px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  position: absolute;
 }
 
+.buy-card span{
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+}
+
+.title-buy, .item-name{
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  margin-right: 5px;
+}
+
+.title-buy {
+  margin-left: 1rem;
+}
+
+.buy-button {
+  margin-left: 14rem;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.buy-price {
+  font-size: 0.80rem;
+  background-color: #000000;
+  color: #fff;
+  border-radius: 5px 0 0 5px;
+  height: 40px;
+  width: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0.5rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.add-to-cart-btn button {
+  border: none;
+  border-radius: 0 5px 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 12px;
+  width: 100%;
+  height: 40px;
+  padding: 0.5rem;
+  background-color: #263238;
+  color: #fff;
+  font-size: 0.90rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.add-to-cart-btn button:hover {
+  background-color: #66c0f4;
+}
+
+p {
+  margin: 0;
+}

@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { UserData } from '../types/user';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,6 +9,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
+  @Input() cartCount: number = 0;
+
   menuItems: IMenuItem[] = [
     {
       label: 'Dashboard',
@@ -35,7 +40,38 @@ export class SidebarComponent {
     },
   ];
 
-  constructor() {}
+  username!: string;
+  user!: UserData;
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {
+    this.authService.getUser().subscribe((user) => {
+      this.username = user.username;
+      this.userService.getUserData(user.username).subscribe((user) => {
+        console.log(user);
+        this.user = user;
+      });
+    });
+  }
+
+  ngOnInit(): void {
+    this.userService.getUserCartLength(this.username).subscribe(
+      (count: number) => {
+        this.cartCount = count;
+        this.menuItems[3].count = count;
+      }
+    );
+    this.userService.cartChanged.subscribe(() => {
+      this.userService.getUserCartLength(this.username).subscribe(
+        (count: number) => {
+          this.cartCount = count;
+          this.menuItems[3].count = count;
+        }
+      );
+    });
+  }
 }
 
 interface IMenuItem {
