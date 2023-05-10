@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
 import { List } from '../types/user';
+import { ItemService } from '../services/item.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,34 +13,44 @@ import { List } from '../types/user';
 export class DashboardComponent {
   currentUser: string = '';
   lists: List[] = [];
-  items: number[] = [];
+  games: string[] = [];
   followers: String[] = [];
   following: String[] = [];
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private itemService: ItemService
   ) {
-    this.getLists().subscribe((list) => {
-      this.lists = list;
+    this.authService.getUser().subscribe((user) => {
+      this.currentUser = user.username;
+
+      this.getLists().subscribe((list) => {
+        this.lists = list;
+      });
+      this.getGames().subscribe((list) => {
+        const gameItems$ = list.map((game) => {
+          return this.itemService.getItem(game).pipe(map((item) => item.name));
+        });
+        forkJoin(gameItems$).subscribe((games) => {
+          this.games = games;
+        });
+      });
+      this.getFollowers().subscribe((list) => {
+        this.followers = list;
+      });
+      this.getFollowing().subscribe((list) => {
+        this.following = list;
+      });
     });
-    this.getItems().subscribe((list) => {
-      this.items = list;
-    });
-    this.getFollowers().subscribe((list) => {
-      this.followers = list;
-    });
-    this.getFollowing().subscribe((list) => {
-      this.following = list;
-    });
+  }
+
+  getGames() {
+    return this.userService.getGames(this.currentUser);
   }
 
   getLists() {
     return this.userService.getLists(this.currentUser);
-  }
-
-  getItems() {
-    return this.userService.getGames(this.currentUser);
   }
 
   getFollowers() {

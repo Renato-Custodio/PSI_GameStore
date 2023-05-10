@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GameCardComponent } from './game-card/game-card.component';
+import { GamePageComponent } from './game-page/game-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { GameCardComponent } from './game-card/game-card.component';
     SigninComponent,
     DashboardComponent,
     GameCardComponent,
+    GamePageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

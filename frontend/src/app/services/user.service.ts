@@ -1,12 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EventEmitter, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { List, UserData } from '../types/user';
+import { Item } from '../types/item';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  getUserCartLength(username: string) {
+    return this.http.get<number>(`/api/user/${username}/cart/length`);
+  }
+  
+  cartChanged = new EventEmitter<number>();
+
   constructor(private http: HttpClient) {}
 
   getLists(username: string): Observable<List[]> {
@@ -26,10 +33,18 @@ export class UserService {
   }
 
   getUserData(username: string): Observable<UserData> {
-    return this.http.get<UserData>(`/api/user/` + username);
+    return this.http.get<UserData>(`/api/user/` + username + '/data');
   }
 
-  getUserAvatar(username: string): Observable<string> {
-    return this.http.get<string>(`/api/user/` + username + '/avatar');
+  addToCart(username: string, game: string): Observable<any> {
+    return this.http.put(`/api/user/` + username + '/cart', game).pipe(
+      tap(() => {
+        this.cartChanged.emit();
+      })
+    );
   }
+
+  // getUserAvatar(username: string): Observable<string> {
+  //   return this.http.get<string>(`/api/user/` + username + '/avatar');
+  // }
 }

@@ -4,11 +4,27 @@ import Item from "../models/item";
 const item_router = express.Router();
 
 item_router.get("/details/:id", async (req: Request, res: Response) => {
+
     Item.findById(req.params.id)
     .then((item) => {
       if (item == null) {
         return res.status(404).json({ message: "Cannot find item" });
       }
+      res.json(item);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
+// get item details by name
+item_router.get("/details/:name", async (req: Request, res: Response) => {
+  Item.findOne({ name: req.params.name })
+    .then((item) => {
+      if (item == null) {
+        return res.status(404).json({ message: "Cannot find item" });
+      }
+      console.log(item);
       res.json(item);
     })
     .catch((err) => {
@@ -55,6 +71,16 @@ item_router.post("/", async (req: Request, res: Response) => {
     res.status(201).json(savedItem);
   } catch (error) {
     res.status(500).json({ error: "Failed to create item" });
+  }
+});
+
+// Get all items
+item_router.get("/list", async (req: Request, res: Response) => {
+  try {
+    const items = await Item.find();
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get items" });
   }
 });
 

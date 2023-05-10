@@ -10,6 +10,8 @@ import cookieSession from "cookie-session";
 
 import { auth_router } from "./routes/auth";
 import { item_router } from "./routes/item";
+import { user_router } from "./routes/user";
+import User from "./models/user";
 
 const app = express();
 
@@ -38,6 +40,7 @@ app.use(
 
 app.use("/auth", auth_router);
 app.use("/item", item_router);
+app.use("/user", user_router);
 app.use("/cart", item_router);
 
 app.use("/", (req, res) => {

@@ -1,4 +1,5 @@
 export interface Item {
+  _id: string;
   name: string;
   type: string;
   description: string;
@@ -10,5 +11,6 @@ export interface Item {
   main_image: string;
   image1: string;
   image2: string;
+  background_image: string;
   video_link: string;
 }
