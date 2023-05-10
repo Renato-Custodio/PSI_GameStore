@@ -18,7 +18,7 @@ interface IItem extends mongoose.Document {
 
 const itemSchema = new mongoose.Schema({
 	_id: {
-		type: String,
+		type: Number,
 		required: true
 	},
 	name: {
