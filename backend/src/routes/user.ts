@@ -88,7 +88,7 @@ user_router.get("/:username/data", async (req, res) => {
     });
 });
 
-user_router.put("/:username/cart", async (req, res) => {
+user_router.put("/:username/cart/:gameID", async (req, res) => {
   if (!req.session?.username) {
     return res.status(401).json({ message: "Unauthorized" });
   }
@@ -98,7 +98,10 @@ user_router.put("/:username/cart", async (req, res) => {
       if (user == null) {
         return res.status(404).json({ message: "Cannot find user" });
       }
-      user.userData.cart.push(req.body.game);
+      console.log(req.params.gameID);
+      const gameID = parseInt(req.params.gameID);
+      console.log(gameID);
+      user.userData.cart.push(gameID);
       user.save();
       res.json(user.userData.cart);
     })

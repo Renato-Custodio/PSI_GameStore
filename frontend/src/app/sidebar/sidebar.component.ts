@@ -57,19 +57,27 @@ export class SidebarComponent {
   }
 
   ngOnInit(): void {
-    this.userService.getUserCartLength(this.username).subscribe(
-      (count: number) => {
+    // Check if cart count is already stored in localStorage
+    const storedCartCount = localStorage.getItem('cartCount');
+    if (storedCartCount) {
+      this.cartCount = +storedCartCount;
+      this.menuItems[3].count = this.cartCount;
+    } else {
+      // Retrieve cart count from UserService and store in localStorage
+      this.userService.getUserCartLength(this.username).subscribe((count: number) => {
         this.cartCount = count;
         this.menuItems[3].count = count;
-      }
-    );
+        localStorage.setItem('cartCount', count.toString());
+      });
+    }
+
+    // Subscribe to cartChanged event to update cart count in real time
     this.userService.cartChanged.subscribe(() => {
-      this.userService.getUserCartLength(this.username).subscribe(
-        (count: number) => {
-          this.cartCount = count;
-          this.menuItems[3].count = count;
-        }
-      );
+      this.userService.getUserCartLength(this.username).subscribe((count: number) => {
+        this.cartCount = count;
+        this.menuItems[3].count = count;
+        localStorage.setItem('cartCount', count.toString());
+      });
     });
   }
 }

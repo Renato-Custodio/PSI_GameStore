@@ -53,6 +53,7 @@ export class GameCardComponent {
   addToUserCart(){
     this.userService.addToCart(this.username, this.game._id).subscribe(() => {
       console.log('Added to cart');
+      console.log(this.game._id);
     });
   }
 

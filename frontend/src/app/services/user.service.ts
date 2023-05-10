@@ -11,7 +11,7 @@ export class UserService {
   getUserCartLength(username: string) {
     return this.http.get<number>(`/api/user/${username}/cart/length`);
   }
-  
+
   cartChanged = new EventEmitter<number>();
 
   constructor(private http: HttpClient) {}
@@ -36,8 +36,8 @@ export class UserService {
     return this.http.get<UserData>(`/api/user/` + username + '/data');
   }
 
-  addToCart(username: string, game: string): Observable<any> {
-    return this.http.put(`/api/user/` + username + '/cart', game).pipe(
+  addToCart(username: string, gameID: string): Observable<any> {
+    return this.http.put(`/api/user/${username}/cart/${gameID}`, {}).pipe(
       tap(() => {
         this.cartChanged.emit();
       })
