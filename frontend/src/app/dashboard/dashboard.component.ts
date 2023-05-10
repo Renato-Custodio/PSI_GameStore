@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { Observable, forkJoin, map } from 'rxjs';
 import { List } from '../types/user';
 import { ItemService } from '../services/item.service';
+import { Item } from '../types/item';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ import { ItemService } from '../services/item.service';
 })
 export class DashboardComponent {
   currentUser: string = '';
-  lists: List[] = [];
+  lists: string[] = [];
   games: string[] = [];
   followers: String[] = [];
   following: String[] = [];
@@ -26,7 +27,12 @@ export class DashboardComponent {
       this.currentUser = user.username;
 
       this.getLists().subscribe((list) => {
-        this.lists = list;
+        const gameItems$ = list.map((game) => {
+          return this.itemService.getItem(game).pipe(map((item) => item.name));
+        });
+        forkJoin(gameItems$).subscribe((games) => {
+          this.lists = games;
+        });
       });
       this.getGames().subscribe((list) => {
         const gameItems$ = list.map((game) => {

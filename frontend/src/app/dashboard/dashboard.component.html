@@ -6,10 +6,9 @@
       <div class="card-head">Listas</div>
       <div class="card-body">
         <ul>
-          <li *ngFor="let list of lists">
-            <a>
-              {{ list }}
-            </a>
+          Wishlist:
+          <li *ngFor="let list of lists" id="list">
+            <p>&emsp;{{ list }}</p>
           </li>
         </ul>
       </div>

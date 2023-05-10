@@ -13,7 +13,7 @@ user_router.get("/:username/lists", async (req, res) => {
       if (user == null) {
         return res.status(404).json({ message: "Cannot find user" });
       }
-      res.json(user.userData.lists);
+      res.json(user.userData.wishlist);
     })
     .catch((err) => {
       res.status(500).json({ message: err.message });

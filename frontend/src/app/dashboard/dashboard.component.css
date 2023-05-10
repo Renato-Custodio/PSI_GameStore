@@ -4,6 +4,12 @@
   margin-right: 2rem;
 }
 
+#list {
+  display: flex;
+  flex-direction: column;
+  align-items:normal;
+}
+
 .dashboard {
   display: flex;
   flex-wrap: wrap;
