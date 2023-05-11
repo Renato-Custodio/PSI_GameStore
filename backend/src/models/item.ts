@@ -8,13 +8,30 @@ interface IItem extends mongoose.Document {
 	language: string;
 	price: string;
 	general_classification: string;
-	evaluations: string;
-	main_image: String;
-	image1: String;
-	image2: String;
-	background_image: String;
+	evaluations: [Ievaluation];
+	main_image: string;
+	image1: string;
+	image2: string;
+	background_image: string;
 	video_link: string;
 }
+
+interface Ievaluation extends mongoose.Document {
+	classification: number,
+	comment: string
+}
+
+const evaluationSchema = new mongoose.Schema({
+	classification: {
+		type: Number,
+		required: true
+	},
+	comment: {
+		type: String,
+		maxlength: 5000
+	}
+});
+
 
 const itemSchema = new mongoose.Schema({
 	_id: {
@@ -51,21 +68,21 @@ const itemSchema = new mongoose.Schema({
 		required: true
 	},
 	evaluations: {
-		type: String,
+		type: [evaluationSchema],
 		required: true
 	},
 	main_image: {
-		image: String
-		/* required: true */
+		type: String,
+		required: true
 	},
 	image1: {
-		image: String
+		type: String
 	},
 	image2: {
-		image: String
+		type: String
 	},
 	background_image: {
-		image: String
+		type: String
 	},
 	link: {
 		type: String

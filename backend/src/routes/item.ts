@@ -24,7 +24,6 @@ item_router.get("/details/:name", async (req: Request, res: Response) => {
       if (item == null) {
         return res.status(404).json({ message: "Cannot find item" });
       }
-      console.log(item);
       res.json(item);
     })
     .catch((err) => {
@@ -32,39 +31,119 @@ item_router.get("/details/:name", async (req: Request, res: Response) => {
     });
 });
 
+item_router.put("/:id/evaluations", async (req: Request, res: Response) => {
+  const itemId = req.params.id;
+  const newEvaluations = req.body.evaluations;
+
+  try {
+    const item = await Item.findById(itemId);
+
+    if (!item) {
+      return res.status(404).json({ message: "Cannot find item" });
+    }
+
+    // Update the evaluations
+
+    for(const element of newEvaluations){
+      item.evaluations.push(element);
+    }
+
+    // Save the updated item
+    const updatedItem = await item.save();
+
+    res.json(updatedItem.evaluations);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+item_router.put("/:name/evaluations", async (req: Request, res: Response) => {
+  const itemName = req.params.name;
+  const newEvaluations = req.body.evaluations;
+
+  try {
+    const item = await Item.findOne({ name:itemName });
+
+    if (!item) {
+      return res.status(404).json({ message: "Cannot find item" });
+    }
+
+    // Update the evaluations
+
+    for(const element of newEvaluations){
+      item.evaluations.push(element);
+    }
+
+    // Save the updated item
+    const updatedItem = await item.save();
+
+    res.json(updatedItem.evaluations);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+item_router.get("/:id/evaluations", async (req: Request, res: Response) => {
+
+  Item.findById(req.params.id)
+  .then((item) => {
+    if (item == null) {
+      return res.status(404).json({ message: "Cannot find item" });
+    }
+    res.json(item.evaluations);
+  })
+  .catch((err) => {
+    res.status(500).json({ message: err.message });
+  });
+});
+
+item_router.get("/:name/evaluations", async (req: Request, res: Response) => {
+  Item.findOne({ name: req.params.name })
+    .then((item) => {
+      if (item == null) {
+        return res.status(404).json({ message: "Cannot find item" });
+      }
+      res.json(item.evaluations);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
 
 item_router.post("/", async (req: Request, res: Response) => {
   try {
     const {
       _id,
       name,
-      type,
-      description,
-      platform,
-      language,
-      price,
-      general_classification,
-      evaluations,
-      imagem_Principal,
-      imagem1,
-      imagem2,
-      link,
+	    type,
+	    description,
+	    platform,
+	    language,
+	    price,
+	    general_classification,
+	    evaluations,
+	    main_image,
+	    image1,
+	    image2,
+	    background_image,
+	    video_link,
     } = req.body;
 
     const newItem = new Item({
       _id,
       name,
-      type,
-      description,
-      platform,
-      language,
-      price,
-      general_classification,
-      evaluations,
-      imagem_Principal,
-      imagem1,
-      imagem2,
-      link,
+	    type,
+	    description,
+	    platform,
+	    language,
+	    price,
+	    general_classification,
+	    evaluations,
+	    main_image,
+	    image1,
+	    image2,
+	    background_image,
+	    video_link,
     });
 
     const savedItem = await newItem.save();

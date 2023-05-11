@@ -32,3 +32,47 @@ Content-Type: application/json
   "username": "correia",
   "password": "testtest"
 }
+###
+Get http://localhost:3000/item/40/evaluations
+###
+
+PUT http://localhost:3000/item/40/evaluations
+Content-Type: application/json
+
+{
+  "evaluations": [
+    {
+      "classification": 40
+    }
+  ]
+}
+
+###
+POST http://localhost:3000/item/
+Content-Type: application/json
+
+{
+  "_id" : "40",
+  "name": "Example Item",
+  "type": "Example Type",
+  "description": "This is an example item description.",
+  "platform": "Example Platform",
+  "language": "English",
+  "price": "$10",
+  "general_classification": "General Classification",
+  "evaluations": [
+    {
+      "classification": 4,
+      "comment": "Example comment 1"
+    },
+    {
+      "classification": 5,
+      "comment": "Example comment 2"
+    }
+  ],
+  "main_image": "example-image.jpg",
+  "image1": "example-image1.jpg",
+  "image2": "example-image2.jpg",
+  "background_image": "example-background.jpg",
+  "link": "https://example.com"
+}
