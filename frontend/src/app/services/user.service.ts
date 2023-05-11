@@ -36,7 +36,7 @@ export class UserService {
     return this.http.get<UserData>(`/api/user/` + username + '/data');
   }
 
-  addToCart(username: string, gameID: string): Observable<any> {
+  addToCart(username: string, gameID: number): Observable<any> {
     return this.http.put(`/api/user/${username}/cart/${gameID}`, {}).pipe(
       tap(() => {
         this.cartChanged.emit();

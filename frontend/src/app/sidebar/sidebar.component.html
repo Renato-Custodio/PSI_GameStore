@@ -5,11 +5,17 @@
   </div>
   <ul class="sidebar-nav">
     <li class="sidenav-nav-item" *ngFor="let item of menuItems">
-      <a class="sidenav-nav-link" [routerLink]="item.link">
+      <a class="sidenav-nav-link" [routerLink]="item.link" (click)="item.label === 'Cart' ? showCartPopup() : null">
         <i class="sidenav-link-icon" [class]="item.icon"></i>
         <span class="sidenav-link-text">{{ item.label }}</span>
-        <span class="cart-counter">{{item.count}}</span>
+        <span class="cart-counter" id="cart">{{item.count}}</span>
       </a>
     </li>
   </ul>
+  <div *ngIf="showPopup">
+    <div class="overlay"></div>
+    <div class="cart-popup-container">
+      <app-cart-popup></app-cart-popup>
+    </div>
+  </div>
 </div>

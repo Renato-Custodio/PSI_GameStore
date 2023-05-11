@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { UserData } from '../types/user';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -57,28 +64,33 @@ export class SidebarComponent {
   }
 
   ngOnInit(): void {
-    // Check if cart count is already stored in localStorage
-    const storedCartCount = localStorage.getItem('cartCount');
-    if (storedCartCount) {
-      this.cartCount = +storedCartCount;
-      this.menuItems[3].count = this.cartCount;
-    } else {
-      // Retrieve cart count from UserService and store in localStorage
+    this.authService.getUser().subscribe((user) => {
+      this.username = user.username;
+      this.userService.getUserData(user.username).subscribe((user) => {
+        console.log(user);
+        this.user = user;
+      });
+
+      // Retrieve cart count from UserService and update the menu item
       this.userService.getUserCartLength(this.username).subscribe((count: number) => {
         this.cartCount = count;
         this.menuItems[3].count = count;
-        localStorage.setItem('cartCount', count.toString());
       });
-    }
+    });
 
     // Subscribe to cartChanged event to update cart count in real time
     this.userService.cartChanged.subscribe(() => {
       this.userService.getUserCartLength(this.username).subscribe((count: number) => {
         this.cartCount = count;
         this.menuItems[3].count = count;
-        localStorage.setItem('cartCount', count.toString());
       });
     });
+  }
+
+  showPopup: boolean = false;
+
+  showCartPopup() {
+    this.showPopup = true;
   }
 }
 

@@ -1,0 +1,22 @@
+<div class="d-flex align-items-center mb-5">
+  <div class="flex-shrink-0">
+    <img src="{{game.main_image}}" alt="game main image" class="img-fluid"
+      class="img-fluid" style="width: 150px; height: 120px;" alt="Generic placeholder image">
+  </div>
+  <div class="flex-grow-1 ms-3">
+    <a href="#!" class="float-end text-black"><i class="fas fa-times"></i></a>
+    <h5 class="text-primary">{{game.name}}</h5>
+    <h6 style="color: #9e9e9e;">Type: {{game.type}}</h6>
+    <div class="d-flex align-items-center">
+      <p class="fw-bold mb-0 me-5 pe-3">{{game.price}}€</p>
+      <div class="def-number-input number-input safari_only">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+          class="minus"></button>
+        <input class="quantity fw-bold text-black" min="0" name="quantity" value="1"
+          type="number">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+          class="plus"></button>
+      </div>
+    </div>
+  </div>
+</div>

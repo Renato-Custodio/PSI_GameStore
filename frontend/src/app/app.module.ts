@@ -14,6 +14,8 @@ import { SigninComponent } from './signin/signin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GameCardComponent } from './game-card/game-card.component';
 import { GamePageComponent } from './game-page/game-page.component';
+import { CartPopupComponent } from './cart-popup/cart-popup.component';
+import { CartItemComponent } from './cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { GamePageComponent } from './game-page/game-page.component';
     DashboardComponent,
     GameCardComponent,
     GamePageComponent,
+    CartPopupComponent,
+    CartItemComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

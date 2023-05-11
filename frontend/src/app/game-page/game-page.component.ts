@@ -13,7 +13,7 @@ export class GamePageComponent {
   constructor(private route: ActivatedRoute, private ItemService: ItemService) { }
 
   game: Item = {
-    _id: '',
+    _id: 0,
     name: '',
     type: '',
     description: '',

@@ -30,7 +30,7 @@ export class GameCardComponent {
   }
 
   @Input() game: Item = {
-    _id: '',
+    _id: 0,
     name: '',
     type: '',
     description: '',
