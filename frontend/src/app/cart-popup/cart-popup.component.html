@@ -1,4 +1,5 @@
 <div class="container">
+  <a class="close-button"><i class="fas fa-times"></i></a>
   <div class="row">
     <div class="col">
       <div class="shopping-cart">
@@ -9,7 +10,7 @@
                 Your products
               </h3>
 
-              <div *ngFor="let itemId of cartItems">
+              <div class="shopping-cart-items" *ngFor="let itemId of cartItems">
                 <app-cart-item [itemId]="itemId"></app-cart-item>
               </div>
 
@@ -19,8 +20,7 @@
               />
 
               <div
-                class="d-flex justify-content-between p-2 mb-2"
-                style="background-color: #e1f5fe"
+                class="price-total"
               >
                 <h5 class="fw-bold mb-0">Total:</h5>
                 <h5 class="fw-bold mb-0">{{ calculateTotal() }}€</h5>
