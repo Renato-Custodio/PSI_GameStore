@@ -3,6 +3,8 @@ import { UserData } from '../types/user';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { ItemService } from '../services/item.service';
+import { Item } from '../types/item';
 
 
 @Component({
@@ -14,10 +16,12 @@ export class CartPopupComponent {
   username!: string;
   user!: UserData;
   cartItems: number[] = [];
+  cartItemsData: Item[] = [];
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private itemService: ItemService,
     private router: Router
   ) {
     this.authService.getUser().subscribe((user) => {
@@ -27,9 +31,29 @@ export class CartPopupComponent {
         this.user = user;
         this.cartItems = user.cart || []; // set cartItems to empty array if it doesn't exist in user object
         console.log(this.cartItems);
+        this.getCartItems();
       });
     });
   }
 
+  getCartItems() {
+    // we have the ids of the items in the cart, but we need the actual item objects
+    // so we need to make a request to the backend to get the items
+    // we can use the itemService to do this
 
+    for (let i = 0; i < this.cartItems.length; i++) {
+      this.itemService.getItem(this.cartItems[i]).subscribe((item) => {
+        this.cartItemsData.push(item);
+      });
+    }
+    console.log(this.cartItemsData);
+  }
+
+  calculateTotal() {
+    let total = 0;
+    for (let i = 0; i < this.cartItemsData.length; i++) {
+      total += this.cartItemsData[i].price;
+    }
+    return total;
+  }
 }

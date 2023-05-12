@@ -5,9 +5,10 @@ export interface Item {
   description: string;
   platform: string;
   language: string;
-  price: string;
+  price: number;
   general_classification: string;
   evaluations: string;
+  square_logo: string;
   main_image: string;
   image1: string;
   image2: string;
