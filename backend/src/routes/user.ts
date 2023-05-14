@@ -127,6 +127,66 @@ user_router.get("/:username/cart/length", async (req, res) => {
     });
 });
 
+user_router.put("/:username/wishlist/:gameID", async (req, res) => {
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      console.log(req.params.gameID);
+      const gameID = parseInt(req.params.gameID);
+      console.log(gameID);
+      user.userData.wishlist.push(gameID);
+      user.save();
+      res.json(user.userData.wishlist);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
+user_router.delete("/:username/wishlist/:gameID", async (req, res) => {
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      console.log(req.params.gameID);
+      const gameID = parseInt(req.params.gameID);
+      console.log(gameID);
+      
+      //muito roundabout mas com o $pull nao estava a conseguir
+      var wishlist = [];
+      while(user.userData.wishlist.length !== 0){
+        var game = user.userData.wishlist.pop();
+        if(game !== gameID){
+          wishlist.push(game);
+        }
+      }
+      while(wishlist.length !== 0){
+        var game = wishlist.pop();
+        if(typeof game !== "undefined"){
+          user.userData.wishlist.push(game);
+        }
+      }
+
+      user.save();
+      res.json(user.userData.wishlist);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
 // user_router.get("/:username/avatar", async (req, res) => {
 // 	if (!req.session?.username) {
 // 		return res.status(401).json({ message: "Unauthorized" });
