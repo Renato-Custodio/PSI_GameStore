@@ -8,7 +8,7 @@
         <ul>
           Wishlist:
           <li *ngFor="let list of lists" id="list">
-            <a>{{ list }}</a>
+            <a (click)="goToGamePage(list.id)">{{ list.name }}</a>
           </li>
         </ul>
       </div>

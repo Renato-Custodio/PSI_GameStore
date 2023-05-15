@@ -13,6 +13,10 @@ export class ItemService {
     return this.http.get<Item>(`/api/item/details/${id}`);
   }
 
+  getItemByName(name: string): Observable<Item> {
+    return this.http.get<Item>(`/api/item/details/${name}`);
+  }
+
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`/api/item/list`);
   }
