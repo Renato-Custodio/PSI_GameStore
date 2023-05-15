@@ -4,10 +4,19 @@
   margin-right: 2rem;
 }
 
+.clickable-text {
+  cursor: pointer;
+  /* Add any additional styling as needed */
+}
+
+.clickable-text:hover {
+  color: red; /* Change the color to your desired value */
+}
+
 #list {
   display: flex;
   flex-direction: column;
-  align-items: normal;
+  margin-left: 1rem;
 }
 
 .dashboard {
