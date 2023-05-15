@@ -137,9 +137,10 @@ user_router.put("/:username/wishlist/:gameID", async (req, res) => {
       if (user == null) {
         return res.status(404).json({ message: "Cannot find user" });
       }
-      console.log(req.params.gameID);
       const gameID = parseInt(req.params.gameID);
-      console.log(gameID);
+      if(user.userData.wishlist.indexOf(gameID) !== -1){
+        return res.status(409).json({ message: "user already exists" });
+      }
       user.userData.wishlist.push(gameID);
       user.save();
       res.json(user.userData.wishlist);
