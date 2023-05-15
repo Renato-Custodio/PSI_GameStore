@@ -44,6 +44,10 @@ export class UserService {
     );
   }
 
+  addToWishlist(username: string, gameID: number): Observable<any> {
+    return this.http.put(`/api/user/${username}/wishlist/${gameID}`, {});
+  }
+
   // getUserAvatar(username: string): Observable<string> {
   //   return this.http.get<string>(`/api/user/` + username + '/avatar');
   // }

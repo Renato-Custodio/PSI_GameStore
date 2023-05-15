@@ -59,7 +59,7 @@
       <div class="lists">
         <div class="text-lists">Poderá adiconar este item a uma lista</div>
         <div class="wishlist">
-          <button class="wishlist-button">
+          <button (click)="addToWishlist()" class="wishlist-button">
             <span>+ Wishlist</span>
           </button>
         </div>
@@ -68,10 +68,10 @@
       <div class="buy-section">
         <div class="buy-card">
           <span class="title-buy">Comprar</span>
-          <span class="item-name">{{game.name}}</span>
+          <span class="item-name">{{ game.name }}</span>
           <div class="buy-button">
             <div class="buy-price">
-              <p>{{game.price}}</p>
+              <p>{{ game.price }}</p>
             </div>
             <div class="add-to-cart-btn">
               <button>+ Cart</button>
@@ -80,9 +80,7 @@
         </div>
       </div>
       <div class="space"></div>
-      <div class="evaluations">
-
-      </div>
+      <div class="evaluations"></div>
     </div>
   </div>
 </div>
