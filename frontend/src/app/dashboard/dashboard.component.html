@@ -6,10 +6,9 @@
       <div class="card-head">Listas</div>
       <div class="card-body">
         <ul>
-          <li *ngFor="let list of lists">
-            <a>
-              {{ list }}
-            </a>
+          Wishlist:
+          <li *ngFor="let list of lists" id="list">
+            <a>{{ list }}</a>
           </li>
         </ul>
       </div>
@@ -39,18 +38,17 @@
       </div>
     </div>
   </div>
-  <div class="separtor"></div>
-  <div class="item-library">
-    <div class="card">
-      <div class="card-head">Library</div>
-      <div class="card-body">
-        <ul>
-          <li *ngFor="let item of games">
-            <a>
-              {{ item }}
-            </a>
-          </li>
-        </ul>
-      </div>
+  <div class="separator"></div>
+  <div class="card" id="library">
+    <div class="card-head">Library</div>
+    <div class="card-body">
+      <ul>
+        <li *ngFor="let item of games">
+          <a>
+            {{ item }}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
