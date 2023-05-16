@@ -53,9 +53,15 @@ export class UserService {
   );
 }
 
-
-
   // getUserAvatar(username: string): Observable<string> {
   //   return this.http.get<string>(`/api/user/` + username + '/avatar');
   // }
+
+  updateUsername(username: string): Observable<{ error: string } & { ok: string }> {
+    return this.http.put<{ error: string } & { ok: string }>(`/api/user/update/${username}`, { username });
+  }
+
+  updateAvatar(avatar: string): Observable<{ error: string } & { ok: string }> {
+    return this.http.put<{ error: string } & { ok: string }>(`/api/user/update/${avatar}`, { avatar });
+  }
 }

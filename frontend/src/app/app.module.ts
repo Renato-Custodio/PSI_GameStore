@@ -16,6 +16,7 @@ import { GameCardComponent } from './game-card/game-card.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { CartPopupComponent } from './cart-popup/cart-popup.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CartItemComponent } from './cart-item/cart-item.component';
     GamePageComponent,
     CartPopupComponent,
     CartItemComponent,
+    EditProfileComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

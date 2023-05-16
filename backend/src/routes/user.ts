@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/user";
+import Avatar from "../models/avatar";
 
 const user_router = express.Router();
 
@@ -168,11 +169,11 @@ user_router.put("/update/:username", async (req, res) => {
   }
 
   // Find logged in user
-  const user = await User.findOne({ username: req.session.username }).exec();
-  if (user == null) return res.send({ error: `Could not find user` });
+  const user = await User.findOne({ _id: req.session.username }).exec();
+  if (user === null) return res.send({ error: `Could not find user` });
 
   // Check if new username is available
-  const name = await User.findOne({ username: req.params.username });
+  const name = await User.findOne({  _id: req.params.username });
   if (name !== null)
     return res.send({ error: `The username is already taken!` });
 
@@ -197,7 +198,7 @@ user_router.put("/update/:avatar", async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  const user = await User.findOne({ username: req.session.username }).exec();
+  const user = await User.findOne({  _id: req.session.username }).exec();
   if (user == null) return res.send({ error: `Could not find user` });
 
   const avatar = req.params.avatar;
@@ -215,6 +216,14 @@ user_router.put("/update/:avatar", async (req, res) => {
     return res.send({ error: `Could not update avatar!` });
 
   return res.send({ ok: "Avatar updated!" });
+});
+
+user_router.get("/avatars", async (req, res) => {
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  var avatars = await Avatar.find().distinct("url");
+  res.json(avatars);
 });
 
 export { user_router };

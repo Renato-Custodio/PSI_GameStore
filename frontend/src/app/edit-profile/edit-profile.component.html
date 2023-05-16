@@ -1,0 +1,38 @@
+<app-sidebar></app-sidebar>
+<div class="wrapper">
+	<div class="edit_profile">Edit Profile</div>
+
+	<div class="card">
+        <div class="banner"><img class="profile-pic" src= {{avatar}}/></div>
+        <div class="menu">
+        </div>
+
+	<!-- <div class="profile_pic">
+		 <input id="photo" type="file" (change)="handlePhotoChange($event)">
+		<div [ngStyle]="{'background-image': 'url(' + avatar + ')'}" class="profile-pic"></div>
+		<div class="image"></div>
+		 <p *ngIf="imageTooLargeError">O tamanho máximo é de 1MB</p>
+		<p *ngIf="error">{{error}}</p>
+	<p *ngIf="success">Foto alterado com sucesso!</p>
+	</div> -->
+
+	<div class="username_bar">
+		<input id="username" type="text" [(ngModel)]="username">
+		<p *ngIf="error">{{error}}</p>
+		<p *ngIf="success">Username alterado com sucesso!</p>
+	</div>
+
+	<div class="update_button">
+		<button (click)="updateProfile()">Update Profile</button>
+	</div>
+</div>
+
+	<div class="all_avatars">
+		<ul>
+			<li *ngFor="let a of avatarList" (click) = setAvatar(a)>
+				<img [src] = a>
+			</li>
+		  </ul>
+
+	</div>
+</div>
