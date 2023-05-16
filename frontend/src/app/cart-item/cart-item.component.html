@@ -1,19 +1,11 @@
-<div class="d-flex align-items-center mb-5">
-  <div class="flex-shrink-0">
-    <img
-      [src]="game.square_logo"
-      alt="game main image"
-      class="img-fluid"
-      style="width: 100px; height: 100px"
-      alt="Generic placeholder image"
-    />
+<div class="cart-item">
+  <div class="cart-item-image">
+    <img [src]="game.main_image" alt="game main image" class="img-fluid" alt="Generic placeholder image" />
   </div>
-  <div class="flex-grow-1 ms-3">
-    <a class="float-end text-black"><i class="fas fa-times"></i></a>
-    <h5 class="text-primary">{{ game.name }}</h5>
-    <h6 style="color: #9e9e9e">Type: {{ game.type }}</h6>
-    <div class="d-flex align-items-center">
-      <p class="fw-bold mb-0 me-5 pe-3">{{ game.price }}€</p>
-    </div>
+  <div class="cart-item-details">
+    <a class="cart-item-remove" (click)="removeItemFromCart(itemId)"><i class="fas fa-times"></i></a>
+    <h5 class="cart-item-title">{{ game.name }}</h5>
+    <h6 class="cart-item-type">Type: {{ game.type }}</h6>
+    <div class="cart-item-price">{{ game.price }}€</div>
   </div>
 </div>

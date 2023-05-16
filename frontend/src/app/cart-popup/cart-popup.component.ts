@@ -62,4 +62,17 @@ export class CartPopupComponent {
   closePopup() {
     this.closePopupEvent.emit();
   }
+
+
+  removeItemFromCart(itemId: number) {
+    const index = this.cartItems.findIndex(item => item === itemId);
+    if (index !== -1) {
+      this.cartItems.splice(index, 1);
+      this.cartItemsData = this.cartItemsData.filter(item => item._id !== itemId);
+      this.userService.removeFromCart(this.username, itemId).subscribe(() => {
+        console.log('Item removed from cart');
+      });
+    }
+  }
+  
 }

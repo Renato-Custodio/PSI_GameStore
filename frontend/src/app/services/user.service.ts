@@ -8,6 +8,7 @@ import { Item } from '../types/item';
   providedIn: 'root',
 })
 export class UserService {
+
   getUserCartLength(username: string) {
     return this.http.get<number>(`/api/user/${username}/cart/length`);
   }
@@ -37,12 +38,22 @@ export class UserService {
   }
 
   addToCart(username: string, gameID: number): Observable<any> {
-    return this.http.put(`/api/user/${username}/cart/${gameID}`, {}).pipe(
+    return this.http.put(`/api/user/${username}/cart/add/${gameID}`, {}).pipe(
       tap(() => {
         this.cartChanged.emit();
       })
     );
   }
+
+  removeFromCart(username: string, itemId: number): Observable<any> {
+  return this.http.delete(`/api/user/${username}/cart/remove/${itemId}`).pipe(
+    tap(() => {
+      this.cartChanged.emit();
+    })
+  );
+}
+
+
 
   // getUserAvatar(username: string): Observable<string> {
   //   return this.http.get<string>(`/api/user/` + username + '/avatar');

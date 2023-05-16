@@ -39,7 +39,6 @@ export class GameCardComponent {
     price: 0,
     general_classification: '',
     evaluations: '',
-    square_logo: '',
     main_image: '',
     image1: '',
     image2: '',

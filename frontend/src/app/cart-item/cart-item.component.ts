@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { ItemService } from '../services/item.service';
 @Component({
   selector: 'app-cart-item',
   templateUrl: './cart-item.component.html',
-  styleUrls: ['./cart-item.component.css']
+  styleUrls: ['./cart-item.component.css'],
 })
 export class CartItemComponent {
   username!: string;
@@ -38,5 +38,10 @@ export class CartItemComponent {
     });
   }
 
+  @Output() removeItem: EventEmitter<number> = new EventEmitter<number>();
 
+  removeItemFromCart(itemId: number) {
+    this.removeItem.emit(itemId);
+  }
+  
 }

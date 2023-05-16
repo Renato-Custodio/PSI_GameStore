@@ -9,7 +9,6 @@ interface IItem extends mongoose.Document {
 	price: number;
 	general_classification: string;
 	evaluations: string;
-	square_logo: string;
 	main_image: String;
 	image1: String;
 	image2: String;
@@ -54,10 +53,6 @@ const itemSchema = new mongoose.Schema({
 	evaluations: {
 		type: String,
 		required: true
-	},
-	square_logo: {
-		image: String
-		/* required: true */
 	},
 	main_image: {
 		image: String

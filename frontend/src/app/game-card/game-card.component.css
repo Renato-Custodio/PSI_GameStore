@@ -12,6 +12,7 @@
   background-color: #fff;
   transition: transform 0.2s ease-in-out;
   margin-top: 1rem;
+  overflow: hidden;
 }
 
 .game-card:hover {
@@ -30,7 +31,10 @@
 .game-card h3 {
   font-size: 1.2rem;
   font-weight: 500;
-  margin-bottom: 0.40rem;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .game-card p {
@@ -38,10 +42,10 @@
   margin-bottom: 0.25rem;
 }
 
-.price{
+.price {
   font-size: 1.3rem;
   font-weight: 500;
-  margin-bottom: 0.40rem;
+  margin-bottom: 0.25rem;
 }
 
 .game-card button {
@@ -60,5 +64,4 @@
 .game-card button:hover {
   background-color: #3e8e41;
 }
-
 

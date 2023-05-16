@@ -88,7 +88,7 @@ user_router.get("/:username/data", async (req, res) => {
     });
 });
 
-user_router.put("/:username/cart/:gameID", async (req, res) => {
+user_router.put("/:username/cart/add/:gameID", async (req, res) => {
   if (!req.session?.username) {
     return res.status(401).json({ message: "Unauthorized" });
   }
@@ -98,7 +98,7 @@ user_router.put("/:username/cart/:gameID", async (req, res) => {
       if (user == null) {
         return res.status(404).json({ message: "Cannot find user" });
       }
-      
+
       const gameID = parseInt(req.params.gameID);
       if (user.userData.cart.includes(gameID)) {
         return res.status(409).json({ message: "Game already in cart" });
@@ -130,34 +130,31 @@ user_router.get("/:username/cart/length", async (req, res) => {
     });
 });
 
-// user_router.get("/:username/avatar", async (req, res) => {
-// 	if (!req.session?.username) {
-// 		return res.status(401).json({ message: "Unauthorized" });
-// 	}
+user_router.delete("/:username/cart/remove/:gameID", async (req, res) => {
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-// 	User.findOne({ _id: req.params.username })
-// 		.then((user) => {
-// 			if (user == null) {
-// 				return res.status(404).json({ message: "Cannot find user" });
-// 			}
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
 
-// 			// Check if the user has an avatar
-// 			if (!user.userData?.avatar) {
-// 				return res.status(404).json({ message: "User has no avatar" });
-// 			}
+      const gameID = parseInt(req.params.gameID);
+      const index = user.userData.cart.indexOf(gameID);
+      if (index === -1) {
+        return res.status(404).json({ message: "Game not found in cart" });
+      }
 
-// 			// Convert the avatar buffer to a base64-encoded data URL
-// 			const base64Avatar = Buffer.from(user.userData.avatar).toString(
-// 				"base64"
-// 			);
-// 			const avatarUrl = `data:image/png;base64,${base64Avatar}`;
+      user.userData.cart.splice(index, 1);
+      user.save();
+      res.json(user.userData.cart);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
 
-// 			// Return the avatar URL in the response
-// 			res.json({ avatarUrl });
-// 		})
-// 		.catch((err) => {
-// 			res.status(500).json({ message: err.message });
-// 		});
-// });
 
 export { user_router };

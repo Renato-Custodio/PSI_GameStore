@@ -4,6 +4,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  overflow: auto;
 }
 
 .buy-button {
@@ -18,8 +19,25 @@
   font-size: 16px;
 }
 
-.shopping-cart-items{
+.shopping-cart-items-container {
+  max-height: 500px; /* Adjust the height as needed */
   overflow: auto;
+}
+
+.shopping-cart-items-container::-webkit-scrollbar {
+  width: 2px;
+}
+
+.shopping-cart-items-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.shopping-cart-items-container::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.shopping-cart-items-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .buy-button:hover {
