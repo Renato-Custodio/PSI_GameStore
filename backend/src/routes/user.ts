@@ -1,160 +1,267 @@
 import express from "express";
 import User from "../models/user";
+import { validateCardChecksum } from "../utils";
 
 const user_router = express.Router();
 
 user_router.get("/:username/lists", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  User.findById(req.params.username)
-    .then((user) => {
-      if (user == null) {
-        return res.status(404).json({ message: "Cannot find user" });
-      }
-      res.json(user.userData.lists);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+			res.json(user.userData.lists);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
 user_router.get("/:username/games", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  User.findById(req.params.username)
-    .then((user) => {
-      if (user == null) {
-        return res.status(404).json({ message: "Cannot find user" });
-      }
-      res.json(user.userData.games);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+			res.json(user.userData.games);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
 user_router.get("/:username/followers", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  User.findById(req.params.username)
-    .then((user) => {
-      if (user == null) {
-        return res.status(404).json({ message: "Cannot find user" });
-      }
-      res.json(user.userData.followers);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+			res.json(user.userData.followers);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
 user_router.get("/:username/following", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  User.findById(req.params.username)
-    .then((user) => {
-      if (user == null) {
-        return res.status(404).json({ message: "Cannot find user" });
-      }
-      res.json(user.userData.following);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+			res.json(user.userData.following);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
 user_router.get("/:username/data", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  User.findById(req.params.username)
-    .then((user) => {
-      if (user == null) {
-        return res.status(404).json({ message: "Cannot find user" });
-      }
-      res.json(user.userData);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+	if (req.params.username !== req.session.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+			res.json(user.userData);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
 user_router.put("/:username/cart/add/:gameID", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  User.findById(req.params.username)
-    .then((user) => {
-      if (user == null) {
-        return res.status(404).json({ message: "Cannot find user" });
-      }
+	if (req.params.username !== req.session.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-      const gameID = parseInt(req.params.gameID);
-      if (user.userData.cart.includes(gameID)) {
-        return res.status(409).json({ message: "Game already in cart" });
-      }
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
 
-      user.userData.cart.push(gameID);
-      user.save();
-      res.json(user.userData.cart);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+			const gameID = parseInt(req.params.gameID);
+			if (user.userData.cart.includes(gameID)) {
+				return res
+					.status(409)
+					.json({ message: "Game already in cart" });
+			}
+
+			user.userData.cart.push(gameID);
+			user.save();
+			res.json(user.userData.cart);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
 user_router.get("/:username/cart/length", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  User.findById(req.params.username)
-    .then((user) => {
-      if (user == null) {
-        return res.status(404).json({ message: "Cannot find user" });
-      }
-      res.json(user.userData.cart.length);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+	if (req.params.username !== req.session.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+			res.json(user.userData.cart.length);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
 user_router.delete("/:username/cart/remove/:gameID", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  User.findById(req.params.username)
-    .then((user) => {
-      if (user == null) {
-        return res.status(404).json({ message: "Cannot find user" });
-      }
+	if (req.params.username !== req.session.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-      const gameID = parseInt(req.params.gameID);
-      const index = user.userData.cart.indexOf(gameID);
-      if (index === -1) {
-        return res.status(404).json({ message: "Game not found in cart" });
-      }
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
 
-      user.userData.cart.splice(index, 1);
-      user.save();
-      res.json(user.userData.cart);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+			const gameID = parseInt(req.params.gameID);
+			const index = user.userData.cart.indexOf(gameID);
+			if (index === -1) {
+				return res
+					.status(404)
+					.json({ message: "Game not found in cart" });
+			}
+
+			user.userData.cart.splice(index, 1);
+			user.save();
+			res.json(user.userData.cart);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
+//buy cart
+user_router.put("/cart/buy/card", async (req, res) => {
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+	User.findById(req.session?.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+
+			const cart = user.userData.cart;
+
+			const { cardNumber, cardHolder, expirationDate, cvv } = req.body;
+
+			if (!cardNumber || !cardHolder || !expirationDate || !cvv) {
+				return res
+					.status(400)
+					.json({ message: "Missing card information" });
+			}
+
+			//checksum validation
+			if (validateCardChecksum(cardNumber) === false) {
+				return res.status(400).json({ message: "Invalid card" });
+			}
+
+			//for the sake of testing, the payment methode has a 50% chance of failing
+			if (Math.random() < 0.5) {
+				return res.status(500).json({ message: "Payment failed" });
+			}
+
+			//add games to user's library
+			cart.forEach((gameID) => {
+				user.userData.games.push(gameID);
+			});
+
+			//empty cart
+			user.userData.cart = [];
+
+			user.save();
+			res.json(user.userData.games);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
+});
+
+user_router.put("/cart/buy/paypal", async (req, res) => {
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+	User.findById(req.session?.username)
+
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+
+			const { email, password } = req.body;
+
+			if (!email || !password) {
+				return res
+					.status(400)
+					.json({ message: "Missing paypal information" });
+			}
+
+			//for the sake of testing, the payment methode has a 50% chance of failing
+			if (Math.random() < 0.5) {
+				return res.status(500).json({ message: "Payment failed" });
+			}
+
+			//add games to user's library
+			user.userData.cart.forEach((gameID) => {
+				user.userData.games.push(gameID);
+			});
+
+			//empty cart
+			user.userData.cart = [];
+
+			user.save();
+			res.json(user.userData.games);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
+});
 
 export { user_router };
