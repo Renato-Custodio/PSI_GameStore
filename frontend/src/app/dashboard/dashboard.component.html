@@ -7,8 +7,9 @@
       <div class="card-body">
         <ul>
           Wishlist:
+          <span *ngIf="lists.length === 0">No items in the wishlist</span>
           <li *ngFor="let list of lists" id="list">
-            <a>{{ list }}</a>
+            <span class="clickable-text" (click)="goToGamePage(list.id)">{{ list.name }}</span>
           </li>
         </ul>
       </div>

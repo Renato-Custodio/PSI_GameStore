@@ -5,6 +5,7 @@ import { Observable, forkJoin, map } from 'rxjs';
 import { List } from '../types/user';
 import { ItemService } from '../services/item.service';
 import { Item } from '../types/item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ import { Item } from '../types/item';
 })
 export class DashboardComponent {
   currentUser: string = '';
-  lists: string[] = [];
+  lists: { id: number; name: string; }[] = [];
   games: string[] = [];
   followers: String[] = [];
   following: String[] = [];
@@ -21,17 +22,23 @@ export class DashboardComponent {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private router: Router
   ) {
     this.authService.getUser().subscribe((user) => {
       this.currentUser = user.username;
 
       this.getLists().subscribe((list) => {
         const gameItems$ = list.map((game) => {
-          return this.itemService.getItem(game).pipe(map((item) => item.name));
+          return this.itemService.getItem(game).pipe(
+            map((item) => {
+              return { id: item._id, name: item.name };
+            })
+          );
         });
         forkJoin(gameItems$).subscribe((games) => {
           this.lists = games;
+          console.log(this.lists); // Verify the result in the console
         });
       });
       this.getGames().subscribe((list) => {
@@ -65,5 +72,9 @@ export class DashboardComponent {
 
   getFollowing() {
     return this.userService.getFollowing(this.currentUser);
+  }
+
+  goToGamePage(id : number) {
+    this.router.navigate(['/game', id]);
   }
 }
