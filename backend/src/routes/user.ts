@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/user";
 import { validateCardChecksum } from "../utils";
 import Avatar from "../models/avatar";
+import { UserData } from "../../../frontend/src/app/types/user";
 
 const user_router = express.Router();
 
@@ -356,74 +357,81 @@ user_router.put("/cart/buy/paypal", async (req, res) => {
 			res.status(500).json({ message: err.message });
 		});
 });
-	
-user_router.put("/update/:username", async (req, res) => {
-  // Check if user is logged in
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
 
-  // Check if new username is (actually) different
-  if (req.session.username === req.params.username) {
-    return res.send({ error: "The new username can't be the same as the old one!"});
-  }
+user_router.put("/update", async (req, res) => {
+	// Check if user is logged in
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
 
-  // Find logged in user
-  const user = await User.findOne({ _id: req.session.username }).exec();
-  if (user === null) return res.send({ error: `Could not find user` });
+	const { displayName, avatar } = req.body;
 
-  // Check if new username is available
-  const name = await User.findOne({  _id: req.params.username });
-  if (name !== null)
-    return res.send({ error: `The username is already taken!` });
+	// Update username
+	const updatedUser = await User.findById(req.session.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
 
-  // Update username
-  const updatedUser = await User.findOneAndUpdate(
-    { _id: user._id },
-    { username: req.params.username },
-    { new: true }
-  ).lean();
-  if (updatedUser == null) return res.send({ error: "An error ocurred when trying to update username!" });
+			user.userData.displayName = displayName;
+			user.userData.avatar = avatar;
 
-  // Update user in session (otherwise, the user can't further change it's username)
-  const { passwordHash, ...userWithoutPassword } = updatedUser;
-  req.session = { ...req.session, ...userWithoutPassword };
+			user.save();
+			return user;
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 
-  return res.send({ ok: "Username updated!" });
-});
+	if (updatedUser == null)
+		return res.send({
+			error: "An error ocurred when trying to update username!",
+		});
 
-user_router.put("/update/:avatar", async (req, res) => {
-  // Check if user is logged in
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  const user = await User.findOne({  _id: req.session.username }).exec();
-  if (user == null) return res.send({ error: `Could not find user` });
-
-  const avatar = req.params.avatar;
-
-  const updatedAvatar = await User.findByIdAndUpdate(
-    { _id: user._id },
-    {
-      userData: {
-        avatar: avatar,
-      },
-    },
-    { new: true }
-  ).lean();
-  if (updatedAvatar == null)
-    return res.send({ error: `Could not update avatar!` });
-
-  return res.send({ ok: "Avatar updated!" });
+	return res.send({ ok: "Username updated!" });
 });
 
 user_router.get("/avatars", async (req, res) => {
-  if (!req.session?.username) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-  var avatars = await Avatar.find().distinct("url");
-  res.json(avatars);
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+	var avatars = await Avatar.find().distinct("url");
+	res.json(avatars);
+});
+
+user_router.get("/avatar/:username", async (req, res) => {
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+
+			res.json(user.userData.avatar);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
+});
+
+user_router.get("/displayname/:username", async (req, res) => {
+	if (!req.session?.username) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+
+	User.findById(req.params.username)
+		.then((user) => {
+			if (user == null) {
+				return res.status(404).json({ message: "Cannot find user" });
+			}
+			res.json(user.userData.displayName);
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err.message });
+		});
 });
 
 export { user_router };

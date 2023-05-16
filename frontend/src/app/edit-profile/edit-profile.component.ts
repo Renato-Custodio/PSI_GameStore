@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { AvatarService } from '../services/avatar.service';
+import { UserData } from '../types/user';
 
 @Component({
   selector: 'app-edit-profile',
@@ -10,9 +11,10 @@ import { AvatarService } from '../services/avatar.service';
 })
 export class EditProfileComponent {
   username: string = '';
+  displayName: string = '';
+  avatar: string = '';
   error: string = '';
   success: boolean = false;
-  avatar: string = "https://avatars.steamstatic.com/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_full.jpg";
   avatarList: string[] = [];
   imageTooLargeError: boolean = false;
 
@@ -23,16 +25,23 @@ export class EditProfileComponent {
   ) {
     this.authService.getUser().subscribe((user) => {
       this.username = user.username;
-      // this.avatar = user.avatar;
+      userService.getUserAvatar(this.username).subscribe((avatar) => {
+        this.avatar = avatar;
+      });
+      userService.getDisplayName(this.username).subscribe((displayName) => {
+        this.displayName = displayName;
+      });
     });
+
     this.getAllAvatars();
   }
 
   updateProfile() {
     this.username = this.username.trim();
     this.userService
-      .updateUsername(this.username)
+      .updateUser(this.displayName, this.avatar)
       .subscribe((result) => {
+        console.log(result);
         if (result.error) {
           this.error = result.error;
         } else {
@@ -42,47 +51,13 @@ export class EditProfileComponent {
       });
   }
 
-  updateUsername() {
-    this.username = this.username.trim();
-    this.userService
-      .updateUsername(this.username)
-      .subscribe((result) => {
-        if (result.error) {
-          this.error = result.error;
-        } else {
-          this.error = '';
-          this.success = true;
-        }
-      });
-
-      this.userService.updateAvatar(this.avatar).subscribe((result) => {
-        if (result.error) {
-          this.error = result.error;
-        } else {
-          this.error = '';
-          this.success = true;
-        }
-      });
-  }
-
-  updateAvatar() {
-    this.userService.updateAvatar(this.avatar).subscribe((result) => {
-      if (result.error) {
-        this.error = result.error;
-      } else {
-        this.error = '';
-        this.success = true;
-      }
-    });
-  }
-
-  setAvatar(link: string){
+  setAvatar(link: string) {
     this.avatar = link;
   }
 
-  getAllAvatars(){
+  getAllAvatars() {
     this.avatarService.getAllAvatars().subscribe((list) => {
       this.avatarList = list;
-    })
+    });
   }
 }

@@ -29,6 +29,8 @@ auth_router.post("/register", async (req: Request, res: Response) => {
 		_id: username,
 		passwordHash: passwordHash,
 		userData: {
+			displayName: username,
+			avatar: "https://avatars.steamstatic.com/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_full.jpg",
 			followers: [],
 			following: [],
 		},

@@ -6,7 +6,8 @@ export interface IList extends mongoose.Document {
 }
 
 export interface IUserData extends mongoose.Document {
-	// avatar: Buffer;
+	displayName: string;
+	avatar: string;
 	games: number[];
 	wishlist: number[];
 	lists: IList[];
@@ -33,8 +34,12 @@ const listSchema = new mongoose.Schema({
 });
 
 const userDataSchema = new mongoose.Schema({
+	displayName: {
+		type: String,
+		required: false,
+	},
 	avatar: {
-		type: Buffer,
+		type: String,
 		required: false,
 	},
 	games: {
