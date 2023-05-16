@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import Compressor from 'compressorjs';
 import { AvatarService } from '../services/avatar.service';
 
 @Component({
