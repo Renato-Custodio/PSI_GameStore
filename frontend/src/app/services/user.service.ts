@@ -8,7 +8,6 @@ import { Item } from '../types/item';
   providedIn: 'root',
 })
 export class UserService {
-
   getUserCartLength(username: string) {
     return this.http.get<number>(`/api/user/${username}/cart/length`);
   }
@@ -46,13 +45,12 @@ export class UserService {
   }
 
   removeFromCart(username: string, itemId: number): Observable<any> {
-  return this.http.delete(`/api/user/${username}/cart/remove/${itemId}`).pipe(
-    tap(() => {
-      this.cartChanged.emit();
-    })
-  );
-}
-
+    return this.http.delete(`/api/user/${username}/cart/remove/${itemId}`).pipe(
+      tap(() => {
+        this.cartChanged.emit();
+      })
+    );
+  }
 
   addToWishlist(username: string, gameID: number): Observable<any> {
     return this.http.put(`/api/user/${username}/wishlist/${gameID}`, {});
@@ -61,4 +59,20 @@ export class UserService {
   // getUserAvatar(username: string): Observable<string> {
   //   return this.http.get<string>(`/api/user/` + username + '/avatar');
   // }
+
+  updateUsername(
+    username: string
+  ): Observable<{ error: string } & { ok: string }> {
+    return this.http.put<{ error: string } & { ok: string }>(
+      `/api/user/update/${username}`,
+      { username }
+    );
+  }
+
+  updateAvatar(avatar: string): Observable<{ error: string } & { ok: string }> {
+    return this.http.put<{ error: string } & { ok: string }>(
+      `/api/user/update/${avatar}`,
+      { avatar }
+    );
+  }
 }

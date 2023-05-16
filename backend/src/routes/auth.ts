@@ -59,13 +59,13 @@ auth_router.post("/login", async (req, res) => {
 
 	if (user == null)
 		return res.send({
-			error: `A combinação username/password está incorreta!`,
+			error: `Wrong username or password!`,
 		});
 
 	const isCorrectPassword = checkPassword(password, user.passwordHash);
 	if (!isCorrectPassword) {
 		return res.send({
-			error: `A combinação username/password está incorreta!`,
+			error: `Wrong username or password!`,
 		});
 	}
 
