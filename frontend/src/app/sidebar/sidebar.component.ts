@@ -92,6 +92,10 @@ export class SidebarComponent {
   showCartPopup() {
     this.showPopup = true;
   }
+
+  closePopup() {
+    this.showPopup = false;
+  }
 }
 
 interface IMenuItem {

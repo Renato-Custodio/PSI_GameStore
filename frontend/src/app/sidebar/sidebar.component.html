@@ -15,7 +15,7 @@
   <div *ngIf="showPopup">
     <div class="overlay"></div>
     <div class="cart-popup-container">
-      <app-cart-popup></app-cart-popup>
+      <app-cart-popup (closePopupEvent)="closePopup()" ></app-cart-popup>
     </div>
   </div>
 </div>

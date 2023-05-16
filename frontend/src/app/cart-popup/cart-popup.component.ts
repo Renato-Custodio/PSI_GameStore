@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UserData } from '../types/user';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -55,5 +55,11 @@ export class CartPopupComponent {
       total += this.cartItemsData[i].price;
     }
     return total;
+  }
+
+  @Output() closePopupEvent = new EventEmitter();
+
+  closePopup() {
+    this.closePopupEvent.emit();
   }
 }

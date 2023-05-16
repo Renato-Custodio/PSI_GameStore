@@ -98,9 +98,12 @@ user_router.put("/:username/cart/:gameID", async (req, res) => {
       if (user == null) {
         return res.status(404).json({ message: "Cannot find user" });
       }
-      console.log(req.params.gameID);
+      
       const gameID = parseInt(req.params.gameID);
-      console.log(gameID);
+      if (user.userData.cart.includes(gameID)) {
+        return res.status(409).json({ message: "Game already in cart" });
+      }
+
       user.userData.cart.push(gameID);
       user.save();
       res.json(user.userData.cart);

@@ -51,11 +51,17 @@ export class GameCardComponent {
     this.router.navigate(['/game', this.game._id]);
   }
 
-  addToUserCart(){
-    this.userService.addToCart(this.username, this.game._id).subscribe(() => {
-      console.log('Added to cart');
-      console.log(this.game._id);
-    });
+  addToUserCart() {
+    this.userService.addToCart(this.username, this.game._id).subscribe(
+      () => {
+        console.log('Added to cart');
+        console.log(this.game._id);
+      },
+      (error) => {
+        console.error('Error adding to cart:', error);
+        alert('The item is already in your cart!');
+      }
+    );
   }
 
 
