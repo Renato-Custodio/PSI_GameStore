@@ -17,8 +17,8 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getLists(username: string): Observable<List[]> {
-    return this.http.get<List[]>(`/api/user/` + username + '/lists');
+  getLists(username: string): Observable<number[]> {
+    return this.http.get<number[]>(`/api/user/` + username + '/lists');
   }
 
   getGames(username: string): Observable<number[]> {

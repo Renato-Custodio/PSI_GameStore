@@ -9,16 +9,16 @@ user_router.get("/:username/lists", async (req, res) => {
 		return res.status(401).json({ message: "Unauthorized" });
 	}
 
-	User.findById(req.params.username)
-		.then((user) => {
-			if (user == null) {
-				return res.status(404).json({ message: "Cannot find user" });
-			}
-			res.json(user.userData.lists);
-		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
-		});
+  User.findById(req.params.username)
+    .then((user) => {
+      if (user == null) {
+        return res.status(404).json({ message: "Cannot find user" });
+      }
+      res.json(user.userData.wishlist);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
 });
 
 user_router.get("/:username/games", async (req, res) => {
