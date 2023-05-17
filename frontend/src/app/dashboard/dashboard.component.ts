@@ -78,4 +78,8 @@ export class DashboardComponent {
   goToGamePage(id : number) {
     this.router.navigate(['/game', id]);
   }
+
+  sortItemsByTitle(){
+    this.games.sort((a ,b) => a.name.localeCompare(b.name));
+  }
 }

@@ -41,9 +41,10 @@
   </div>
   <div class="separator"></div>
   <div class="card" id="library">
-    <div class="card-head">Library</div>
+    <div class="card-head">Library <button class="sort" (click)="sortItemsByTitle()">Sort by Acquisition Date</button> <button class="sort" (click)="sortItemsByTitle()">Sort by Title</button></div>
     <div class="card-body">
       <ul class="library-list">
+        <span *ngIf="games.length === 0">You don't own any items</span>
         <li *ngFor="let item of games" class="library-item">
           <div class="game-card">
             <img [src]="item.main_image" alt="Game image" (click)="goToGamePage(item._id)" />
