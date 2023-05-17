@@ -3,10 +3,17 @@ export interface List {
   items: number[];
 }
 
+export interface GameData {
+  id: number;
+  name: string;
+  image: string;
+  timeOfPurchase: number;
+}
+
 export interface UserData {
   displayName: string;
   avatar: string;
-  games: number[];
+  games: GameData[];
   wishList: number[];
   lists: List[];
   following: string[];
@@ -14,7 +21,7 @@ export interface UserData {
   cart: number[];
 }
 
-export interface User{
+export interface User {
   error: any;
   _id: string;
   passwordHash: string;
