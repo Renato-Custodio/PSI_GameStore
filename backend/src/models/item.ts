@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 
-interface IItem extends mongoose.Document {
+export interface IItem extends mongoose.Document {
 	name: string;
 	type: string;
 	description: string;
@@ -9,9 +9,9 @@ interface IItem extends mongoose.Document {
 	price: number;
 	general_classification: string;
 	evaluations: string;
-	main_image: String;
-	image1: String;
-	image2: String;
+	main_image: string;
+	image1: string;
+	image2: string;
 	background_image: String;
 	video_link: string;
 }
