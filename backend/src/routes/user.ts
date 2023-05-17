@@ -377,6 +377,14 @@ user_router.put("/update", async (req, res) => {
 
   const { displayName, avatar } = req.body;
 
+  if(displayName.length < 3){
+    return res.send({ error: "The name must contain at least 3 characters." });
+  }
+
+  if(/[^a-zA-Z0-9]/.test(displayName)){
+    return res.send({ error: "The name must only contain letters and numbers." });
+  }
+
   // Update username
   const updatedUser = await User.findById(req.session.username)
     .then((user) => {

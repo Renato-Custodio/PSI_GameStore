@@ -6,18 +6,9 @@
     <div class="banner"><img class="profile-pic" src="{{ avatar }}" /></div>
     <div class="menu"></div>
 
-    <!-- <div class="profile_pic">
-		 <input id="photo" type="file" (change)="handlePhotoChange($event)">
-		<div [ngStyle]="{'background-image': 'url(' + avatar + ')'}" class="profile-pic"></div>
-		<div class="image"></div>
-		 <p *ngIf="imageTooLargeError">O tamanho máximo é de 1MB</p>
-		<p *ngIf="error">{{error}}</p>
-	<p *ngIf="success">Foto alterado com sucesso!</p>
-	</div> -->
-
     <div class="username_bar">
       <input id="username" type="text" [(ngModel)]="displayName" />
-      <p *ngIf="success">Username changed successfully!</p>
+      <p *ngIf="success && !error">Profile updated!</p>
       <p *ngIf="error">{{ error }}</p>
     </div>
 
