@@ -52,6 +52,16 @@ export class UserService {
     );
   }
 
+  removeAllFromCart(username: string, itemId: number): Observable<any> {
+    return this.http.delete(
+      `/api/user/${username}/cart/removeall/${itemId}`
+    ).pipe(
+      tap(() => {
+        this.cartChanged.emit();
+      })
+    );
+  }
+
   addToWishlist(username: string, gameID: number): Observable<any> {
     return this.http.put(`/api/user/${username}/wishlist/${gameID}`, {});
   }

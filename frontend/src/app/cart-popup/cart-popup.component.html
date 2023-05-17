@@ -11,10 +11,11 @@
               </h3>
 
               <div class="shopping-cart-items-container">
-                <div class="shopping-cart-items" *ngFor="let itemId of cartItems">
-                  <app-cart-item [itemId]="itemId" (removeItem)="removeItemFromCart($event)"></app-cart-item>
+                <div class="shopping-cart-items" *ngFor="let item of cartItemsData">
+                  <app-cart-item [itemId]="item._id" [quantity]="getItemQuantity(item._id)" (addItem)="addItemToCart(item._id)" (removeItems)="removeAllItemsFromCart(item._id)" (removeItem)="removeItemFromCart(item._id)"></app-cart-item>
                 </div>
               </div>
+
 
               <hr
                 class="mb-4"

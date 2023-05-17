@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { ItemService } from '../services/item.service';
 import { Item } from '../types/item';
 
-
 @Component({
   selector: 'app-cart-popup',
   templateUrl: './cart-popup.component.html',
@@ -37,22 +36,36 @@ export class CartPopupComponent {
   }
 
   getCartItems() {
-    // we have the ids of the items in the cart, but we need the actual item objects
-    // so we need to make a request to the backend to get the items
-    // we can use the itemService to do this
+    const uniqueCartItems: number[] = this.getUniqueCartItems(this.cartItems);
 
-    for (let i = 0; i < this.cartItems.length; i++) {
-      this.itemService.getItem(this.cartItems[i]).subscribe((item) => {
+    for (const itemId of uniqueCartItems) {
+      this.itemService.getItem(itemId).subscribe((item) => {
         this.cartItemsData.push(item);
       });
     }
+
     console.log(this.cartItemsData);
   }
 
-  calculateTotal() {
+  getUniqueCartItems(cartItems: number[]): number[] {
+    const uniqueItems: number[] = [];
+    const itemMap: { [itemId: number]: boolean } = {};
+
+    for (const itemId of cartItems) {
+      if (!itemMap[itemId]) {
+        uniqueItems.push(itemId);
+        itemMap[itemId] = true;
+      }
+    }
+
+    return uniqueItems;
+  }
+
+  calculateTotal(): number {
     let total = 0;
-    for (let i = 0; i < this.cartItemsData.length; i++) {
-      total += this.cartItemsData[i].price;
+    for (const item of this.cartItemsData) {
+      const quantity = this.getItemQuantity(item._id);
+      total += item.price * quantity;
     }
     return total;
   }
@@ -63,6 +76,15 @@ export class CartPopupComponent {
     this.closePopupEvent.emit();
   }
 
+  getItemQuantity(itemId: number): number {
+    let quantity = 0;
+    for (const cartItemId of this.cartItems) {
+      if (cartItemId === itemId) {
+        quantity++;
+      }
+    }
+    return quantity;
+  }
 
   removeItemFromCart(itemId: number) {
     const index = this.cartItems.findIndex(item => item === itemId);
@@ -74,5 +96,21 @@ export class CartPopupComponent {
       });
     }
   }
-  
+
+  removeAllItemsFromCart(itemId: number) {
+    // remove all items with itemId from cart
+    this.cartItems = this.cartItems.filter(item => item !== itemId);
+    this.cartItemsData = this.cartItemsData.filter(item => item._id !== itemId);
+    this.userService.removeAllFromCart(this.username, itemId).subscribe(() => {
+      console.log('Item removed from cart');
+    }
+    );
+  }
+
+  addItemToCart(itemId: number) {
+    this.cartItems.push(itemId);
+    this.userService.addToCart(this.username, itemId).subscribe(() => {
+      console.log('Item added to cart');
+    });
+  }
 }

@@ -56,10 +56,6 @@ export class GameCardComponent {
         console.log('Added to cart');
         console.log(this.game._id);
       },
-      (error) => {
-        console.error('Error adding to cart:', error);
-        alert('The item is already in your cart!');
-      }
     );
   }
 

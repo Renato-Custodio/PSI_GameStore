@@ -1,11 +1,16 @@
 <div class="cart-item">
   <div class="cart-item-image">
-    <img [src]="game.main_image" alt="game main image" class="img-fluid" alt="Generic placeholder image" />
+    <img [src]="game.main_image" alt="game main image" class="img-fluid" />
   </div>
   <div class="cart-item-details">
-    <a class="cart-item-remove" (click)="removeItemFromCart(itemId)"><i class="fas fa-times"></i></a>
+    <a class="cart-item-remove" (click)="removeAllItemsFromCart(itemId)"><i class="fas fa-times"></i></a>
     <h5 class="cart-item-title">{{ game.name }}</h5>
     <h6 class="cart-item-type">Type: {{ game.type }}</h6>
+    <div class="cart-item-quantity">
+      <button class="quantity-btn minus-btn" (click)="removeItemFromCart(itemId)"><i class="fas fa-minus"></i></button>
+      <input type="number" [(ngModel)]="quantity" class="quantity-input" />
+      <button class="quantity-btn plus-btn" (click)="addItemToCart(itemId)"><i class="fas fa-plus"></i></button>
+    </div>
     <div class="cart-item-price">{{ game.price }}€</div>
   </div>
 </div>

@@ -29,6 +29,7 @@ export class CartItemComponent {
       });
     });
   }
+
   @Input() itemId!: number;
   game!: Item;
 
@@ -38,10 +39,23 @@ export class CartItemComponent {
     });
   }
 
+  @Output() removeItems: EventEmitter<number> = new EventEmitter<number>();
+
   @Output() removeItem: EventEmitter<number> = new EventEmitter<number>();
+  @Output() addItem: EventEmitter<number> = new EventEmitter<number>();
+
+  removeAllItemsFromCart(itemId: number) {
+    this.removeItems.emit(itemId);
+  }
 
   removeItemFromCart(itemId: number) {
     this.removeItem.emit(itemId);
   }
-  
+
+  addItemToCart(itemId: number) {
+    this.addItem.emit(itemId);
+  }
+
+  @Input() quantity!: number;
+
 }
