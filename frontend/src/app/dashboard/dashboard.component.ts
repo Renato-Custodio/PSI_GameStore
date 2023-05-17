@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { Observable, forkJoin, map } from 'rxjs';
-import { GameData, List } from '../types/user';
+import { forkJoin, map } from 'rxjs';
+import { GameData } from '../types/user';
 import { ItemService } from '../services/item.service';
-import { Item } from '../types/item';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +14,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   currentUser: string = '';
   lists: { id: number; name: string }[] = [];
-  games: GameData[] = [];
+  items: GameData[] = [];
   followers: String[] = [];
   following: String[] = [];
 
@@ -41,7 +40,7 @@ export class DashboardComponent {
         });
       });
       this.getItems().subscribe((data) => {
-        this.games = data;
+        this.items = data;
       });
       this.getFollowers().subscribe((list) => {
         this.followers = list;
@@ -72,7 +71,7 @@ export class DashboardComponent {
     this.router.navigate(['/game', id]);
   }
 
-  sortItemsByTitle(){
-    this.games.sort((a ,b) => a.name.localeCompare(b.name));
+  sortItemsByTitle() {
+    this.items.sort((a, b) => a.name.localeCompare(b.name));
   }
 }

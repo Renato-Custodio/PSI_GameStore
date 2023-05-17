@@ -7,6 +7,7 @@ export interface GameData {
   id: number;
   name: string;
   image: string;
+  type: string;
   timeOfPurchase: number;
 }
 

@@ -9,6 +9,7 @@ export interface IGameData extends mongoose.Document {
 	id: number;
 	name: string;
 	image: string;
+	type: string;
 	timeOfPurchase: number;
 }
 
@@ -50,6 +51,10 @@ const gameDataSchema = new mongoose.Schema({
 		required: true,
 	},
 	image: {
+		type: String,
+		required: true,
+	},
+	type: {
 		type: String,
 		required: true,
 	},

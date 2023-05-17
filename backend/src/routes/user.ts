@@ -382,6 +382,7 @@ user_router.put("/cart/buy/paypal", async (req, res) => {
 						id: gameID,
 						name: game.name,
 						image: game.main_image,
+						type: game.type,
 						timeOfPurchase: Date.now(),
 					} as IGameData);
 					user.save();
