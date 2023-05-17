@@ -43,11 +43,15 @@
   <div class="card" id="library">
     <div class="card-head">Library</div>
     <div class="card-body">
-      <ul>
-        <li *ngFor="let item of games">
-          <a>
-            {{ item }}
-          </a>
+      <ul class="library-list">
+        <li *ngFor="let item of games" class="library-item">
+          <div class="game-card">
+            <img [src]="item.main_image" alt="Game image" (click)="goToGamePage(item._id)" />
+            <h3 (click)="goToGamePage(item._id)">{{ item.name }}</h3>
+            <p (click)="goToGamePage(item._id)">{{ item.type }}</p>
+            <button *ngIf="item.type === 'Game';else not_game">PLAY</button>
+            <ng-template #not_game><button (click)="goToGamePage(item._id)">VIEW</button></ng-template>
+          </div>
         </li>
       </ul>
     </div>

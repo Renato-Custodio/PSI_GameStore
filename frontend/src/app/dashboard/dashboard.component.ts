@@ -15,7 +15,8 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   currentUser: string = '';
   lists: { id: number; name: string; }[] = [];
-  games: string[] = [];
+  // games: string[] = [];
+  games: Item[] = [];
   followers: String[] = [];
   following: String[] = [];
 
@@ -43,7 +44,7 @@ export class DashboardComponent {
       });
       this.getGames().subscribe((list) => {
         const gameItems$ = list.map((game) => {
-          return this.itemService.getItem(game).pipe(map((item) => item.name));
+          return this.itemService.getItem(game)
         });
         forkJoin(gameItems$).subscribe((games) => {
           this.games = games;
