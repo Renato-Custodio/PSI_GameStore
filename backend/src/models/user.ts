@@ -5,7 +5,7 @@ export interface IList extends mongoose.Document {
 	items: number[];
 }
 
-export interface IGameData extends mongoose.Document {
+export interface IItemData extends mongoose.Document {
 	id: number;
 	name: string;
 	image: string;
@@ -16,7 +16,7 @@ export interface IGameData extends mongoose.Document {
 export interface IUserData extends mongoose.Document {
 	displayName: string;
 	avatar: string;
-	games: IGameData[];
+	item: IItemData[];
 	wishlist: number[];
 	lists: IList[];
 	following: string[];
@@ -41,7 +41,7 @@ const listSchema = new mongoose.Schema({
 	},
 });
 
-const gameDataSchema = new mongoose.Schema({
+const itemDataSchema = new mongoose.Schema({
 	id: {
 		type: Number,
 		required: true,
@@ -73,8 +73,8 @@ const userDataSchema = new mongoose.Schema({
 		type: String,
 		required: false,
 	},
-	games: {
-		type: [gameDataSchema],
+	items: {
+		type: [itemDataSchema],
 		required: false,
 	},
 	wishlist: {

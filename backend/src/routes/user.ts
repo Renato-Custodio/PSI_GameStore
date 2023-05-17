@@ -1,5 +1,5 @@
 import express from "express";
-import User, { IGameData } from "../models/user";
+import User, { IItemData } from "../models/user";
 import { validateCardChecksum } from "../utils";
 import Avatar from "../models/avatar";
 import Item from "../models/item";
@@ -325,12 +325,12 @@ user_router.put("/cart/buy/card", async (req, res) => {
 							.status(404)
 							.json({ message: "Cannot find game" });
 					}
-					user.userData.games.push({
+					user.userData.item.push({
 						id: gameID,
 						name: game.name,
 						image: game.main_image,
 						timeOfPurchase: Date.now(),
-					} as IGameData);
+					} as IItemData);
 					user.save();
 				});
 			});
@@ -339,7 +339,7 @@ user_router.put("/cart/buy/card", async (req, res) => {
 			user.userData.cart = [];
 
 			user.save();
-			res.json(user.userData.games);
+			res.json(user.userData.item);
 		})
 		.catch((err) => {
 			res.status(500).json({ message: err.message });
@@ -378,13 +378,13 @@ user_router.put("/cart/buy/paypal", async (req, res) => {
 							.status(404)
 							.json({ message: "Cannot find game" });
 					}
-					user.userData.games.push({
+					user.userData.item.push({
 						id: gameID,
 						name: game.name,
 						image: game.main_image,
 						type: game.type,
 						timeOfPurchase: Date.now(),
-					} as IGameData);
+					} as IItemData);
 					user.save();
 				});
 			});
@@ -393,7 +393,7 @@ user_router.put("/cart/buy/paypal", async (req, res) => {
 			user.userData.cart = [];
 
 			user.save();
-			res.json(user.userData.games);
+			res.json(user.userData.item);
 		})
 		.catch((err) => {
 			res.status(500).json({ message: err.message });
@@ -499,7 +499,7 @@ user_router.get("/items/:username", async (req, res) => {
 			return res.status(404).json({ message: "Cannot find user" });
 		}
 
-		res.json(user.userData.games);
+		res.json(user.userData.item);
 	} catch (err: any) {
 		res.status(500).json({ message: err.message });
 	}

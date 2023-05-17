@@ -3,7 +3,7 @@ export interface List {
   items: number[];
 }
 
-export interface GameData {
+export interface ItemData {
   id: number;
   name: string;
   image: string;
@@ -14,7 +14,7 @@ export interface GameData {
 export interface UserData {
   displayName: string;
   avatar: string;
-  games: GameData[];
+  items: ItemData[];
   wishList: number[];
   lists: List[];
   following: string[];

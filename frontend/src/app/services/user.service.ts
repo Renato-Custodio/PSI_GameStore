@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
-import { GameData, List, UserData } from '../types/user';
+import { ItemData, List, UserData } from '../types/user';
 import { Item } from '../types/item';
 
 @Injectable({
@@ -74,8 +74,8 @@ export class UserService {
     return this.http.get<string>(`/api/user/avatar/${username}`);
   }
 
-  getItems(username: string): Observable<GameData[]> {
-    return this.http.get<GameData[]>(`/api/user/` + username + '/games');
+  getItems(username: string): Observable<ItemData[]> {
+    return this.http.get<ItemData[]>(`/api/user/` + username + '/games');
   }
 
   updateUser(

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { forkJoin, map } from 'rxjs';
-import { GameData } from '../types/user';
+import { ItemData } from '../types/user';
 import { ItemService } from '../services/item.service';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   currentUser: string = '';
   lists: { id: number; name: string }[] = [];
-  items: GameData[] = [];
+  items: ItemData[] = [];
   followers: String[] = [];
   following: String[] = [];
 
