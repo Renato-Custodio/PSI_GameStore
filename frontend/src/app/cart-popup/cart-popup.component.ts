@@ -61,10 +61,11 @@ export class CartPopupComponent {
     return uniqueItems;
   }
 
-  calculateTotal() {
+  calculateTotal(): number {
     let total = 0;
     for (const item of this.cartItemsData) {
-      total += item.price;
+      const quantity = this.getItemQuantity(item._id);
+      total += item.price * quantity;
     }
     return total;
   }
