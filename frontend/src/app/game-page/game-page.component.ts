@@ -5,6 +5,7 @@ import { ItemService } from '../services/item.service';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { UserData } from '../types/user';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-game-page',
@@ -14,12 +15,14 @@ import { UserData } from '../types/user';
 export class GamePageComponent {
   username!: string;
   user!: UserData;
+  safeVideoUrl!: SafeResourceUrl;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private ItemService: ItemService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {
     this.authService.getUser().subscribe((user) => {
       this.username = user.username;
@@ -47,34 +50,38 @@ export class GamePageComponent {
     video_link: '',
   };
 
-  videoActive: boolean = true;
-  activeImageSrc: string = '';
-  activeVideoSrc: string = '';
-
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     const _id = Number(id);
     this.ItemService.getItem(_id).subscribe(game => {
       this.game = game;
-      this.activeVideoSrc = game.video_link;
+      this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.game.video_link);
     });
-  }
 
-  selectImage(index: number) {
-    this.videoActive = false; // Set videoActive to false to display the image
-    switch (index) {
-      case 0:
-        this.activeImageSrc = this.game.background_image;
-        break;
-      case 1:
-        this.activeImageSrc = this.game.image1;
-        break;
-      case 2:
-        this.activeImageSrc = this.game.image2;
-        break;
-      default:
-        this.activeImageSrc = '';
-    }
+    console.log(this.game.video_link);
+
+    const buttons = document.querySelectorAll<HTMLElement>("[data-carousel-button]");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const offset = button.getAttribute("data-carousel-button") === "next" ? 1 : -1;
+        const carousel = button.closest("[data-carousel]");
+        const slides = carousel?.querySelector("[data-slides]");
+
+        if (slides) {
+          const activeSlide = slides.querySelector("[data-active]");
+
+          if (activeSlide) {
+            let newIndex = Array.from(slides.children).indexOf(activeSlide) + offset;
+            if (newIndex < 0) newIndex = slides.children.length - 1;
+            if (newIndex >= slides.children.length) newIndex = 0;
+
+            slides.children[newIndex].setAttribute("data-active", "true");
+            activeSlide.removeAttribute("data-active");
+          }
+        }
+      });
+    });
   }
 
   addToUserCart() {
@@ -95,6 +102,17 @@ export class GamePageComponent {
       console.error('Error adding to wishlist:', error);
       alert('Error adding game to wishlist.');
     });
+  }
+
+  selectedRating: number | null = null;
+  comment: string = '';
+
+  rateGame(rating: number) {
+    this.selectedRating = rating;
+  }
+
+  submitComment() {
+    //TODO
   }
 
 }

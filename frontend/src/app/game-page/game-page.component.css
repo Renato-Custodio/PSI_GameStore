@@ -2,6 +2,7 @@
   position: relative;
   height: 100%;
   margin-left: 20rem;
+  overflow: auto;
 }
 
 .wrapper::before {
@@ -55,7 +56,7 @@
   color: #fff;
   font-size: 2rem;
   font-weight: 600;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .big-screen {
@@ -231,7 +232,7 @@ img, video {
 }
 
 .space{
-  height:30px;
+  height:20px;
 }
 
 .buy-card{
@@ -315,10 +316,172 @@ p {
 }
 
 
-ng-container{
-  z-index: 1;
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
-ng-template{
+.carousel > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: 200ms opacity ease-in-out;
+  transition-delay: 200ms;
+}
+
+.slide > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.slide > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.slide[data-active] {
+  opacity: 1;
   z-index: 1;
+  transition-delay: 0ms;
+}
+
+.carousel-button {
+  position: absolute;
+  z-index: 2;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, .5);
+  cursor: pointer;
+  border-radius: .25rem;
+  padding: 0 .5rem;
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.carousel-button:hover,
+.carousel-button:focus {
+  color: white;
+  background-color: rgba(0, 0, 0, .2);
+}
+
+.carousel-button:focus {
+  outline: 1px solid black;
+}
+
+.carousel-button.prev {
+  left: 1rem;
+}
+
+.carousel-button.next {
+  right: 1rem;
+}
+
+.evaluations-header h2{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3.5rem;
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.evaluations-stars {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.star-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  direction: rtl;
+}
+
+.star-wrapper a {
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.5s;
+  margin: 2px;
+}
+
+.star-wrapper a:hover {
+  color: gold;
+  transform: scale(1.3);
+  cursor: pointer;
+}
+
+.s1:hover ~ a {
+  color: gold;
+}
+.s2:hover ~ a {
+  color: gold;
+}
+.s3:hover ~ a {
+  color: gold;
+}
+.s4:hover ~ a {
+  color: gold;
+}
+.s5:hover ~ a {
+  color: gold;
+}
+
+.rating-label {
+  font-weight: bold;
+  color: silver;
+  font-size: 1.25rem;
+}
+
+.selected-rating {
+  font-weight: bold;
+  margin-left: 0.5rem;
+  font-size: 1.25rem;
+  color: gold;
+}
+
+.commentary {
+  position: relative;
+}
+
+.commentary textarea {
+  width: 100%;
+  height: 8rem;
+  margin-bottom: 1rem;
+  resize: vertical;
+  border-radius: 0.25rem;
+  background-color: aliceblue;
+}
+
+.comment-button {
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+  padding: 0.5rem 1rem;
+  color: white;
+  cursor: pointer;
+  background-color: rgb(50, 105, 133, 0.7);
+  border: none;
+  border-radius: 5px;
+}
+
+.comment-button:hover {
+  background-color: #66c0f4;
 }
