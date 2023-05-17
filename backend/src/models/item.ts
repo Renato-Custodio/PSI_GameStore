@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 
-interface IItem extends mongoose.Document {
+export interface IItem extends mongoose.Document {
 	name: string;
 	type: string;
 	description: string;

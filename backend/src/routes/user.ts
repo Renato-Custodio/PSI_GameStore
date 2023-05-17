@@ -2,7 +2,7 @@ import express from "express";
 import User from "../models/user";
 import { validateCardChecksum } from "../utils";
 import Avatar from "../models/avatar";
-import { UserData } from "../../../frontend/src/app/types/user";
+import Item, { IItem } from "../models/item";
 
 const user_router = express.Router();
 
@@ -377,6 +377,14 @@ user_router.put("/update", async (req, res) => {
 
   const { displayName, avatar } = req.body;
 
+  if(displayName.length < 3){
+    return res.send({ error: "The name must contain at least 3 characters." });
+  }
+
+  if(/[^a-zA-Z0-9]/.test(displayName)){
+    return res.send({ error: "The name must only contain letters and numbers." });
+  }
+
   // Update username
   const updatedUser = await User.findById(req.session.username)
     .then((user) => {
@@ -443,6 +451,34 @@ user_router.get("/displayname/:username", async (req, res) => {
     .catch((err) => {
       res.status(500).json({ message: err.message });
     });
+});
+
+user_router.get("/items/:username", async (req, res) => {
+	// if (!req.session?.username) {
+	// 	return res.status(401).json({ message: "Unauthorized" });
+	// }
+
+	try {
+		const user = await User.findById(req.params.username);
+		if (!user) {
+			return res.status(404).json({ message: "Cannot find user" });
+		}
+
+		const gamePromises = user.userData.games.map((gameID) => {
+			return Item.findById(gameID).then((item) => {
+				if (!item) {
+					throw new Error("Something went wrong");
+				}
+				return item;
+			});
+		});
+
+		const ret = await Promise.all(gamePromises);
+		console.log(ret);
+		res.json(ret);
+	} catch (err: any) {
+		res.status(500).json({ message: err.message });
+	}
 });
 
 export { user_router };
