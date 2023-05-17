@@ -9,7 +9,7 @@ import { UserData } from '../types/user';
 @Component({
   selector: 'app-game-page',
   templateUrl: './game-page.component.html',
-  styleUrls: ['./game-page.component.css']
+  styleUrls: ['./game-page.component.css'],
 })
 export class GamePageComponent {
   username!: string;
@@ -50,7 +50,7 @@ export class GamePageComponent {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     const _id = Number(id);
-    this.ItemService.getItem(_id).subscribe(game => {
+    this.ItemService.getItem(_id).subscribe((game) => {
       this.game = game;
     });
   }
@@ -69,26 +69,30 @@ export class GamePageComponent {
   }
 
   addToWishlist() {
-    this.userService.addToWishlist(this.username, this.game._id).subscribe(() => {
-      console.log('Added to wishlist');
-      console.log(this.game._id);
-      alert('Game added to wishlist successfully!');
-    }, (error) => {
-      console.error('Error adding to wishlist:', error);
-      alert('Error adding game to wishlist.');
-    });
+    this.userService.addToWishlist(this.username, this.game._id).subscribe(
+      () => {
+        console.log('Added to wishlist');
+        console.log(this.game._id);
+        alert('Game added to wishlist successfully!');
+      },
+      (error) => {
+        console.error('Error adding to wishlist:', error);
+        alert('Error adding game to wishlist.');
+      }
+    );
   }
 
-removeFromWishlist() {
-	this.UserService.removeFromWishlist(this.username, this.game._id).subscribe(() => {
-	  console.log('Removed from wishlist');
-	  console.log(this.game._id);
-	  alert('Game removed from wishlist successfully!');
-	}, (error) => {
-	  console.error('Error removing from wishlist:', error);
-	  alert('Error removing game from wishlist.');
-	});
-}
-
-
+  removeFromWishlist() {
+    this.userService.removeFromWishlist(this.username, this.game._id).subscribe(
+      () => {
+        console.log('Removed from wishlist');
+        console.log(this.game._id);
+        alert('Game removed from wishlist successfully!');
+      },
+      (error) => {
+        console.error('Error removing from wishlist:', error);
+        alert('Error removing game from wishlist.');
+      }
+    );
+  }
 }
