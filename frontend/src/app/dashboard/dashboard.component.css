@@ -4,18 +4,23 @@
   margin-right: 2rem;
 }
 
-.clickable-text {
+.clickable-text, .fa-solid {
   cursor: pointer;
   /* Add any additional styling as needed */
 }
 
-.clickable-text:hover {
+.clickable-text:hover, .fa-solid:hover {
   color: red; /* Change the color to your desired value */
+}
+
+.fa-solid{
+  margin-left: 0.5rem;
+  margin-top: 0.33rem;
 }
 
 #list {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-left: 1rem;
 }
 
