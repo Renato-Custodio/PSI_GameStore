@@ -10,11 +10,12 @@
         <div class="left">
           <div class="big-screen">
             <div class="content-container">
-              <img src="game-trailer.jpg" alt="Game Trailer" />
-              <video src="gameplay.mp4" autoplay loop muted></video>
-              <img src="screenshot1.jpg" alt="Game Screenshot" />
-              <img src="screenshot2.jpg" alt="Game Screenshot" />
-              <img src="screenshot3.jpg" alt="Game Screenshot" />
+              <ng-container *ngIf="videoActive; else imageContent">
+                <iframe width="560" height="315" [src]="activeVideoSrc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </ng-container>
+              <ng-template #imageContent>
+                <img [src]="activeImageSrc" alt="Game Screenshot" />
+              </ng-template>
             </div>
             <button class="arrow-button next">
               <i class="fas fa-chevron-right"></i>
@@ -23,16 +24,16 @@
           <div class="thumbnail-container">
             <div class="video-container">
               <img
-                class="video"
+                class="thumbnail"
                 [src]="game.main_image"
                 alt="Game Trailer"
-                class="active"
+                [class.active]="videoActive"
               />
               <button class="play-button"><i class="fas fa-play"></i></button>
             </div>
-            <img [src]="game.background_image" alt="Game Screenshot" />
-            <img [src]="game.image1" alt="Game Screenshot" />
-            <img [src]="game.image2" alt="Game Screenshot" />
+            <img class="thumbnail" [src]="game.background_image" alt="Game Screenshot" (click)="selectImage(0)" />
+            <img class="thumbnail" [src]="game.image1" alt="Game Screenshot" (click)="selectImage(1)" />
+            <img class="thumbnail" [src]="game.image2" alt="Game Screenshot" (click)="selectImage(2)" />
           </div>
         </div>
         <div class="right">
@@ -71,7 +72,7 @@
           <span class="item-name">{{ game.name }}</span>
           <div class="buy-button">
             <div class="buy-price">
-              <p>{{ game.price }}</p>
+              <p>{{ game.price }}€</p>
             </div>
             <div class="add-to-cart-btn">
               <button (click)="addToUserCart()">+ Cart</button>

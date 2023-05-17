@@ -47,12 +47,34 @@ export class GamePageComponent {
     video_link: '',
   };
 
+  videoActive: boolean = true;
+  activeImageSrc: string = '';
+  activeVideoSrc: string = '';
+
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     const _id = Number(id);
     this.ItemService.getItem(_id).subscribe(game => {
       this.game = game;
+      this.activeVideoSrc = game.video_link;
     });
+  }
+
+  selectImage(index: number) {
+    this.videoActive = false; // Set videoActive to false to display the image
+    switch (index) {
+      case 0:
+        this.activeImageSrc = this.game.background_image;
+        break;
+      case 1:
+        this.activeImageSrc = this.game.image1;
+        break;
+      case 2:
+        this.activeImageSrc = this.game.image2;
+        break;
+      default:
+        this.activeImageSrc = '';
+    }
   }
 
   addToUserCart() {
@@ -74,6 +96,5 @@ export class GamePageComponent {
       alert('Error adding game to wishlist.');
     });
   }
-
 
 }
