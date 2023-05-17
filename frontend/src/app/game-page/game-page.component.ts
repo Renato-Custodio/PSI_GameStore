@@ -79,5 +79,16 @@ export class GamePageComponent {
     });
   }
 
+removeFromWishlist() {
+	this.UserService.removeFromWishlist(this.username, this.game._id).subscribe(() => {
+	  console.log('Removed from wishlist');
+	  console.log(this.game._id);
+	  alert('Game removed from wishlist successfully!');
+	}, (error) => {
+	  console.error('Error removing from wishlist:', error);
+	  alert('Error removing game from wishlist.');
+	});
+}
+
 
 }
