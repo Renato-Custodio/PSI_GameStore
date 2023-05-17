@@ -5,7 +5,7 @@ export interface IList extends mongoose.Document {
 	items: number[];
 }
 
-export interface IItemData extends mongoose.Document {
+export interface IItemData  {
 	id: number;
 	name: string;
 	image: string;
@@ -16,7 +16,7 @@ export interface IItemData extends mongoose.Document {
 export interface IUserData extends mongoose.Document {
 	displayName: string;
 	avatar: string;
-	item: IItemData[];
+	items: IItemData[];
 	wishlist: number[];
 	lists: IList[];
 	following: string[];

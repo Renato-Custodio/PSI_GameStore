@@ -293,111 +293,114 @@ user_router.put("/cart/buy/card", async (req, res) => {
 	if (!req.session?.username) {
 		return res.status(401).json({ message: "Unauthorized" });
 	}
-	User.findById(req.session?.username)
-		.then((user) => {
-			if (user == null) {
-				return res.status(404).json({ message: "Cannot find user" });
+	try {
+		const user = await User.findById(req.session?.username);
+
+		if (user == null) {
+			return res.status(404).json({ message: "Cannot find user" });
+		}
+
+		const { cardNumber, cardHolder, expirationDate, cvv } = req.body;
+
+		if (!cardNumber || !cardHolder || !expirationDate || !cvv) {
+			return res
+				.status(400)
+				.json({ message: "Missing card information" });
+		}
+
+		// checksum validation
+		if (validateCardChecksum(cardNumber) === false) {
+			return res.status(400).json({ message: "Invalid card" });
+		}
+
+		// For the sake of testing, the payment method has a 50% chance of failing
+		if (Math.random() < 0.5) {
+			return res.status(500).json({ message: "Payment failed" });
+		}
+
+		// Add games to user's library
+		const addGamesPromises = user.userData.cart.map(async (gameID) => {
+			const game = await Item.findById(gameID);
+
+			if (game == null) {
+				return res.status(404).json({ message: "Cannot find game" });
 			}
 
-			const { cardNumber, cardHolder, expirationDate, cvv } = req.body;
-
-			if (!cardNumber || !cardHolder || !expirationDate || !cvv) {
-				return res
-					.status(400)
-					.json({ message: "Missing card information" });
-			}
-
-			//checksum validation
-			if (validateCardChecksum(cardNumber) === false) {
-				return res.status(400).json({ message: "Invalid card" });
-			}
-
-			//for the sake of testing, the payment methode has a 50% chance of failing
-			if (Math.random() < 0.5) {
-				return res.status(500).json({ message: "Payment failed" });
-			}
-
-			//add games to user's library
-			user.userData.cart.forEach((gameID) => {
-				Item.findById(gameID).then((game) => {
-					if (game == null) {
-						return res
-							.status(404)
-							.json({ message: "Cannot find game" });
-					}
-					user.userData.item.push({
-						id: gameID,
-						name: game.name,
-						image: game.main_image,
-						timeOfPurchase: Date.now(),
-					} as IItemData);
-					user.save();
-				});
-			});
-
-			//empty cart
-			user.userData.cart = [];
-
-			user.save();
-			res.json(user.userData.item);
-		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
+			user.userData.items.push({
+				id: gameID,
+				name: game.name,
+				image: game.main_image,
+				timeOfPurchase: Date.now(),
+			} as IItemData);
 		});
+
+		await Promise.all(addGamesPromises);
+
+		// Empty the cart
+		user.userData.cart = [];
+
+		await user.save();
+
+		res.json(user.userData.items);
+	} catch (error: any) {
+		res.status(500).json({ message: error.message });
+	}
 });
 
 user_router.put("/cart/buy/paypal", async (req, res) => {
 	if (!req.session?.username) {
 		return res.status(401).json({ message: "Unauthorized" });
 	}
-	User.findById(req.session?.username)
+	try {
+		const user = await User.findById(req.session?.username);
 
-		.then((user) => {
-			if (user == null) {
-				return res.status(404).json({ message: "Cannot find user" });
+		if (user == null) {
+			return res.status(404).json({ message: "Cannot find user" });
+		}
+
+		const { email, password } = req.body;
+
+		if (!email || !password) {
+			return res
+				.status(400)
+				.json({ message: "Missing PayPal information" });
+		}
+
+		// For the sake of testing, the payment method has a 50% chance of failing
+		if (Math.random() < 0.5) {
+			return res.status(500).json({ message: "Payment failed" });
+		}
+
+		// Add games to the user's library
+		const addGamesPromises = user.userData.cart.map(async (gameID) => {
+			const game = await Item.findById(gameID);
+
+			if (game == null) {
+				return res.status(404).json({ message: "Cannot find game" });
 			}
 
-			const { email, password } = req.body;
+			const data = {
+				id: gameID,
+				name: game.name,
+				image: game.main_image,
+				type: game.type,
+				timeOfPurchase: Date.now(),
+			} as IItemData;
 
-			if (!email || !password) {
-				return res
-					.status(400)
-					.json({ message: "Missing paypal information" });
-			}
-
-			//for the sake of testing, the payment methode has a 50% chance of failing
-			if (Math.random() < 0.5) {
-				return res.status(500).json({ message: "Payment failed" });
-			}
-
-			//add games to user's library
-			user.userData.cart.forEach((gameID) => {
-				Item.findById(gameID).then((game) => {
-					if (game == null) {
-						return res
-							.status(404)
-							.json({ message: "Cannot find game" });
-					}
-					user.userData.item.push({
-						id: gameID,
-						name: game.name,
-						image: game.main_image,
-						type: game.type,
-						timeOfPurchase: Date.now(),
-					} as IItemData);
-					user.save();
-				});
-			});
-
-			//empty cart
-			user.userData.cart = [];
-
-			user.save();
-			res.json(user.userData.item);
-		})
-		.catch((err) => {
-			res.status(500).json({ message: err.message });
+			user.userData.items.push(data);
 		});
+
+		await Promise.all(addGamesPromises);
+
+		// Empty the cart
+		user.userData.cart = [];
+
+		await user.save();
+
+		res.json(user.userData.items);
+	} catch (error: any) {
+		res.status(500).json({ message: error.message });
+	}
 });
 
 user_router.put("/update", async (req, res) => {
@@ -499,7 +502,7 @@ user_router.get("/items/:username", async (req, res) => {
 			return res.status(404).json({ message: "Cannot find user" });
 		}
 
-		res.json(user.userData.item);
+		res.json(user.userData.items);
 	} catch (err: any) {
 		res.status(500).json({ message: err.message });
 	}
