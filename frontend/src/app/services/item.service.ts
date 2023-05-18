@@ -21,4 +21,7 @@ export class ItemService {
     return this.http.get<Item[]>(`/api/item/list`);
   }
 
+  evaluateGame(username: string, itemId: number, stars: number, comment: string): Observable<any> {
+    return this.http.put(`/api/item/evaluate/${itemId}`, {username, stars, comment});
+  }
 }

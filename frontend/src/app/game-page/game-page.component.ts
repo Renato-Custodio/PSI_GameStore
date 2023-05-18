@@ -10,7 +10,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-game-page',
   templateUrl: './game-page.component.html',
-  styleUrls: ['./game-page.component.css']
+  styleUrls: ['./game-page.component.css'],
 })
 export class GamePageComponent {
   username!: string;
@@ -41,8 +41,8 @@ export class GamePageComponent {
     platform: '',
     language: '',
     price: 0,
-    general_classification: '',
-    evaluations: '',
+    general_classification: 0,
+    evaluations: [],
     main_image: '',
     image1: '',
     image2: '',
@@ -53,55 +53,33 @@ export class GamePageComponent {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     const _id = Number(id);
-    this.ItemService.getItem(_id).subscribe(game => {
+    this.ItemService.getItem(_id).subscribe((game) => {
       this.game = game;
-      this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.game.video_link);
-    });
-
-    console.log(this.game.video_link);
-
-    const buttons = document.querySelectorAll<HTMLElement>("[data-carousel-button]");
-
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        const offset = button.getAttribute("data-carousel-button") === "next" ? 1 : -1;
-        const carousel = button.closest("[data-carousel]");
-        const slides = carousel?.querySelector("[data-slides]");
-
-        if (slides) {
-          const activeSlide = slides.querySelector("[data-active]");
-
-          if (activeSlide) {
-            let newIndex = Array.from(slides.children).indexOf(activeSlide) + offset;
-            if (newIndex < 0) newIndex = slides.children.length - 1;
-            if (newIndex >= slides.children.length) newIndex = 0;
-
-            slides.children[newIndex].setAttribute("data-active", "true");
-            activeSlide.removeAttribute("data-active");
-          }
-        }
-      });
+      this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.game.video_link
+      );
     });
   }
 
   addToUserCart() {
-    this.userService.addToCart(this.username, this.game._id).subscribe(
-      () => {
-        console.log('Added to cart');
-        console.log(this.game._id);
-      },
-    );
+    this.userService.addToCart(this.username, this.game._id).subscribe(() => {
+      console.log('Added to cart');
+      console.log(this.game._id);
+    });
   }
 
   addToWishlist() {
-    this.userService.addToWishlist(this.username, this.game._id).subscribe(() => {
-      console.log('Added to wishlist');
-      console.log(this.game._id);
-      alert('Game added to wishlist successfully!');
-    }, (error) => {
-      console.error('Error adding to wishlist:', error);
-      alert('Error adding game to wishlist.');
-    });
+    this.userService.addToWishlist(this.username, this.game._id).subscribe(
+      () => {
+        console.log('Added to wishlist');
+        console.log(this.game._id);
+        alert('Game added to wishlist successfully!');
+      },
+      (error) => {
+        console.error('Error adding to wishlist:', error);
+        alert('Error adding game to wishlist.');
+      }
+    );
   }
 
   selectedRating: number | null = null;
@@ -111,8 +89,28 @@ export class GamePageComponent {
     this.selectedRating = rating;
   }
 
-  submitComment() {
-    //TODO
-  }
+  submitEvaluation() {
+    if (this.selectedRating === null) {
+      alert('Please select a rating.');
+      return;
+    }
 
+    this.ItemService.evaluateGame(
+      this.username,
+      this.game._id,
+      this.selectedRating,
+      this.comment
+    ).subscribe(
+      () => {
+        console.log('Evaluation submitted');
+        alert('Evaluation submitted successfully!');
+        this.selectedRating = null; // Clear the selected rating
+        this.comment = ''; // Clear the comment
+      },
+      (error) => {
+        console.error('Error submitting evaluation:', error);
+        alert('Error submitting evaluation.');
+      }
+    );
+  }
 }
