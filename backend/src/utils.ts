@@ -27,30 +27,5 @@ function validateUsername(username: string): boolean {
 	return regex.test(username);
 }
 
-function validateCardChecksum(cardNumber: string): boolean {
-	// Remove any non-digit characters from the card number
-	const cleanedNumber = cardNumber.replace(/\D/g, "");
 
-	// Convert the card number to an array of digits
-	const digits = Array.from(cleanedNumber, Number);
-
-	// Double every other digit, starting from the second-to-last digit
-	for (let i = digits.length - 2; i >= 0; i -= 2) {
-		let doubled = digits[i] * 2;
-
-		// If the doubled digit is greater than 9, subtract 9 from it
-		if (doubled > 9) {
-			doubled -= 9;
-		}
-
-		digits[i] = doubled;
-	}
-
-	// Sum all the digits
-	const sum = digits.reduce((acc, digit) => acc + digit, 0);
-
-	// Check if the sum is divisible by 10
-	return sum % 10 === 0;
-}
-
-export { hashPassword, checkPassword, validatePassword, validateUsername, validateCardChecksum };
+export { hashPassword, checkPassword, validatePassword, validateUsername,  };

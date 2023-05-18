@@ -101,7 +101,6 @@ export class DashboardComponent {
     this.userService.removeFromWishlist(this.currentUser, id).subscribe(
       () => {
         console.log('Removed from wishlist');
-        console.log(id);
         alert('Game removed from wishlist successfully!');
       },
       (error) => {

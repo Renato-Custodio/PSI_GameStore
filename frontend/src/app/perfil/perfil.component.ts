@@ -25,7 +25,6 @@ export class PerfilComponent {
     this.authService.getUser().subscribe((user) => {
       this.username = user.username;
       this.userService.getUserData(user.username).subscribe((user) => {
-        console.log(user);
         this.user = user;
       });
       this.getLists().subscribe((list) => {
@@ -77,7 +76,6 @@ export class PerfilComponent {
     this.userService.removeFromWishlist(this.username, id).subscribe(
       () => {
         console.log('Removed from wishlist');
-        console.log(id);
         alert('Game removed from wishlist successfully!');
       },
       (error) => {

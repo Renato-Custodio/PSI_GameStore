@@ -24,7 +24,6 @@ export class CartItemComponent {
     this.authService.getUser().subscribe((user) => {
       this.username = user.username;
       this.userService.getUserData(user.username).subscribe((user) => {
-        console.log(user);
         this.user = user;
       });
     });

@@ -27,7 +27,6 @@ export class GamePageComponent {
     this.authService.getUser().subscribe((user) => {
       this.username = user.username;
       this.userService.getUserData(user.username).subscribe((user) => {
-        console.log(user);
         this.user = user;
       });
     });
@@ -90,7 +89,6 @@ export class GamePageComponent {
   addToUserCart() {
     this.userService.addToCart(this.username, this.game._id).subscribe(() => {
       console.log('Added to cart');
-      console.log(this.game._id);
     });
   }
 
@@ -98,7 +96,6 @@ export class GamePageComponent {
     this.userService.addToWishlist(this.username, this.game._id).subscribe(
       () => {
         console.log('Added to wishlist');
-        console.log(this.game._id);
         alert('Game added to wishlist successfully!');
       },
       (error) => {
@@ -144,7 +141,6 @@ export class GamePageComponent {
     this.userService.removeFromWishlist(this.username, this.game._id).subscribe(
       () => {
         console.log('Removed from wishlist');
-        console.log(this.game._id);
         alert('Game removed from wishlist successfully!');
       },
       (error) => {
