@@ -9,7 +9,7 @@ import { Item } from '../types/item';
 @Component({
   selector: 'app-cart-popup',
   templateUrl: './cart-popup.component.html',
-  styleUrls: ['./cart-popup.component.css']
+  styleUrls: ['./cart-popup.component.css'],
 })
 export class CartPopupComponent {
   username!: string;
@@ -17,6 +17,16 @@ export class CartPopupComponent {
   cartItems: number[] = [];
   cartItemsData: Item[] = [];
   isMBwaySelected: boolean = false;
+
+  nif: number = 0;
+  address: string = '';
+
+  number: number = 0;
+
+  cardNumber: number = 0;
+  cardHolder: string = '';
+  expirationDate: string = '';
+  cvv: number = 0;
 
   constructor(
     private authService: AuthService,
@@ -88,7 +98,7 @@ export class CartPopupComponent {
   }
 
   removeItemFromCart(itemId: number) {
-    const index = this.cartItems.findIndex(item => item === itemId);
+    const index = this.cartItems.findIndex((item) => item === itemId);
     if (index !== -1) {
       this.cartItems.splice(index, 1);
       this.userService.removeFromCart(this.username, itemId).subscribe(() => {
@@ -99,8 +109,10 @@ export class CartPopupComponent {
 
   removeAllItemsFromCart(itemId: number) {
     // remove all items with itemId from cart
-    this.cartItems = this.cartItems.filter(item => item !== itemId);
-    this.cartItemsData = this.cartItemsData.filter(item => item._id !== itemId);
+    this.cartItems = this.cartItems.filter((item) => item !== itemId);
+    this.cartItemsData = this.cartItemsData.filter(
+      (item) => item._id !== itemId
+    );
     this.userService.removeAllFromCart(this.username, itemId).subscribe(() => {
       console.log('Item removed from cart');
     });
@@ -117,7 +129,52 @@ export class CartPopupComponent {
     this.isMBwaySelected = !this.isMBwaySelected;
   }
 
-  buyCart(){
-    
+  buyCart() {
+    if (this.cartItemsData.length === 0) {
+      alert('Cart is empty');
+      return;
+    }
+
+    console.log('nif: ' + this.nif);
+    console.log('number: ' + this.number);
+    console.log('address: ' + this.address);
+    console.log('cardNumber: ' + this.cardNumber);
+    console.log('cardHolder: ' + this.cardHolder);
+    console.log('expirationDate: ' + this.expirationDate);
+    console.log('cvv: ' + this.cvv);
+
+    if (this.isMBwaySelected) {
+      //mbway
+      this.userService
+        .buyMBway(this.nif, this.number, this.address)
+        .subscribe((res) => {
+          console.log(res);
+          if (res.message) {
+            alert(res.message);
+          } else {
+            alert('MBway payment successful');
+            this.cartItemsData = [];
+          }
+        });
+    } else {
+      // regular cart payment
+      this.userService
+        .buyCard(
+          this.nif,
+          this.cardNumber,
+          this.cardHolder,
+          this.expirationDate,
+          this.cvv,
+          this.address
+        )
+        .subscribe((res) => {
+          if (res.message) {
+            alert(res.message);
+          } else {
+            alert('Card payment successful');
+            this.cartItemsData = [];
+          }
+        });
+    }
   }
 }

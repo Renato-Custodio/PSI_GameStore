@@ -310,12 +310,12 @@ user_router.put("/cart/buy/card", async (req, res) => {
 
 		// checksum validation
 		if (validateCardChecksum(cardNumber) === false) {
-			return res.status(400).json({ message: "Invalid card" });
+			return res.json({ message: "Invalid card" });
 		}
 
 		// For the sake of testing, the payment method has a 50% chance of failing
 		if (Math.random() < 0.5) {
-			return res.status(500).json({ message: "Payment failed" });
+			return res.json({ message: "Payment failed" });
 		}
 
 		// Add games to user's library
@@ -341,7 +341,7 @@ user_router.put("/cart/buy/card", async (req, res) => {
 
 		await user.save();
 
-		res.json(user.userData.items);
+		res.json({});
 	} catch (error: any) {
 		res.status(500).json({ message: error.message });
 	}
@@ -366,7 +366,7 @@ user_router.put("/cart/buy/mbway", async (req, res) => {
 
 		// For the sake of testing, the payment method has a 50% chance of failing
 		if (Math.random() < 0.5) {
-			return res.status(500).json({ message: "Payment failed" });
+			return res.json({ message: "Payment failed" });
 		}
 
 		// Add games to the user's library
@@ -395,7 +395,7 @@ user_router.put("/cart/buy/mbway", async (req, res) => {
 
 		await user.save();
 
-		res.json(user.userData.items);
+		res.json({});
 	} catch (error: any) {
 		res.status(500).json({ message: error.message });
 	}
