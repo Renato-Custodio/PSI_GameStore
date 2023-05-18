@@ -103,9 +103,9 @@ item_router.get("/search", async (req, res) => {
 
 item_router.put("/evaluate/:itemId", async (req: Request, res: Response) => {
 
-  // if (!req.session?.username) {
-  //   return res.status(401).json({ message: "Unauthorized" });
-  // }
+  if (!req.session?.username) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
   try {
     const itemId = req.params.itemId;
