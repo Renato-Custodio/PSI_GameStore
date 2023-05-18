@@ -25,7 +25,6 @@ item_router.get("/details/:name", async (req: Request, res: Response) => {
       if (item == null) {
         return res.status(404).json({ message: "Cannot find item" });
       }
-      console.log(item);
       res.json(item);
     })
     .catch((err) => {
@@ -120,7 +119,6 @@ item_router.put("/evaluate/:itemId", async (req: Request, res: Response) => {
     
     if (!item.evaluations) {
       item.evaluations = [] as IEvaluation[];
-      console.log("Initialized evaluations array:", item.evaluations);
     }
 
     if (item.general_classification == 0){

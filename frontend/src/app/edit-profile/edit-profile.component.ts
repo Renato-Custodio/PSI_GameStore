@@ -41,7 +41,6 @@ export class EditProfileComponent {
     this.userService
       .updateUser(this.displayName, this.avatar)
       .subscribe((result) => {
-        console.log(result);
         if (result.error) {
           this.error = result.error;
         } else {
