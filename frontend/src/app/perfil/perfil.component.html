@@ -4,24 +4,86 @@
   <div id="sides">
     <div class="side" id="left">
       <div class="card-header">
-        <a
-          *ngFor="let link of links; let i = index"
-          [ngClass]="{ active: i === activeLinkIndex }"
-          (click)="setActiveLinkIndex(i)"
-          >{{ link.text }}</a
-        >
+        <a (click)="setActiveLinkIndex(0)">Library</a>
+        <a (click)="setActiveLinkIndex(1)">Lists</a>
+        <a (click)="setActiveLinkIndex(2)">Social</a>
       </div>
-      <div class="card-body">
-        <ng-container *ngFor="let content of contents; let i = index">
-          <div *ngIf="i === activeLinkIndex" class="card-content">
-            {{ content.text }}
+
+      <button class="sort" *ngIf="activeLinkIndex === 0" (click)="sortItemsByTitle()">Sort by Title</button> 
+      <button class="sort" *ngIf="activeLinkIndex === 0" (click)="sortItemsByDate()">Sort by Acquisition Date</button>
+      <div class="card-body-lib">
+        <div *ngIf="0 === activeLinkIndex" class="card-content">
+          <ul class="library-list">
+            <span *ngIf="user.items.length === 0">You don't own any items</span>
+            <li *ngFor="let item of user.items" class="library-item">
+              <div class="game-card">
+                <img
+                  [src]="item.image"
+                  alt="Game image"
+                  (click)="goToGamePage(item.id)"
+                />
+                <h3 (click)="goToGamePage(item.id)" class="title">
+                  {{ item.name }}
+                </h3>
+                <p>{{ item.type }}</p>
+                <p><span class="acquired">Acquired:</span> {{ getDate(1) }}</p>
+                <button *ngIf="item.type === 'Game'; else not_game">
+                  PLAY
+                </button>
+                <ng-template #not_game
+                  ><button (click)="goToGamePage(item.id)">
+                    VIEW
+                  </button></ng-template
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="1 === activeLinkIndex" class="card-content">
+          <ul>
+            Wishlist:
+            <span *ngIf="lists.length === 0">No items in the wishlist</span>
+            <li *ngFor="let list of lists" id="list">
+              <span class="clickable-text" (click)="goToGamePage(list.id)">{{
+                list.name
+              }}</span>
+              <i
+                class="fa-solid fa-xmark"
+                (click)="removeFromWishlist(list.id)"
+                onclick="history.go(0);"
+              ></i>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="2 === activeLinkIndex" class="card-content">
+          <div class="card-body">
+            <div class="card-head">Followers:</div>
+            <ul>
+              <li *ngFor="let fol of user.followers">
+                <a>
+                  {{ fol }}
+                </a>
+              </li>
+              <li *ngIf="user.following.length === 0">No followers</li>
+            </ul>
+            <div class="card-head">Following:</div>
+            <ul>
+              <li *ngFor="let fol of user.following">
+                <a>
+                  {{ fol }}
+                </a>
+              </li>
+              <li *ngIf="user.following.length === 0">No followers</li>
+            </ul>
           </div>
-        </ng-container>
+        </div>
       </div>
     </div>
     <div class="side" id="right">
       <div class="card">
-        <div class="banner"><img class="profile-pic" [src]="user.avatar" /></div>
+        <div class="banner">
+          <img class="profile-pic" [src]="user.avatar" />
+        </div>
         <div class="menu">
           <div class="opener"><span></span><span></span><span></span></div>
         </div>

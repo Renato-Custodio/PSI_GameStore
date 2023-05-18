@@ -73,9 +73,13 @@ export class UserService {
   getUserAvatar(username: string): Observable<string> {
     return this.http.get<string>(`/api/user/avatar/${username}`);
   }
+      
+  removeFromWishlist(username: string, gameID: number): Observable<any> {
+    return this.http.delete(`/api/user/${username}/wishlist/${gameID}`, {});
+  }
 
   getItems(username: string): Observable<ItemData[]> {
-    return this.http.get<ItemData[]>(`/api/user/` + username + '/games');
+    return this.http.get<ItemData[]>(`/api/user/items/` + username);
   }
 
   updateUser(

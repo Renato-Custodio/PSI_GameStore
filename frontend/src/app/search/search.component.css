@@ -19,6 +19,8 @@
   background-image: url("../../assets/fixe.jpg");
   background-position: center;
   background-size: auto;
+  min-width: 200px;
+  min-height: 100px;
 }
 
 p {

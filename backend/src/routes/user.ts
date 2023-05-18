@@ -173,9 +173,8 @@ user_router.delete("/:username/wishlist/:gameID", async (req, res) => {
 			if (user == null) {
 				return res.status(404).json({ message: "Cannot find user" });
 			}
-			console.log(req.params.gameID);
+
 			const gameID = parseInt(req.params.gameID);
-			console.log(gameID);
 
 			//muito roundabout mas com o $pull nao estava a conseguir
 			var wishlist = [];
@@ -300,9 +299,10 @@ user_router.put("/cart/buy/card", async (req, res) => {
 			return res.status(404).json({ message: "Cannot find user" });
 		}
 
-		const { cardNumber, cardHolder, expirationDate, cvv } = req.body;
+		const { cardNumber, cardHolder, expirationDate, cvv, nif, address } =
+			req.body;
 
-		if (!cardNumber || !cardHolder || !expirationDate || !cvv) {
+		if (!cardNumber || !cardHolder || !expirationDate || !cvv || !nif) {
 			return res
 				.status(400)
 				.json({ message: "Missing card information" });
@@ -347,7 +347,7 @@ user_router.put("/cart/buy/card", async (req, res) => {
 	}
 });
 
-user_router.put("/cart/buy/paypal", async (req, res) => {
+user_router.put("/cart/buy/mbway", async (req, res) => {
 	if (!req.session?.username) {
 		return res.status(401).json({ message: "Unauthorized" });
 	}
@@ -358,12 +358,10 @@ user_router.put("/cart/buy/paypal", async (req, res) => {
 			return res.status(404).json({ message: "Cannot find user" });
 		}
 
-		const { email, password } = req.body;
+		const { number, nif, address } = req.body;
 
-		if (!email || !password) {
-			return res
-				.status(400)
-				.json({ message: "Missing PayPal information" });
+		if (!number || !nif) {
+			return res.status(400).json({ message: "Missing information" });
 		}
 
 		// For the sake of testing, the payment method has a 50% chance of failing

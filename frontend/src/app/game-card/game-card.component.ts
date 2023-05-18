@@ -59,5 +59,19 @@ export class GameCardComponent {
     );
   }
 
+  addToWishlist() {
+    this.userService.addToWishlist(this.username, this.game._id).subscribe(
+      () => {
+        console.log('Added to wishlist');
+        console.log(this.game._id);
+        alert('Game added to wishlist successfully!');
+      },
+      (error) => {
+        console.error('Error adding to wishlist:', error);
+        alert('Error adding game to wishlist.');
+      }
+    );
+  }
+
 
 }
