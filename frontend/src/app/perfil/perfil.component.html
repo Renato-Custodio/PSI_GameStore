@@ -4,24 +4,54 @@
   <div id="sides">
     <div class="side" id="left">
       <div class="card-header">
-        <a
-          *ngFor="let link of links; let i = index"
-          [ngClass]="{ active: i === activeLinkIndex }"
-          (click)="setActiveLinkIndex(i)"
-          >{{ link.text }}</a
-        >
+        <a (click)="setActiveLinkIndex(0)">Library</a>
+        <a (click)="setActiveLinkIndex(1)">Lists</a>
+        <a (click)="setActiveLinkIndex(2)">Social</a>
       </div>
       <div class="card-body">
-        <ng-container *ngFor="let content of contents; let i = index">
-          <div *ngIf="i === activeLinkIndex" class="card-content">
-            {{ content.text }}
+        <div *ngIf="0 === activeLinkIndex" class="card-content">
+          
+        </div>
+        <div *ngIf="1 === activeLinkIndex" class="card-content">
+          <ul>
+            Wishlist:
+            <span *ngIf="lists.length === 0">No items in the wishlist</span>
+            <li *ngFor="let list of lists" id="list">
+              <span class="clickable-text" (click)="goToGamePage(list.id)">{{
+                list.name
+              }}</span>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="2 === activeLinkIndex" class="card-content">
+          <div class="card-body">
+            <div class="card-head">Followers:</div>
+            <ul>
+              <li *ngFor="let fol of user.followers">
+                <a>
+                  {{ fol }}
+                </a>
+              </li>
+              <li *ngIf="user.following.length === 0">No followers</li>
+            </ul>
+            <div class="card-head">Following:</div>
+            <ul>
+              <li *ngFor="let fol of user.following">
+                <a>
+                  {{ fol }}
+                </a>
+              </li>
+              <li *ngIf="user.following.length === 0">No followers</li>
+            </ul>
           </div>
-        </ng-container>
+        </div>
       </div>
     </div>
     <div class="side" id="right">
       <div class="card">
-        <div class="banner"><img class="profile-pic" [src]="user.avatar" /></div>
+        <div class="banner">
+          <img class="profile-pic" [src]="user.avatar" />
+        </div>
         <div class="menu">
           <div class="opener"><span></span><span></span><span></span></div>
         </div>
