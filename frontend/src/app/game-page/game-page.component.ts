@@ -58,6 +58,32 @@ export class GamePageComponent {
       this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
         this.game.video_link
       );
+      const buttons = document.querySelectorAll<HTMLElement>(
+        '[data-carousel-button]'
+      );
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const offset =
+            button.getAttribute('data-carousel-button') === 'next' ? 1 : -1;
+          const carousel = button.closest('[data-carousel]');
+          const slides = carousel?.querySelector('[data-slides]');
+
+          if (slides) {
+            const activeSlide = slides.querySelector('[data-active]');
+
+            if (activeSlide) {
+              let newIndex =
+                Array.from(slides.children).indexOf(activeSlide) + offset;
+              if (newIndex < 0) newIndex = slides.children.length - 1;
+              if (newIndex >= slides.children.length) newIndex = 0;
+
+              slides.children[newIndex].setAttribute('data-active', 'true');
+              activeSlide.removeAttribute('data-active');
+            }
+          }
+        });
+      });
     });
   }
 
