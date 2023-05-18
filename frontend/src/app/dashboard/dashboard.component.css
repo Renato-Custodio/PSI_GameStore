@@ -216,3 +216,7 @@
 .acquired{
   font-weight: bold;
 }
+
+.follow{
+  list-style: none;
+}
