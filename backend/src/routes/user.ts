@@ -173,9 +173,8 @@ user_router.delete("/:username/wishlist/:gameID", async (req, res) => {
 			if (user == null) {
 				return res.status(404).json({ message: "Cannot find user" });
 			}
-			console.log(req.params.gameID);
+
 			const gameID = parseInt(req.params.gameID);
-			console.log(gameID);
 
 			//muito roundabout mas com o $pull nao estava a conseguir
 			var wishlist = [];
