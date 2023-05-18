@@ -67,3 +67,22 @@
   background: none;
   cursor: pointer;
 }
+
+.mb-5 {
+  margin-bottom: 0.5rem!important;
+}
+
+#switch-payment {
+  color: #5a7685;
+  text-decoration: underline;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  transition: font-size 0.2s ease-in-out;
+}
+
+#switch-payment:hover {
+  cursor: pointer;
+  color: #66c0f4;
+}
+

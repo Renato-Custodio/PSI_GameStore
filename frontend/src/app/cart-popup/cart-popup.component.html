@@ -1,32 +1,40 @@
 <div class="container">
-  <a class="close-button" (click)="closePopup()"><i class="fas fa-times"></i></a>
+  <a class="close-button" (click)="closePopup()"
+    ><i class="fas fa-times"></i
+  ></a>
   <div class="row">
     <div class="col">
       <div class="shopping-cart">
         <div class="card-body text-black">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 px-5 py-4">
               <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">
                 Your products
               </h3>
 
               <div class="shopping-cart-items-container">
-                <div class="shopping-cart-items" *ngFor="let item of cartItemsData">
-                  <app-cart-item [itemId]="item._id" [quantity]="getItemQuantity(item._id)" (addItem)="addItemToCart(item._id)" (removeItems)="removeAllItemsFromCart(item._id)" (removeItem)="removeItemFromCart(item._id)"></app-cart-item>
+                <div
+                  class="shopping-cart-items"
+                  *ngFor="let item of cartItemsData"
+                >
+                  <app-cart-item
+                    [itemId]="item._id"
+                    [quantity]="getItemQuantity(item._id)"
+                    (addItem)="addItemToCart(item._id)"
+                    (removeItems)="removeAllItemsFromCart(item._id)"
+                    (removeItem)="removeItemFromCart(item._id)"
+                  ></app-cart-item>
                 </div>
               </div>
-
 
               <hr
                 class="mb-4"
                 style="height: 2px; background-color: #1266f1; opacity: 1"
               />
 
-              <div
-                class="price-total"
-              >
+              <div class="price-total">
                 <h5 class="fw-bold mb-0">Total:</h5>
-                <h5 class="fw-bold mb-0">{{ calculateTotal() }}€</h5>
+                <h5 class="fw-bold mb-0">{{ calculateTotal().toFixed(2) }}€</h5>
               </div>
             </div>
             <div class="col-lg-6 px-5 py-4">
@@ -45,60 +53,117 @@
                     minlength="19"
                     maxlength="19"
                   />
-                  <label class="form-label" for="typeText">Card Number</label>
+                  <label class="form-label" for="typeText">NIF</label>
                 </div>
 
                 <div class="form-outline mb-5">
                   <input
                     type="text"
-                    id="typeName"
+                    id="typeText"
                     class="form-control form-control-lg"
                     siez="17"
                     value=""
+                    minlength="19"
+                    maxlength="19"
                   />
-                  <label class="form-label" for="typeName">Name on card</label>
+                  <label class="form-label" for="typeText">Address</label>
                 </div>
 
-                <div class="row">
-                  <div class="col-md-6 mb-5">
-                    <div class="form-outline">
-                      <input
-                        type="text"
-                        id="typeExp"
-                        class="form-control form-control-lg"
-                        value=""
-                        size="7"
-                        id="exp"
-                        minlength="7"
-                        maxlength="7"
-                      />
-                      <label class="form-label" for="typeExp">Expiration</label>
+                <hr
+                  class="mb-4"
+                  style="height: 2px; background-color: #1266f1; opacity: 1"
+                />
+
+                <ng-container *ngIf="!isMBwaySelected; else mbwayForms">
+                  <div class="form-outline mb-5">
+                    <input
+                      type="text"
+                      id="typeText"
+                      class="form-control form-control-lg"
+                      size="17"
+                      value=""
+                      minlength="19"
+                      maxlength="19"
+                    />
+                    <label class="form-label" for="typeText">Card Number</label>
+                  </div>
+
+                  <div class="form-outline mb-5">
+                    <input
+                      type="text"
+                      id="typeName"
+                      class="form-control form-control-lg"
+                      size="17"
+                      value=""
+                    />
+                    <label class="form-label" for="typeName"
+                      >Name on card</label
+                    >
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-5">
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          id="typeExp"
+                          class="form-control form-control-lg"
+                          value=""
+                          size="7"
+                          id="exp"
+                          minlength="7"
+                          maxlength="7"
+                        />
+                        <label class="form-label" for="typeExp"
+                          >Expiration</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-5">
+                      <div class="form-outline">
+                        <input
+                          type="password"
+                          id="typeText"
+                          class="form-control form-control-lg"
+                          value=""
+                          size="1"
+                          minlength="3"
+                          maxlength="3"
+                        />
+                        <label class="form-label" for="typeText">Cvv</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-6 mb-5">
-                    <div class="form-outline">
-                      <input
-                        type="password"
-                        id="typeText"
-                        class="form-control form-control-lg"
-                        value=""
-                        size="1"
-                        minlength="3"
-                        maxlength="3"
-                      />
-                      <label class="form-label" for="typeText">Cvv</label>
-                    </div>
+
+                  <p id="label" class="mb-5">
+                    Aceitamos pagamentos com cartão e ainda com Mbway!
+                    <a id="switch-payment" (click)="isMBwaySelected = true">Trocar para MBway</a>.
+                  </p>
+                </ng-container>
+
+                <ng-template #mbwayForms>
+                  <div class="form-outline mb-5">
+                    <input
+                      type="text"
+                      id="typePhone"
+                      class="form-control form-control-lg"
+                      value=""
+                      size="9"
+                      minlength="9"
+                      maxlength="9"
+                    />
+                    <label class="form-label" for="typePhone"
+                      >Phone Number</label
+                    >
                   </div>
-                </div>
 
-                <p class="mb-5">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit
-                  <a href="#!">obcaecati sapiente</a>.
-                </p>
+                  <p id="label" class="mb-5">
+                    Aceitamos pagamentos com cartão e ainda com Mbway!
+                    <a id="switch-payment" (click)="isMBwaySelected = false">Voltar para cartão</a>.
+                  </p>
+                </ng-template>
 
-                <button type="button" class="buy-button">
-                  Buy now
-                </button>
+                <button (click)="buyCart()" type="button" class="buy-button">Buy now</button>
               </form>
             </div>
           </div>

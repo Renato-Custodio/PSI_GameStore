@@ -16,6 +16,7 @@ export class CartPopupComponent {
   user!: UserData;
   cartItems: number[] = [];
   cartItemsData: Item[] = [];
+  isMBwaySelected: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -90,7 +91,6 @@ export class CartPopupComponent {
     const index = this.cartItems.findIndex(item => item === itemId);
     if (index !== -1) {
       this.cartItems.splice(index, 1);
-      this.cartItemsData = this.cartItemsData.filter(item => item._id !== itemId);
       this.userService.removeFromCart(this.username, itemId).subscribe(() => {
         console.log('Item removed from cart');
       });
@@ -103,8 +103,7 @@ export class CartPopupComponent {
     this.cartItemsData = this.cartItemsData.filter(item => item._id !== itemId);
     this.userService.removeAllFromCart(this.username, itemId).subscribe(() => {
       console.log('Item removed from cart');
-    }
-    );
+    });
   }
 
   addItemToCart(itemId: number) {
@@ -112,5 +111,13 @@ export class CartPopupComponent {
     this.userService.addToCart(this.username, itemId).subscribe(() => {
       console.log('Item added to cart');
     });
+  }
+
+  togglePaymentForm() {
+    this.isMBwaySelected = !this.isMBwaySelected;
+  }
+
+  buyCart(){
+    
   }
 }

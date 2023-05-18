@@ -66,11 +66,20 @@
 
 .quantity-input {
   width: 40px;
-  padding: 5px;
+  padding: 0px;
   border: 1px solid #ddd;
   text-align: center;
 }
 
+.minus-btn{
+  margin-right: 5px;
+}
+
 .plus-btn {
   margin-left: 5px;
+}
+
+.minus-btn:hover,
+.plus-btn:hover {
+  background-color: #eee;
 }
