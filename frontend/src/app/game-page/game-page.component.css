@@ -2,6 +2,8 @@
   position: relative;
   height: 100%;
   margin-left: 20rem;
+  min-width: 1000px;
+  min-height: 750px;
 }
 
 .wrapper::before {
@@ -22,6 +24,8 @@
   height: 100%;
   background-color: rgba(38, 50, 56, 0.8);
   position: relative;
+  min-width: 1000px;
+  min-height: 750px;
 }
 
 .center {
@@ -51,7 +55,7 @@
   width: 100%;
 }
 
-.game-name h1{
+.game-name h1 {
   color: #fff;
   font-size: 2rem;
   font-weight: 600;
@@ -63,7 +67,7 @@
   width: 500px;
   height: 250px;
   margin-bottom: 0.25rem;
-  background-color:black;
+  background-color: black;
 }
 
 .content-container {
@@ -76,7 +80,8 @@
   flex-direction: row;
 }
 
-img, video {
+img,
+video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -165,7 +170,7 @@ img, video {
   align-items: center;
   display: flex;
   flex-direction: column;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   margin-top: 0.25rem;
   margin-left: 1rem;
 }
@@ -178,16 +183,16 @@ img, video {
 
 .info {
   margin-left: 0.5rem;
-  color: #8EBBD1;
-  font-size: 0.90rem;
+  color: #8ebbd1;
+  font-size: 0.9rem;
 }
 
 .header {
   color: silver;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
 }
 
-.lists{
+.lists {
   width: 100%;
   height: 90px;
   background-color: rgba(38, 50, 56, 0.2);
@@ -201,7 +206,7 @@ img, video {
   margin-left: 10px;
 }
 
-.wishlist button{
+.wishlist button {
   height: 40px;
   width: 120px;
   background-color: rgb(50, 105, 133, 0.7);
@@ -209,7 +214,7 @@ img, video {
   border-radius: 5px;
 }
 
-.wishlist span{
+.wishlist span {
   color: white;
   font-size: 1rem;
   font-weight: 600;
@@ -218,40 +223,42 @@ img, video {
   align-items: center;
 }
 
-.text-lists{
+.text-lists {
   margin-bottom: 10px;
   margin-left: 10px;
   color: silver;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
-.wishlist button:hover{
+.wishlist button:hover {
   background-color: #66c0f4;
 }
 
-.space{
-  height:30px;
+.space {
+  height: 30px;
 }
 
-.buy-card{
-  background-color: #5A7685;
+.buy-card {
+  background-color: #5a7685;
   width: 70%;
   height: 60px;
   border-radius: 5px;
   display: flex;
   align-items: center;
   position: absolute;
+  min-width: 550px;
 }
 
-.buy-card span{
+.buy-card span {
   color: white;
   font-size: 1.25rem;
   font-weight: 600;
   display: flex;
 }
 
-.title-buy, .item-name{
+.title-buy,
+.item-name {
   color: white;
   font-size: 1.25rem;
   font-weight: 600;
@@ -272,7 +279,7 @@ img, video {
 }
 
 .buy-price {
-  font-size: 0.80rem;
+  font-size: 0.8rem;
   background-color: #000000;
   color: #fff;
   border-radius: 5px 0 0 5px;
@@ -300,7 +307,7 @@ img, video {
   padding: 0.5rem;
   background-color: #263238;
   color: #fff;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 500;
   text-transform: uppercase;
   cursor: pointer;
@@ -314,11 +321,10 @@ p {
   margin: 0;
 }
 
-
-ng-container{
+ng-container {
   z-index: 1;
 }
 
-ng-template{
+ng-template {
   z-index: 1;
 }
