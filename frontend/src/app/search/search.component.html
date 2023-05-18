@@ -19,11 +19,9 @@
     </div>
   </ng-container>
   <ng-template #noResultsBlock>
-    <ng-container *ngIf="allGames.length > 0">
-      <div class="card-container" style="flex-direction: row;">
-        <app-game-card *ngFor="let game of allGames" [game]="game"></app-game-card>
-      </div>
-    </ng-container>
+    <div class="card-container" style="flex-direction: row;">
+      <app-game-card *ngFor="let game of searchResults" [game]="game"></app-game-card>
+    </div>
     <div class="message" *ngIf="errorMessage">{{ errorMessage }}</div>
   </ng-template>
 </div>

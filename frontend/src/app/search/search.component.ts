@@ -16,24 +16,34 @@ export class SearchComponent {
   constructor(private searchService: SearchService) {
     this.searchService.getAllGames().subscribe((games) => {
       this.allGames = games;
+      this.searchResults = this.allGames;
     });
   }
 
   searchGame(title: string): void {
     title = title.trim();
-    if (title.length < 3) {
-      // if query is empty or less than 3 characters, show all games
+    this.query = title; // Update the query with the current title
+    if (title.length === 0) {
       this.searchResults = this.allGames;
+      this.errorMessage = '';
+      return;
+    }
+    if (title.length < 1) {
+      this.searchResults = [];
+      this.errorMessage = '';
       return;
     }
     this.searchResults = this.allGames.filter(
       (game) =>
-        game.name.toLowerCase().indexOf(title.toLowerCase()) !== -1 // filter the games based on the query
+        game.name.toLowerCase().indexOf(title.toLowerCase()) !== -1
     );
     if (this.searchResults.length === 0) {
       this.errorMessage = 'Nao foi encontrado nenhum jogo';
     } else {
       this.errorMessage = '';
+    }
+    if (this.query === '') {
+      this.searchResults = this.allGames;
     }
   }
 
