@@ -26,7 +26,7 @@
                   {{ item.name }}
                 </h3>
                 <p>{{ item.type }}</p>
-                <p><span class="acquired">Acquired:</span> {{ getDate(1) }}</p>
+                <p><span class="acquired">Acquired:</span> {{ getDate(item.id) }}</p>
                 <button *ngIf="item.type === 'Game'; else not_game">
                   PLAY
                 </button>
