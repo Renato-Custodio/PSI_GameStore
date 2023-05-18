@@ -37,10 +37,8 @@ export class CartPopupComponent {
     this.authService.getUser().subscribe((user) => {
       this.username = user.username;
       this.userService.getUserData(user.username).subscribe((user) => {
-        console.log(user);
         this.user = user;
         this.cartItems = user.cart || []; // set cartItems to empty array if it doesn't exist in user object
-        console.log(this.cartItems);
         this.getCartItems();
       });
     });
@@ -54,8 +52,6 @@ export class CartPopupComponent {
         this.cartItemsData.push(item);
       });
     }
-
-    console.log(this.cartItemsData);
   }
 
   getUniqueCartItems(cartItems: number[]): number[] {
@@ -161,7 +157,6 @@ export class CartPopupComponent {
       const number = parseInt(numberElement.value);
 
       this.userService.buyMBway(nif, number, address).subscribe((res) => {
-        console.log(res);
         if (res.message) {
           alert(res.message);
         } else {
@@ -182,11 +177,6 @@ export class CartPopupComponent {
       const cvvElement = document.getElementById(
         'typeText'
       ) as HTMLInputElement;
-
-      console.log(cardNumberElement.value);
-      console.log(cardHolderElement.value);
-      console.log(expirationDateElement.value);
-      console.log(cvvElement.value);
 
       if (
         !cardNumberElement ||

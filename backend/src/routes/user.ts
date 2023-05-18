@@ -22,23 +22,6 @@ user_router.get("/:username/lists", async (req, res) => {
 		});
 });
 
-// user_router.get("/:username/games", async (req, res) => {
-// 	if (!req.session?.username) {
-// 		return res.status(401).json({ message: "Unauthorized" });
-// 	}
-
-// 	User.findById(req.params.username)
-// 		.then((user) => {
-// 			if (user == null) {
-// 				return res.status(404).json({ message: "Cannot find user" });
-// 			}
-// 			res.json(user.userData.games);
-// 		})
-// 		.catch((err) => {
-// 			res.status(500).json({ message: err.message });
-// 		});
-// });
-
 user_router.get("/:username/followers", async (req, res) => {
 	if (!req.session?.username) {
 		return res.status(401).json({ message: "Unauthorized" });
@@ -334,7 +317,6 @@ user_router.put("/cart/buy/card", async (req, res) => {
 
 		res.json({});
 	} catch (error: any) {
-		console.log(error);
 		res.status(500).json({ message: error.message });
 	}
 });
