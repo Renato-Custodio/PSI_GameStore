@@ -299,9 +299,10 @@ user_router.put("/cart/buy/card", async (req, res) => {
 			return res.status(404).json({ message: "Cannot find user" });
 		}
 
-		const { cardNumber, cardHolder, expirationDate, cvv } = req.body;
+		const { cardNumber, cardHolder, expirationDate, cvv, nif, address } =
+			req.body;
 
-		if (!cardNumber || !cardHolder || !expirationDate || !cvv) {
+		if (!cardNumber || !cardHolder || !expirationDate || !cvv || !nif) {
 			return res
 				.status(400)
 				.json({ message: "Missing card information" });
@@ -357,10 +358,10 @@ user_router.put("/cart/buy/mbway", async (req, res) => {
 			return res.status(404).json({ message: "Cannot find user" });
 		}
 
-		const { number } = req.body;
+		const { number, nif, address } = req.body;
 
-		if (!number) {
-			return res.status(400).json({ message: "Missing number" });
+		if (!number || !nif) {
+			return res.status(400).json({ message: "Missing information" });
 		}
 
 		// For the sake of testing, the payment method has a 50% chance of failing
