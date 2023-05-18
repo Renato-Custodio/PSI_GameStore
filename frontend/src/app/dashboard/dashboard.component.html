@@ -9,14 +9,8 @@
           Wishlist:
           <span *ngIf="lists.length === 0">No items in the wishlist</span>
           <li *ngFor="let list of lists" id="list">
-            <span class="clickable-text" (click)="goToGamePage(list.id)">{{
-              list.name
-            }}</span>
-            <i
-              class="fa-solid fa-xmark"
-              (click)="removeFromWishlist(list.id)"
-              onclick="history.go(0);"
-            ></i>
+            <span class="clickable-text" (click)="goToGamePage(list.id)">{{ list.name }}</span>
+            <i class="fa-solid fa-xmark" (click)="removeFromWishlist(list.id)" onclick="alert('Game removed from wishlist successfully!');history.go(0);"></i>
           </li>
         </ul>
       </div>
