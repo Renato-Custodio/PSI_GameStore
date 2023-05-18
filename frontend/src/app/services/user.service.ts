@@ -75,7 +75,7 @@ export class UserService {
   }
 
   getItems(username: string): Observable<ItemData[]> {
-    return this.http.get<ItemData[]>(`/api/user/` + username + '/games');
+    return this.http.get<ItemData[]>(`/api/user/items/` + username);
   }
 
   updateUser(
