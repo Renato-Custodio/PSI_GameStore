@@ -42,18 +42,36 @@
   </div>
   <div class="separator"></div>
   <div class="card" id="library">
-    <div class="card-head">Library <button class="sort" (click)="sortItemsByDate()">Sort by Acquisition Date</button> <button class="sort" (click)="sortItemsByTitle()">Sort by Title</button></div>
+    <div class="card-head">
+      Library
+      <button class="sort" (click)="sortItemsByDate()">
+        Sort by Acquisition Date
+      </button>
+      <button class="sort" (click)="sortItemsByTitle()">Sort by Title</button>
+    </div>
     <div class="card-body">
       <ul class="library-list">
         <span *ngIf="items.length === 0">You don't own any items</span>
         <li *ngFor="let item of items" class="library-item">
           <div class="game-card">
-            <img [src]="item.image" alt="Game image" (click)="goToGamePage(item.id)" />
-            <h3 (click)="goToGamePage(item.id)" class="title">{{ item.name }}</h3>
+            <img
+              [src]="item.image"
+              alt="Game image"
+              (click)="goToGamePage(item.id)"
+            />
+            <h3 (click)="goToGamePage(item.id)" class="title">
+              {{ item.name }}
+            </h3>
             <p>{{ item.type }}</p>
-            <p><span class="acquired">Acquired:</span> {{getDate(item.id)}}</p>
-            <button *ngIf="item.type === 'Game';else not_game">PLAY</button>
-            <ng-template #not_game><button (click)="goToGamePage(item.id)">VIEW</button></ng-template>
+            <p>
+              <span class="acquired">Acquired:</span> {{ getDate(item.id) }}
+            </p>
+            <button *ngIf="item.type === 'Game'; else not_game">PLAY</button>
+            <ng-template #not_game
+              ><button (click)="goToGamePage(item.id)">
+                VIEW
+              </button></ng-template
+            >
           </div>
         </li>
       </ul>
