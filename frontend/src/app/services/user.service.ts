@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
-import { List, UserData } from '../types/user';
+import { ItemData, List, UserData } from '../types/user';
 import { Item } from '../types/item';
 
 @Injectable({
@@ -20,9 +20,9 @@ export class UserService {
     return this.http.get<number[]>(`/api/user/` + username + '/lists');
   }
 
-  getGames(username: string): Observable<number[]> {
-    return this.http.get<number[]>(`/api/user/` + username + '/games');
-  }
+  // getGames(username: string): Observable<number[]> {
+  //   return this.http.get<number[]>(`/api/user/` + username + '/games');
+  // }
 
   getFollowers(username: string): Observable<string[]> {
     return this.http.get<string[]>(`/api/user/` + username + '/followers');
@@ -53,13 +53,13 @@ export class UserService {
   }
 
   removeAllFromCart(username: string, itemId: number): Observable<any> {
-    return this.http.delete(
-      `/api/user/${username}/cart/removeall/${itemId}`
-    ).pipe(
-      tap(() => {
-        this.cartChanged.emit();
-      })
-    );
+    return this.http
+      .delete(`/api/user/${username}/cart/removeall/${itemId}`)
+      .pipe(
+        tap(() => {
+          this.cartChanged.emit();
+        })
+      );
   }
 
   addToWishlist(username: string, gameID: number): Observable<any> {
@@ -72,6 +72,14 @@ export class UserService {
 
   getUserAvatar(username: string): Observable<string> {
     return this.http.get<string>(`/api/user/avatar/${username}`);
+  }
+      
+  removeFromWishlist(username: string, gameID: number): Observable<any> {
+    return this.http.delete(`/api/user/${username}/wishlist/${gameID}`, {});
+  }
+
+  getItems(username: string): Observable<ItemData[]> {
+    return this.http.get<ItemData[]>(`/api/user/items/` + username);
   }
 
   updateUser(

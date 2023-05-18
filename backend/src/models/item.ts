@@ -1,20 +1,40 @@
 import * as mongoose from "mongoose";
 
-interface IItem extends mongoose.Document {
+export interface IItem extends mongoose.Document {
 	name: string;
 	type: string;
 	description: string;
 	platform: string;
 	language: string;
 	price: number;
-	general_classification: string;
-	evaluations: string;
-	main_image: String;
-	image1: String;
-	image2: String;
-	background_image: String;
+	general_classification: number;
+	evaluations: IEvaluation[];
+	main_image: string;
+	image1: string;
+	image2: string;
+	background_image: string;
 	video_link: string;
 }
+
+export interface IEvaluation extends mongoose.Document {
+	userID: string;
+	stars: number;
+	comment: string;
+}
+
+const evaluationsSchema = new mongoose.Schema({
+	userID: {
+		type: String,
+		required: true
+	},
+	stars: {
+		type: Number,
+		required: true
+	},
+	comment: {
+		type: String
+	}
+});
 
 const itemSchema = new mongoose.Schema({
 	_id: {
@@ -47,11 +67,11 @@ const itemSchema = new mongoose.Schema({
 		required: true
 	},
 	general_classification: {
-		type: String,
+		type: Number,
 		required: true
 	},
 	evaluations: {
-		type: String,
+		type: [evaluationsSchema],
 		required: true
 	},
 	main_image: {
@@ -67,7 +87,7 @@ const itemSchema = new mongoose.Schema({
 	background_image: {
 		image: String
 	},
-	link: {
+	video_link: {
 		type: String
 	}
 });

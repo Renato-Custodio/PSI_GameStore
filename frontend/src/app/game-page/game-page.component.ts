@@ -5,21 +5,24 @@ import { ItemService } from '../services/item.service';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { UserData } from '../types/user';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-game-page',
   templateUrl: './game-page.component.html',
-  styleUrls: ['./game-page.component.css']
+  styleUrls: ['./game-page.component.css'],
 })
 export class GamePageComponent {
   username!: string;
   user!: UserData;
+  safeVideoUrl!: SafeResourceUrl;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private ItemService: ItemService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {
     this.authService.getUser().subscribe((user) => {
       this.username = user.username;
@@ -38,8 +41,8 @@ export class GamePageComponent {
     platform: '',
     language: '',
     price: 0,
-    general_classification: '',
-    evaluations: '',
+    general_classification: 0,
+    evaluations: [],
     main_image: '',
     image1: '',
     image2: '',
@@ -47,54 +50,81 @@ export class GamePageComponent {
     video_link: '',
   };
 
-  videoActive: boolean = true;
-  activeImageSrc: string = '';
-  activeVideoSrc: string = '';
-
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     const _id = Number(id);
-    this.ItemService.getItem(_id).subscribe(game => {
+    this.ItemService.getItem(_id).subscribe((game) => {
       this.game = game;
-      this.activeVideoSrc = game.video_link;
+      this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.game.video_link
+      );
     });
-  }
-
-  selectImage(index: number) {
-    this.videoActive = false; // Set videoActive to false to display the image
-    switch (index) {
-      case 0:
-        this.activeImageSrc = this.game.background_image;
-        break;
-      case 1:
-        this.activeImageSrc = this.game.image1;
-        break;
-      case 2:
-        this.activeImageSrc = this.game.image2;
-        break;
-      default:
-        this.activeImageSrc = '';
-    }
   }
 
   addToUserCart() {
-    this.userService.addToCart(this.username, this.game._id).subscribe(
-      () => {
-        console.log('Added to cart');
-        console.log(this.game._id);
-      },
-    );
-  }
-
-  addToWishlist() {
-    this.userService.addToWishlist(this.username, this.game._id).subscribe(() => {
-      console.log('Added to wishlist');
+    this.userService.addToCart(this.username, this.game._id).subscribe(() => {
+      console.log('Added to cart');
       console.log(this.game._id);
-      alert('Game added to wishlist successfully!');
-    }, (error) => {
-      console.error('Error adding to wishlist:', error);
-      alert('Error adding game to wishlist.');
     });
   }
 
+  addToWishlist() {
+    this.userService.addToWishlist(this.username, this.game._id).subscribe(
+      () => {
+        console.log('Added to wishlist');
+        console.log(this.game._id);
+        alert('Game added to wishlist successfully!');
+      },
+      (error) => {
+        console.error('Error adding to wishlist:', error);
+        alert('Error adding game to wishlist.');
+      }
+    );
+  }
+
+  selectedRating: number | null = null;
+  comment: string = '';
+
+  rateGame(rating: number) {
+    this.selectedRating = rating;
+  }
+
+  submitEvaluation() {
+    if (this.selectedRating === null) {
+      alert('Please select a rating.');
+      return;
+    }
+
+    this.ItemService.evaluateGame(
+      this.username,
+      this.game._id,
+      this.selectedRating,
+      this.comment
+    ).subscribe(
+      () => {
+        console.log('Evaluation submitted');
+        alert('Evaluation submitted successfully!');
+        this.selectedRating = null; // Clear the selected rating
+        this.comment = ''; // Clear the comment
+      },
+      (error) => {
+        console.error('Error submitting evaluation:', error);
+        alert('Error submitting evaluation.');
+      }
+    );
+  }
+
+  removeFromWishlist() {
+    this.userService.removeFromWishlist(this.username, this.game._id).subscribe(
+      () => {
+        console.log('Removed from wishlist');
+        console.log(this.game._id);
+        alert('Game removed from wishlist successfully!');
+      },
+      (error) => {
+        console.error('Error removing from wishlist:', error);
+        alert('Error removing game from wishlist.');
+      }
+    );
+  }
 }

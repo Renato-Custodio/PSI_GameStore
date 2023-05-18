@@ -37,8 +37,8 @@ export class GameCardComponent {
     platform: '',
     language: '',
     price: 0,
-    general_classification: '',
-    evaluations: '',
+    general_classification: 0,
+    evaluations: [],
     main_image: '',
     image1: '',
     image2: '',
@@ -56,6 +56,20 @@ export class GameCardComponent {
         console.log('Added to cart');
         console.log(this.game._id);
       },
+    );
+  }
+
+  addToWishlist() {
+    this.userService.addToWishlist(this.username, this.game._id).subscribe(
+      () => {
+        console.log('Added to wishlist');
+        console.log(this.game._id);
+        alert('Game added to wishlist successfully!');
+      },
+      (error) => {
+        console.error('Error adding to wishlist:', error);
+        alert('Error adding game to wishlist.');
+      }
     );
   }
 

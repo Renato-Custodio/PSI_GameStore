@@ -32,3 +32,28 @@ Content-Type: application/json
   "username": "correia",
   "password": "testtest"
 }
+
+###
+
+GET http://localhost:3000/item/details/1
+
+### 
+
+PUT http://localhost:3000/item/evaluate/1
+Content-Type: application/json
+
+{
+"username": "correia",
+"stars": 4,
+"comment": "Great game!"
+} 
+
+###
+
+PUT http://localhost:3000/user/cart/buy/paypal
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "testtest"
+}
