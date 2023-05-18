@@ -314,6 +314,8 @@ user_router.put("/cart/buy/card", async (req, res) => {
 				return res.status(404).json({ message: "Cannot find game" });
 			}
 
+      user.userData.wishlist = user.userData.wishlist.filter((i) => i !== gameID);
+
 			user.userData.items.push({
 				id: gameID,
 				name: game.name,
@@ -366,6 +368,8 @@ user_router.put("/cart/buy/mbway", async (req, res) => {
 			if (game == null) {
 				return res.status(404).json({ message: "Cannot find game" });
 			}
+
+      user.userData.wishlist = user.userData.wishlist.filter((i) => i !== gameID);
 
 			const data = {
 				id: gameID,
