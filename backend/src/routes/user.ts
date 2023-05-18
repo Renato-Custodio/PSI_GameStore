@@ -293,17 +293,17 @@ user_router.put("/cart/buy/card", async (req, res) => {
       req.body;
 
     if (!cardNumber || !cardHolder || !expirationDate || !cvv || !nif) {
-      return res.status(400).json({ message: "Missing card information" });
+      return res.json({ message: "Missing card information" });
     }
 
 		// checksum validation
 		if (validateCardChecksum(cardNumber) === false) {
-			return res.status(400).json({ message: "Invalid card" });
+			return res.json({ message: "Invalid card" });
 		}
 
 		// For the sake of testing, the payment method has a 50% chance of failing
 		if (Math.random() < 0.5) {
-			return res.status(500).json({ message: "Payment failed" });
+			return res.json({ message: "Payment failed" });
 		}
 
     // Add games to user's library
@@ -349,12 +349,12 @@ user_router.put("/cart/buy/mbway", async (req, res) => {
     const { number, nif, address } = req.body;
 
     if (!number || !nif) {
-      return res.status(400).json({ message: "Missing information" });
+      return res.json({ message: "Missing information" });
     }
 
 		// For the sake of testing, the payment method has a 50% chance of failing
 		if (Math.random() < 0.5) {
-			return res.status(500).json({ message: "Payment failed" });
+			return res.json({ message: "Payment failed" });
 		}
 
     // Add games to the user's library
