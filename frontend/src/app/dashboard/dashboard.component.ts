@@ -28,16 +28,16 @@ export class DashboardComponent {
       this.currentUser = user.username;
 
       this.getLists().subscribe((list) => {
-        const gameItems = list.map((game) => {
-          return this.itemService.getItem(game).pipe(
-            map((item) => {
-              return { id: item._id, name: item.name };
-            })
-          );
-        });
-        forkJoin(gameItems).subscribe((games) => {
-          this.lists = games;
-        });
+        // const gameItems = list.map((game) => {
+        //   return this.itemService.getItem(game).pipe(
+        //     map((item) => {
+        //       return { id: item._id, name: item.name, image: item.main_image, type:item.type};
+        //     })
+        //   );
+        // });
+        // forkJoin(gameItems).subscribe((games) => {
+        //   this.lists = games;
+        // });
       });
       this.getItems().subscribe((data) => {
         this.items = data;
@@ -71,7 +71,22 @@ export class DashboardComponent {
     this.router.navigate(['/game', id]);
   }
 
+  getDate(itemID: number):string{
+    var dateString = "";
+    this.items.forEach((item) => {
+      if(item.id === itemID){
+        const date = new Date(item.timeOfPurchase);
+        dateString = date.toLocaleDateString();
+      }
+    });
+    return dateString;
+  }
+
   sortItemsByTitle() {
     this.items.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  sortItemsByDate() {
+    this.items.sort((a, b) => a.timeOfPurchase.toString().localeCompare(b.timeOfPurchase.toString()));
   }
 }

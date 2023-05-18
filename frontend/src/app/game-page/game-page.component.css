@@ -397,7 +397,7 @@ p {
   align-items: center;
   margin-top: 3.5rem;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin-bottom: 10px;
 }
 
@@ -411,21 +411,8 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   direction: rtl;
-}
-
-.star-wrapper a {
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.5s;
-  margin: 2px;
-}
-
-.star-wrapper a:hover {
-  color: gold;
-  transform: scale(1.3);
-  cursor: pointer;
 }
 
 .s1:hover ~ a {
@@ -484,4 +471,52 @@ p {
 
 .comment-button:hover {
   background-color: #66c0f4;
+}
+
+.rating-group {
+  display: inline-flex;
+  margin-right: 0.5rem;
+}
+
+/* make hover effect work properly in IE */
+.rating__icon {
+  pointer-events: none;
+}
+
+/* hide radio inputs */
+.rating__input {
+ position: absolute !important;
+ left: -9999px !important;
+}
+
+/* hide 'none' input from screenreaders */
+.rating__input--none {
+  display: none
+}
+
+/* set icon padding and size */
+.rating__label {
+  cursor: pointer;
+  padding: 0 0.1em;
+  font-size: 1rem;
+}
+
+/* set default star color */
+.rating__icon--star {
+  color: orange;
+}
+
+/* if any input is checked, make its following siblings grey */
+.rating__input:checked ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
+
+/* make all stars orange on rating group hover */
+.rating-group:hover .rating__label .rating__icon--star {
+  color: orange;
+}
+
+/* make hovered input's following siblings grey on hover */
+.rating__input:hover ~ .rating__label .rating__icon--star {
+  color: #ddd;
 }

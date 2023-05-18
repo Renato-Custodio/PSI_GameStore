@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
-import Item from "../models/item";
+import Item, { IEvaluation } from "../models/item";
+import e from "express";
 
 const item_router = express.Router();
 
@@ -100,6 +101,54 @@ item_router.get("/search", async (req, res) => {
 		return res.send("Nenhum jogo encontrado.");
 	}
 });
+
+item_router.put("/evaluate/:itemId", async (req: Request, res: Response) => {
+
+  // if (!req.session?.username) {
+  //   return res.status(401).json({ message: "Unauthorized" });
+  // }
+
+  try {
+    const itemId = req.params.itemId;
+    const { username, stars, comment } = req.body;
+
+    // Find the item by ID
+    const item = await Item.findById(itemId);
+    if (!item) {
+      return res.status(404).json({ message: "Cannot find item" });
+    }
+    
+    if (!item.evaluations) {
+      item.evaluations = [] as IEvaluation[];
+      console.log("Initialized evaluations array:", item.evaluations);
+    }
+
+    if (item.general_classification == 0){
+      item.general_classification = stars;
+    } else {
+      const newClassification = (+item.general_classification + +stars) / 2;
+      item.general_classification = newClassification;
+    }
+
+    const evaluation = {
+      userID: username,
+      stars: stars,
+      comment: comment,
+    } as IEvaluation;
+
+    // Add the evaluation to the item
+    item.evaluations.push(evaluation);
+
+    // Save the updated item
+    const updatedItem = await item.save();
+
+    res.json(updatedItem);
+  } catch (error : any) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 
 async function getGames(partial: RegExp) {
 	let found = Item.find({ name: partial });
