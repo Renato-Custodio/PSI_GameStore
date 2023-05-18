@@ -346,7 +346,7 @@ user_router.put("/cart/buy/card", async (req, res) => {
 	}
 });
 
-user_router.put("/cart/buy/paypal", async (req, res) => {
+user_router.put("/cart/buy/mbway", async (req, res) => {
 	if (!req.session?.username) {
 		return res.status(401).json({ message: "Unauthorized" });
 	}
@@ -357,12 +357,10 @@ user_router.put("/cart/buy/paypal", async (req, res) => {
 			return res.status(404).json({ message: "Cannot find user" });
 		}
 
-		const { email, password } = req.body;
+		const { number } = req.body;
 
-		if (!email || !password) {
-			return res
-				.status(400)
-				.json({ message: "Missing PayPal information" });
+		if (!number) {
+			return res.status(400).json({ message: "Missing number" });
 		}
 
 		// For the sake of testing, the payment method has a 50% chance of failing
