@@ -297,7 +297,9 @@ user_router.put("/cart/buy/card", async (req, res) => {
 				return res.status(404).json({ message: "Cannot find game" });
 			}
 
-      user.userData.wishlist = user.userData.wishlist.filter((i) => i !== gameID);
+			user.userData.wishlist = user.userData.wishlist.filter(
+				(i) => i !== gameID
+			);
 
 			user.userData.items.push({
 				id: gameID,
@@ -351,7 +353,9 @@ user_router.put("/cart/buy/mbway", async (req, res) => {
 				return res.status(404).json({ message: "Cannot find game" });
 			}
 
-      user.userData.wishlist = user.userData.wishlist.filter((i) => i !== gameID);
+			user.userData.wishlist = user.userData.wishlist.filter(
+				(i) => i !== gameID
+			);
 
 			const data = {
 				id: gameID,
@@ -397,8 +401,13 @@ user_router.put("/update", async (req, res) => {
 		});
 	}
 
+	const name = await User.findOne({ "userData.displayName": displayName });
+	if (name !== null) {
+		return res.send({ error: `The displayname is already taken!` });
+	}
+
 	// Update username
-	const updatedUser = await User.findById(req.session.username)
+	await User.findById(req.session.username)
 		.then((user) => {
 			if (user == null) {
 				return res.status(404).json({ message: "Cannot find user" });
@@ -408,18 +417,11 @@ user_router.put("/update", async (req, res) => {
 			user.userData.avatar = avatar;
 
 			user.save();
-			return user;
+			return res.send({ ok: "User updated!" });
 		})
 		.catch((err) => {
-			res.status(500).json({ message: err.message });
+			return res.status(500).json({ message: err.message });
 		});
-
-	if (updatedUser == null)
-		return res.send({
-			error: "An error ocurred when trying to update username!",
-		});
-
-	return res.send({ ok: "Username updated!" });
 });
 
 user_router.get("/avatars", async (req, res) => {

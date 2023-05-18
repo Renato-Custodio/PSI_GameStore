@@ -5,7 +5,7 @@ export interface IList extends mongoose.Document {
 	items: number[];
 }
 
-export interface IItemData  {
+export interface IItemData {
 	id: number;
 	name: string;
 	image: string;
