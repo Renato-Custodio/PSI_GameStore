@@ -176,6 +176,19 @@ export class CartPopupComponent {
         alert('Please fill in all required fields');
         return;
       }
+
+
+      this.userService.buyCard(nif, parseInt(cardNumberElement.value), cardHolderElement.value, expirationDateElement.value, parseInt(cvvElement.value), address)
+        .subscribe((res) => {
+          console.log(res);
+          if (res.message) {
+            alert(res.message);
+          } else {
+            alert('Credit card payment successful');
+            this.cartItemsData = [];
+          }
+        }
+      );
     }
   }
 
