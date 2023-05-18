@@ -200,6 +200,9 @@ img, video {
 
 .wishlist {
   margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .wishlist button{
@@ -208,6 +211,10 @@ img, video {
   background-color: rgb(50, 105, 133, 0.7);
   border: none;
   border-radius: 5px;
+}
+
+.remove-wishlist-button{
+  margin-left: 20px;
 }
 
 .wishlist span{
