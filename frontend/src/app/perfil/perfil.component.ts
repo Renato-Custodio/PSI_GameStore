@@ -58,4 +58,15 @@ export class PerfilComponent {
   goToGamePage(id: number) {
     this.router.navigate(['/game', id]);
   }
+
+  getDate(itemID: number): string {
+    var dateString = '';
+    this.user.items.forEach((item) => {
+      if (item.id === itemID) {
+        const date = new Date(item.timeOfPurchase);
+        dateString = date.toLocaleDateString();
+      }
+    });
+    return dateString;
+  }
 }

@@ -10,7 +10,31 @@
       </div>
       <div class="card-body">
         <div *ngIf="0 === activeLinkIndex" class="card-content">
-          
+          <ul class="library-list">
+            <span *ngIf="user.items.length === 0">You don't own any items</span>
+            <li *ngFor="let item of user.items" class="library-item">
+              <div class="game-card">
+                <img
+                  [src]="item.image"
+                  alt="Game image"
+                  (click)="goToGamePage(item.id)"
+                />
+                <h3 (click)="goToGamePage(item.id)" class="title">
+                  {{ item.name }}
+                </h3>
+                <p>{{ item.type }}</p>
+                <p><span class="acquired">Acquired:</span> {{ getDate(1) }}</p>
+                <button *ngIf="item.type === 'Game'; else not_game">
+                  PLAY
+                </button>
+                <ng-template #not_game
+                  ><button (click)="goToGamePage(item.id)">
+                    VIEW
+                  </button></ng-template
+                >
+              </div>
+            </li>
+          </ul>
         </div>
         <div *ngIf="1 === activeLinkIndex" class="card-content">
           <ul>
