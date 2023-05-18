@@ -135,18 +135,28 @@ export class CartPopupComponent {
       return;
     }
 
-    console.log('nif: ' + this.nif);
-    console.log('number: ' + this.number);
-    console.log('address: ' + this.address);
-    console.log('cardNumber: ' + this.cardNumber);
-    console.log('cardHolder: ' + this.cardHolder);
-    console.log('expirationDate: ' + this.expirationDate);
-    console.log('cvv: ' + this.cvv);
+    const nifElement = document.getElementById('typeText') as HTMLInputElement;
+    const addressElement = document.getElementById('typeText') as HTMLInputElement;
+
+    if (!nifElement || !addressElement) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    const nif = parseInt(nifElement.value);
+    const address = addressElement.value;
 
     if (this.isMBwaySelected) {
-      //mbway
-      this.userService
-        .buyMBway(this.nif, this.number, this.address)
+      const numberElement = document.getElementById('typePhone') as HTMLInputElement;
+
+      if (!numberElement) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      const number = parseInt(numberElement.value);
+
+      this.userService.buyMBway(nif, number, address)
         .subscribe((res) => {
           console.log(res);
           if (res.message) {
@@ -157,24 +167,16 @@ export class CartPopupComponent {
           }
         });
     } else {
-      // regular cart payment
-      this.userService
-        .buyCard(
-          this.nif,
-          this.cardNumber,
-          this.cardHolder,
-          this.expirationDate,
-          this.cvv,
-          this.address
-        )
-        .subscribe((res) => {
-          if (res.message) {
-            alert(res.message);
-          } else {
-            alert('Card payment successful');
-            this.cartItemsData = [];
-          }
-        });
+      const cardNumberElement = document.getElementById('typeText') as HTMLInputElement;
+      const cardHolderElement = document.getElementById('typeName') as HTMLInputElement;
+      const expirationDateElement = document.getElementById('typeExp') as HTMLInputElement;
+      const cvvElement = document.getElementById('typeText') as HTMLInputElement;
+
+      if (!cardNumberElement || !cardHolderElement || !expirationDateElement || !cvvElement) {
+        alert('Please fill in all required fields');
+        return;
+      }
     }
   }
+
 }
