@@ -44,6 +44,11 @@
               <span class="clickable-text" (click)="goToGamePage(list.id)">{{
                 list.name
               }}</span>
+              <i
+                class="fa-solid fa-xmark"
+                (click)="removeFromWishlist(list.id)"
+                onclick="history.go(0);"
+              ></i>
             </li>
           </ul>
         </div>

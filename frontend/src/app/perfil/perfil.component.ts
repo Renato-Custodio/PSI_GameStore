@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 export class PerfilComponent {
   username!: string;
   user!: UserData;
-
   lists: { id: number; name: string }[] = [];
 
   constructor(
@@ -29,18 +28,22 @@ export class PerfilComponent {
         console.log(user);
         this.user = user;
       });
-    });
-
-    this.getLists().subscribe((list) => {
-      const gameItems = list.map((game) => {
-        return this.itemService.getItem(game).pipe(
-          map((item) => {
-            return { id: item._id, name: item.name };
-          })
-        );
-      });
-      forkJoin(gameItems).subscribe((games) => {
-        this.lists = games;
+      this.getLists().subscribe((list) => {
+        const gameItems = list.map((game) => {
+          return this.itemService.getItem(game).pipe(
+            map((item) => {
+              return {
+                id: item._id,
+                name: item.name,
+                image: item.main_image,
+                type: item.type,
+              };
+            })
+          );
+        });
+        forkJoin(gameItems).subscribe((games) => {
+          this.lists = games;
+        });
       });
     });
   }
@@ -68,5 +71,19 @@ export class PerfilComponent {
       }
     });
     return dateString;
+  }
+
+  removeFromWishlist(id: number) {
+    this.userService.removeFromWishlist(this.username, id).subscribe(
+      () => {
+        console.log('Removed from wishlist');
+        console.log(id);
+        alert('Game removed from wishlist successfully!');
+      },
+      (error) => {
+        console.error('Error removing from wishlist:', error);
+        alert('Error removing game from wishlist.');
+      }
+    );
   }
 }
