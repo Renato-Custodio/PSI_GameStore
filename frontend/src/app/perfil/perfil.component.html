@@ -8,7 +8,10 @@
         <a (click)="setActiveLinkIndex(1)">Lists</a>
         <a (click)="setActiveLinkIndex(2)">Social</a>
       </div>
-      <div class="card-body">
+
+      <button class="sort" *ngIf="activeLinkIndex === 0" (click)="sortItemsByTitle()">Sort by Title</button> 
+      <button class="sort" *ngIf="activeLinkIndex === 0" (click)="sortItemsByDate()">Sort by Acquisition Date</button>
+      <div class="card-body-lib">
         <div *ngIf="0 === activeLinkIndex" class="card-content">
           <ul class="library-list">
             <span *ngIf="user.items.length === 0">You don't own any items</span>

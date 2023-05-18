@@ -306,12 +306,14 @@
 
 .library-list {
 	list-style-type: none;
+  max-width: 66rem;
 	margin: 0;
 	padding: 0;
-	overflow-x: auto;
 	display: flex;
 	flex-direction: row;
-	overflow-y: auto;
+  white-space: nowrap;
+  margin-top: 5rem;
+  overflow-x:auto;
 }
 
 .library-item {
@@ -342,7 +344,7 @@
 }
 
 .sort{
-  float: right;
+  float: left;
   padding: 0.5rem 1rem;
   background-color: #263238;
   border: none;
@@ -351,6 +353,8 @@
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
+  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
 .sort:hover {

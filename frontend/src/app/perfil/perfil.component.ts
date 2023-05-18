@@ -85,5 +85,13 @@ export class PerfilComponent {
         alert('Error removing game from wishlist.');
       }
     );
-  }
+}
+
+sortItemsByTitle() {
+  this.user.items.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+sortItemsByDate() {
+  this.user.items.sort((a, b) => a.timeOfPurchase.toString().localeCompare(b.timeOfPurchase.toString()));
+}
 }
