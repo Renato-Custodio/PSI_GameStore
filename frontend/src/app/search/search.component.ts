@@ -38,7 +38,7 @@ export class SearchComponent {
         game.name.toLowerCase().indexOf(title.toLowerCase()) !== -1
     );
     if (this.searchResults.length === 0) {
-      this.errorMessage = 'Nao foi encontrado nenhum jogo';
+      this.errorMessage = 'No item found';
     } else {
       this.errorMessage = '';
     }
